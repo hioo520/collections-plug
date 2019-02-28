@@ -88,13 +88,13 @@ abstract class PickServiceImpl implements PickMethodFactory {
                 lists.add(map);
             }
         }
-        if (null != sets && 0 != sets.size()) {
+        if (0 != sets.size()) {
             return sets;
         }
-        if (null != lists && 0 != lists.size()) {
+        if (0 != lists.size()) {
             return lists;
         }
-        if (null != maps && 0 != maps.size()) {
+        if (0 != maps.size()) {
             lists.add(maps);
             return lists;
         }
