@@ -114,8 +114,7 @@ public class TypeCache {
                 }
             }
         }
-        new NoticeException("类获取属性错误-->类名是: " + this.clazz.getSimpleName() + " 参数是: " + paramterName);
-        return null;
+        throw new NoticeException("类获取属性错误-->类名是: " + this.clazz.getSimpleName() + " 参数是: " + paramterName);
     }
 
     /**
@@ -156,8 +155,7 @@ public class TypeCache {
                 }
             }
         }
-        new NoticeException("类获取属性错误-->类名是: " + this.clazz.getSimpleName() + " 属性是: " + paramterName);
-        return null;
+        throw new NoticeException("类获取属性错误-->类名是: " + this.clazz.getSimpleName() + " 属性是: " + paramterName);
     }
 
     /**

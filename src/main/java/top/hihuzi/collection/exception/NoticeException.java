@@ -5,7 +5,7 @@ package top.hihuzi.collection.exception;
  *
  * @author: hihuzi 2019/2/19 8:41
  */
-public class NoticeException extends Exception {
+public class NoticeException extends RuntimeException {
 
     public NoticeException() {
 

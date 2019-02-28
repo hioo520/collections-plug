@@ -63,7 +63,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
                     try {
                         invoke = method.invoke(t);
                     } catch (Exception ex) {
-                        new NoticeException("获取类属性值错误-->类名是 " + t.getClass().getSimpleName() + " 方法名是: " + method.getName(), ex);
+                        throw new NoticeException("获取类属性值错误-->类名是: " + t.getClass().getSimpleName() + " 方法名是: " + method.getName(), ex);
                     }
                     invoke = PublicMethod.processingTimeType(cache.getParamtertype(), config, invoke);
                 } else {
@@ -125,8 +125,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
                 }
                 break;
             default:
-                new NoticeException("数据输出超出配置范围 " + config.getReturnStyleEnum().toString());
-                break;
+                throw new NoticeException("数据输出超出配置范围: " + config.getReturnStyleEnum().toString());
 
         }
     }
@@ -170,10 +169,8 @@ abstract class PickServiceImpl implements PickMethodFactory {
             case CUSTOM_SUFFIX:
                 return config.getReturnNameEnum().getKey() + property;
             default:
-                new NoticeException("命名风格未定义");
-                break;
+                throw new NoticeException("命名风格未定义");
         }
-        return null;
     }
 
     /**
@@ -196,7 +193,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
             invoke = method.invoke(t);
             invoke = PublicMethod.processingTimeType(clazz.getDeclaredField(property).getType(), config, invoke);
         } catch (Exception e) {
-            new NoticeException("类获取方法或属性或属性值错误-->类名是: " + clazz.getSimpleName() + " 方法是: " + method.getName() + " 属性名是: " + name, e);
+            throw new NoticeException("类获取方法或属性或属性值错误-->类名是: " + clazz.getSimpleName() + " 方法是: " + method.getName() + " 属性名是: " + name, e);
         }
         ClassCache.get().add(t.getClass(), property);
         return invoke;

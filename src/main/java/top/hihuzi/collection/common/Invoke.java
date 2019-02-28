@@ -85,14 +85,14 @@ public class Invoke {
             try {
                 paramtertype = e.getClass().getDeclaredField(name).getType();
             } catch (Exception ex) {
-                new NoticeException("类获取属性错误-->类名是: " + e.getClass().getSimpleName() + " 属性是名是: " + name, ex);
+                throw new NoticeException("类获取属性错误-->类名是: " + e.getClass().getSimpleName() + " 属性是名是: " + name, ex);
             }
         }
         Method method = null;
         try {
             method = e.getClass().getMethod(StrUtils.achieveSetFunction(name), paramtertype);
         } catch (Exception ex) {
-            new NoticeException("类获取方法名错误-->类名是: " + e + " 方法名是: " + StrUtils.achieveSetFunction(name), ex);
+            throw new NoticeException("类获取方法名错误-->类名是: " + e + " 方法名是: " + StrUtils.achieveSetFunction(name), ex);
         }
         method.setAccessible(true);
         ClassCache.get().add(e.getClass(), name, paramtertype);

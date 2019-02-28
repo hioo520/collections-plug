@@ -2,7 +2,6 @@ package top.hihuzi.collection.common;
 
 import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.exception.NoticeException;
-import top.hihuzi.collection.utils.StrUtils;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -47,7 +46,7 @@ public class ValueHandleCache {
                     try {
                         obj = config.getDateStyleEnum().getFormartStyle().parse(value);
                     } catch (ParseException ex) {
-                        new NoticeException("时间转换错误-->时间格式是: " + config.getDateStyleEnum().getFormartStyle() + " 待处理的数据是: " + value, ex);
+                        throw new NoticeException("时间转换错误-->时间格式是: " + config.getDateStyleEnum().getFormartStyle() + " 待处理的数据是: " + value, ex);
                     }
                     break;
                 case CHAR:
@@ -73,8 +72,8 @@ public class ValueHandleCache {
                 case DOUBLE_MIN:
                     obj = Double.parseDouble(value);
                     break;
-                case INTEGER:
                 case INT:
+                case INTEGER:
                     obj = Integer.parseInt(value);
                     break;
                 case BOOLEAN:
@@ -85,8 +84,7 @@ public class ValueHandleCache {
                     obj = new BigDecimal(value);
                     break;
                 default:
-                    new NoticeException("未定义类型错误" + typeEnum.toString() + " 待处理数值: " + value);
-                    break;
+                    throw new NoticeException("未定义类型错误: " + typeEnum.getValue() + " 待处理数值: " + value);
 
             }
         } else {
@@ -113,24 +111,23 @@ public class ValueHandleCache {
                     obj = 0;
                     break;
                 case BYTE:
-                case INTEGER:
+                case DATE:
+                case LONG:
                 case SHORT:
                 case FLOAT:
-                case LONG:
                 case DOUBLE:
+                case INTEGER:
                 case BIGDECIMAL:
-                case DATE:
                     obj = null;
                     break;
                 default:
-                    new NoticeException("未定义类型错误" + typeEnum.toString() + " 待处理数值: " + value);
-                    break;
+                    throw new NoticeException("未定义类型错误: " + typeEnum.getValue() + " 待处理数值: " + value);
             }
         }
         try {
             method.invoke(e, obj);
         } catch (Exception ex) {
-            new NoticeException("填塞对象值错误-->对象名是: " + e.getClass().getSimpleName() + " 类型可能未在:" + typeEnum.toString() + " 待处理数值: " + value + " 转换为: " + obj);
+            throw new NoticeException("填塞对象值错误-->对象名是: " + e.getClass().getSimpleName() + " 类型可能未在:" + typeEnum.toString() + " 待处理数值: " + value + " 转换为: " + obj);
         }
     }
 

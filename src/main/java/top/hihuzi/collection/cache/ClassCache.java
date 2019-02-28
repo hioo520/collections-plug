@@ -69,7 +69,6 @@ public class ClassCache {
     public static Map<String, ParameterCache> getPCache(Object clacc) {
 
         Class<?> clazz = null;
-        String sqlKey = null;
         if (clacc instanceof Class) {
             clazz = (Class<?>) clacc;
             if (paramCache == null || paramCache.get(clazz.getName()) == null) return null;
@@ -85,7 +84,6 @@ public class ClassCache {
     public static ParameterCache getPCache(Object clacc, String paramterName) {
 
         Class<?> clazz = null;
-        String sqlKey = null;
         if (clacc instanceof Class) {
             clazz = (Class<?>) clacc;
             Map<String, ParameterCache> result = null;

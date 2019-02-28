@@ -106,7 +106,7 @@ public class FillFactoryTest implements Runnable {
         request.setParameter("doubleMin", "");
         long start = System.currentTimeMillis();
         TestBean map1 = null;
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             map1 = FillFactory.batch().fillEntity(request, new TestBean());
         }
         long end = System.currentTimeMillis();
@@ -142,7 +142,7 @@ public class FillFactoryTest implements Runnable {
         request.setParameter("doubleMin", "1.94");
         TestBean map1 = null;
         long start = System.currentTimeMillis();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             map1 = FillFactory.batch().fillEntity(request, new TestBean());
         }
         long end = System.currentTimeMillis();
@@ -432,7 +432,7 @@ public class FillFactoryTest implements Runnable {
                 new FillConfig(FillConfig.ReturnEnum.FILL_CLASS), new TestBean());
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
         long end = System.currentTimeMillis();
-        System.err.println("------>一千万 耗时" + (end - start) / 1000 + "秒<------");
+        System.err.println("------>一百万 耗时" + (end - start) / 1000 + "秒<------");
     }
 
     @Override
@@ -442,7 +442,7 @@ public class FillFactoryTest implements Runnable {
         try {
             bean = FillFactory.batch().fillEntity(map, new TestBean(),
                     new FillConfig(FillConfig.DateStyleEnum.DEFAULT.setFormartStyle(this.tip)));
-            System.out.println(bean.toString());
+//            System.out.println(bean.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

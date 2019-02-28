@@ -141,8 +141,7 @@ public class SQLBean {
             return this;
         }
         if (null == this.clazz || this.clazz.size() == 0) {
-            new NoticeException("addClass不可为空");
-            return null;
+            throw new NoticeException("addClass不可为空");
         }
         Set<String> repeatTemp = new HashSet<>(this.clazz.size());
         map = new HashMap<>(this.clazz.size());

@@ -137,7 +137,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
                 try {
                     invoke = methodGet.invoke(e);
                 } catch (Exception ex) {
-                    new NoticeException("类获取属性值错误-->类是: " + e.getClass().getSimpleName() + " 方法名是: " + methodGet.getName(), ex);
+                    throw new NoticeException("类获取属性值错误-->类是: " + e.getClass().getSimpleName() + " 方法名是: " + methodGet.getName(), ex);
                 }
                 if (config.getSaveStyleEnum().getHaving() && null != invoke) {
                     invoke = ValueHandleCache.processingTimeType(cache.getParamtertype(), config, invoke);
@@ -156,7 +156,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
                     method = clazz.getMethod(StrUtils.achieveGetFunction(field.getName()));
                     invoke = method.invoke(e);
                 } catch (Exception ex) {
-                    new NoticeException("类获取方法或者获取方法值错误-->类是: " + e.getClass().getSimpleName() + " 属性是名是: " + StrUtils.achieveGetFunction(field.getName()), ex);
+                    throw new NoticeException("类获取方法或者获取方法值错误-->类是: " + e.getClass().getSimpleName() + " 属性是名是: " + StrUtils.achieveGetFunction(field.getName()), ex);
                 }
                 ClassCache.get().add(e.getClass(), field.getName(), type);
                 if (config.getSaveStyleEnum().getHaving() && null != invoke) {
@@ -217,7 +217,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
         try {
             obj = e.getClass().getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
-            new NoticeException("类创建对象错误-->类名是: " + e.getClass().getSimpleName(), ex);
+            throw new NoticeException("类创建对象错误-->类名是: " + e.getClass().getSimpleName(), ex);
         }
         obj = mapFillEntity(map, obj, config);
         result.add((E) obj);
@@ -264,7 +264,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
                 try {
                     newClazz = clazz.getDeclaredConstructor().newInstance();
                 } catch (Exception ex) {
-                    new NoticeException("类创建新对象错误-->类名是: " + e.getClass().getSimpleName(), ex);
+                    throw new NoticeException("类创建新对象错误-->类名是: " + e.getClass().getSimpleName(), ex);
                 }
                 for (Object obj : map.entrySet()) {
                     Map.Entry entry = (Map.Entry) obj;
@@ -298,7 +298,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
                         i++;
                     }
                 } catch (Exception ex) {
-                    new NoticeException("从新配置list顺序有误", ex);
+                    throw new NoticeException("从新配置list顺序有误", ex);
                 }
                 return true;
             case FILL_CLASS:
