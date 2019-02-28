@@ -77,7 +77,7 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                 try {
                     newClazz = clazz.getDeclaredConstructor().newInstance();
                 } catch (Exception ex) {
-                    new NoticeException("创建对象错误: " + clazz, ex);
+                    new NoticeException("类创建对象错误-->类名是: " + clazz.getSimpleName(), ex);
                 }
                 for (Object obj : map.entrySet()) {
                     Map.Entry entry = (Map.Entry) obj;
@@ -111,7 +111,7 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                         i++;
                     }
                 } catch (Exception ex) {
-                    new NoticeException("从新配置list顺序有误", ex);
+                    new NoticeException("配置顺序有误", ex);
                 }
                 return true;
             case FILL_CLASS:

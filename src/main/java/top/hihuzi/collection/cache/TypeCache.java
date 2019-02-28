@@ -114,11 +114,7 @@ public class TypeCache {
                 }
             }
         }
-
-        try {
-            throw new NoticeException(this.clazz + "中无此" + paramterName + "属性,从而无法确定参数类型");
-        } catch (NoticeException e) {
-        }
+        new NoticeException("类获取属性错误-->类名是: " + this.clazz.getSimpleName() + " 参数是: " + paramterName);
         return null;
     }
 
@@ -160,10 +156,7 @@ public class TypeCache {
                 }
             }
         }
-        try {
-            throw new NoticeException(this.clazz + "中无此" + paramterName + "属性,从而无法确定参数类型");
-        } catch (NoticeException e) {
-        }
+        new NoticeException("类获取属性错误-->类名是: " + this.clazz.getSimpleName() + " 属性是: " + paramterName);
         return null;
     }
 

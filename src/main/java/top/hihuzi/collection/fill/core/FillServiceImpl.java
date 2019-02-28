@@ -217,7 +217,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
         try {
             obj = e.getClass().getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
-            new NoticeException("类创建对象错误-->类是: " + e.getClass().getSimpleName(), ex);
+            new NoticeException("类创建对象错误-->类名是: " + e.getClass().getSimpleName(), ex);
         }
         obj = mapFillEntity(map, obj, config);
         result.add((E) obj);

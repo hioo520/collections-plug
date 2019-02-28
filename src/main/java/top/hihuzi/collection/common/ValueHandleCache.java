@@ -47,7 +47,7 @@ public class ValueHandleCache {
                     try {
                         obj = config.getDateStyleEnum().getFormartStyle().parse(value);
                     } catch (ParseException ex) {
-                        new NoticeException("时间转换错误: " + typeEnum.toString() + "待处理的数据是: " + value, ex);
+                        new NoticeException("时间转换错误-->时间格式是: " + config.getDateStyleEnum().getFormartStyle() + " 待处理的数据是: " + value, ex);
                     }
                     break;
                 case CHAR:
@@ -85,7 +85,7 @@ public class ValueHandleCache {
                     obj = new BigDecimal(value);
                     break;
                 default:
-                    new NoticeException("未定义类型错误" + typeEnum.toString());
+                    new NoticeException("未定义类型错误" + typeEnum.toString() + " 待处理数值: " + value);
                     break;
 
             }
@@ -123,14 +123,14 @@ public class ValueHandleCache {
                     obj = null;
                     break;
                 default:
-                    new NoticeException("未定义类型错误" + typeEnum.toString());
+                    new NoticeException("未定义类型错误" + typeEnum.toString() + " 待处理数值: " + value);
                     break;
             }
         }
         try {
             method.invoke(e, obj);
         } catch (Exception ex) {
-            new NoticeException("类型错误 " + typeEnum.toString() + "值是: " + obj, ex);
+            new NoticeException("填塞对象值错误-->对象名是: " + e.getClass().getSimpleName() + " 类型可能未在:" + typeEnum.toString() + " 待处理数值: " + value + " 转换为: " + obj);
         }
     }
 

@@ -4,6 +4,7 @@ package top.hihuzi.collection.sql.config;
 import top.hihuzi.collection.exception.NoticeException;
 import top.hihuzi.collection.utils.MD5;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -140,23 +141,62 @@ public class SQLBean {
             return this;
         }
         if (null == this.clazz || this.clazz.size() == 0) {
-            new NoticeException("缺少带查询表对应的对象 addClass 为空");
+            new NoticeException("addClass不可为空");
             return null;
         }
+        Set<String> repeatTemp = new HashSet<>(this.clazz.size());
         map = new HashMap<>(this.clazz.size());
         if (null == this.nick) {
             for (int i = 0; i < this.clazz.size(); i++) {
                 map.put(this.clazz.get(i).getName(), "");
+                achieveClassFields(repeatTemp, i);
             }
+            autoAddRepeat(repeatTemp);
             this.nickname = map;
             return this;
         }
         for (int i = 0; i < this.clazz.size(); i++) {
             map.put(this.clazz.get(i).getName(), i <= nick.size() - 1 ? nick.get(i) : "");
+            achieveClassFields(repeatTemp, i);
         }
-
+        autoAddRepeat(repeatTemp);
         this.nickname = map;
         return this;
+    }
+
+    /**
+     * tips 获取并添加属性到Set
+     *
+     * @author: hihuzi 2019/2/28 14:58
+     */
+    private void achieveClassFields(Set<String> repeatTemp, int i) {
+
+
+        if (this.repeat == null || 0 == this.repeat.size()) {
+            for (Field field : this.clazz.get(i).getDeclaredFields()) {
+                repeatTemp.add(field.getName());
+            }
+        }
+    }
+
+    /**
+     * tips 获取重复的属性名
+     *
+     * @author: hihuzi 2019/2/28 14:58
+     */
+    private void autoAddRepeat(Set<String> repeatTemp) {
+
+
+        if (this.repeat == null || 0 == this.repeat.size()) {
+            this.repeat = new ArrayList<>(repeatTemp.size());
+            for (Class<?> clazz : this.clazz) {
+                for (Field field : clazz.getDeclaredFields()) {
+                    if (repeatTemp.contains(field.getName())) {
+                        repeat.add(field.getName());
+                    }
+                }
+            }
+        }
     }
 
     public String key() {

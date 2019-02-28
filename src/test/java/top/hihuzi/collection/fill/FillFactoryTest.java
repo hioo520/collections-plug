@@ -393,7 +393,7 @@ public class FillFactoryTest implements Runnable {
         map.put("i_d", "ID_ID-ID-ID");
         list.add(map);
         long start = System.currentTimeMillis();
-        for (int i = 1; i < 100000; i++) {
+        for (int i = 1; i < 1000000; i++) {
             list.add(map);
         }
 
@@ -403,6 +403,8 @@ public class FillFactoryTest implements Runnable {
         List<Map> map2 = (List<Map>) FillFactory.batch().listToClass(list,
                 new FillConfig(FillConfig.ReturnEnum.LISR),
                 new TestBean(), new TestBeanBean());
+        map1 = null;
+        map2 = null;
         List<Map> map3 = (List<Map>) FillFactory.batch().listToClass(list,
                 new FillConfig(FillConfig.ReturnEnum.DEFAULT, FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy")),
                 new TestBean(), new TestBeanBean());
