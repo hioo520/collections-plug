@@ -44,7 +44,7 @@ public class SQlFactoryTest {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void listToEntity0() throws Exception {
+    public void listToEntity0() {
 
         SQLBean bean = new SQLBean()
                 .addClazz(new Son())
@@ -178,7 +178,7 @@ public class SQlFactoryTest {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void listToEntity1() throws Exception {
+    public void listToEntity1() {
 
         Map map = new HashMap();
         map.put("so.na_me", "小明");
@@ -217,13 +217,13 @@ public class SQlFactoryTest {
         "Father.naMe" -> "小丽"*/
     }
 
-  /**
+    /**
      * tips HttpServletRequest--> obj
      *
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void listToEntity2() throws Exception {
+    public void listToEntity2() {
 
         Map map = new HashMap();
         map.put("so.na_me", "小明");
@@ -264,33 +264,33 @@ public class SQlFactoryTest {
         "Father.naMe" -> "小丽"*/
     }
 
-     @Test
-    public void listToEntity3() throws Exception {
+    @Test
+    public void listToEntity3() {
 
         Map map = new HashMap();
-         map.put("sona_me", "女儿-小丽丽");
-         map.put("sohi_ght", "1.99");
-         map.put("id", "123456789");
-         map.put("soa_ge", "24");
-         map.put("sos_ex", "女");
-         map.put("fana_me", "爸爸");
-         map.put("fahi_ght", "2.03");
-         map.put("faa_ge", "28");
-         map.put("fas_ex", "男");
-         map.put("birthday", "2012-12-12");
+        map.put("sona_me", "女儿-小丽丽");
+        map.put("sohi_ght", "1.99");
+        map.put("id", "123456789");
+        map.put("soa_ge", "24");
+        map.put("sos_ex", "女");
+        map.put("fana_me", "爸爸");
+        map.put("fahi_ght", "2.03");
+        map.put("faa_ge", "28");
+        map.put("fas_ex", "男");
+        map.put("birthday", "2012-12-12");
         for (int i = 0; i < 2; i++) {
             list.add(map);
         }
         SQLBean bean = new SQLBean()
 //                .addUnique("007")
-                .addClazz(new Son(), new Father(),new Mother())
-                .addNickname("so", "fa","mo")
+                .addClazz(new Son(), new Father(), new Mother())
+                .addNickname("so", "fa", "mo")
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
 //                .addDisplay( "sEx", "hiGht", "id")
-                .addDisplay( "sEx", "id")
+                .addDisplay("sEx", "id")
                 .build();
         Object sql = SQLFactory.batch().getSQL(bean);
-         System.out.println(sql);
+        System.out.println(sql);
         SQLConfig config = new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean));
         config.setReturnEnum(SQLConfig.ReturnEnum.DEFAULT);
         config.setDateStyleEnum(SQLConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy MM"));
@@ -308,8 +308,9 @@ public class SQlFactoryTest {
         "Son.hiGht" -> "1.99"
         "Father.naMe" -> "小丽"*/
     }
+
     @Test
-    public void listToEntity4() throws Exception {
+    public void listToEntity4() {
 
         Map map = new HashMap();
         map.put("so.na_me", "女儿-小丽丽");
@@ -335,7 +336,7 @@ public class SQlFactoryTest {
         Object sql = SQLFactory.batch().getSQL(bean);
 
         List<Map> map2 = (List<Map>) SQLFactory.batch().listToEntity(list,
-                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean),SQLConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy MM")));
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy MM")));
         System.out.println(Arrays.asList(map2).toArray().toString());
                    /* "Son.aGe" -> "24"
             "birthday" -> "2012-12"
@@ -348,8 +349,9 @@ public class SQlFactoryTest {
             "Son.hiGht" -> "1.99"
             "Father.naMe" -> "爸爸"*/
     }
-@Test
- public void listToEntity5() throws Exception {
+
+    @Test
+    public void listToEntity5() {
 
         Map map = new HashMap();
         map.put("so.na_me", "女儿-小丽丽");
@@ -374,8 +376,8 @@ public class SQlFactoryTest {
                 .build();
         Object sql = SQLFactory.batch().getSQL(bean);
 
-     Map<String, List> map4 = (Map<String, List>) SQLFactory.batch().listToEntity(list,
-             new SQLConfig(SQLConfig.ReturnEnum.MAP,SQLConfig.SQLEeum.DEFAULT.set(bean)));
+        Map<String, List> map4 = (Map<String, List>) SQLFactory.batch().listToEntity(list,
+                new SQLConfig(SQLConfig.ReturnEnum.MAP, SQLConfig.SQLEeum.DEFAULT.set(bean)));
                    /* "Son.aGe" -> "24"
             "birthday" -> "2012-12"
             "Son.naMe" -> "女儿-小丽丽"
@@ -387,8 +389,9 @@ public class SQlFactoryTest {
             "Son.hiGht" -> "1.99"
             "Father.naMe" -> "爸爸"*/
     }
+
     @Test
- public void listToEntity6() throws Exception {
+    public void listToEntity6() {
 
         Map map = new HashMap();
         map.put("so.na_me", "女儿-小丽丽");
@@ -416,7 +419,7 @@ public class SQlFactoryTest {
         List<Son> Son = new ArrayList<>();
         List<Father> Father = new ArrayList<>();
         SQLFactory.batch().listToEntity(list,
-                new SQLConfig(SQLConfig.ReturnEnum.FILL_LIST.setList(Son, Father),SQLConfig.SQLEeum.DEFAULT.set(bean)));
+                new SQLConfig(SQLConfig.ReturnEnum.FILL_LIST.setList(Son, Father), SQLConfig.SQLEeum.DEFAULT.set(bean)));
 
                    /* "Son.aGe" -> "24"
             "birthday" -> "2012-12"
@@ -429,8 +432,9 @@ public class SQlFactoryTest {
             "Son.hiGht" -> "1.99"
             "Father.naMe" -> "爸爸"*/
     }
- @Test
- public void listToEntity7() throws Exception {
+
+    @Test
+    public void listToEntity7() {
 
         Map map = new HashMap();
         map.put("so.na_me", "女儿-小丽丽");
@@ -455,11 +459,11 @@ public class SQlFactoryTest {
                 .build();
         Object sql = SQLFactory.batch().getSQL(bean);
 
-     List<Son> beans = (List<Son>) SQLFactory.batch().listToEntity(list,
-             new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean),SQLConfig.ReturnEnum.FILL_CLASS));
+        List<Son> beans = (List<Son>) SQLFactory.batch().listToEntity(list,
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.FILL_CLASS));
 
-     List<Father> beans00 = (List<Father>) SQLFactory.batch().listToEntity(list,
-             new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean),SQLConfig.ReturnEnum.FILL_CLASS),new Father());
+        List<Father> beans00 = (List<Father>) SQLFactory.batch().listToEntity(list,
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.FILL_CLASS), new Father());
 
 
                    /* "Son.aGe" -> "24"
@@ -480,7 +484,8 @@ public class SQlFactoryTest {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void listToEntity() throws Exception {
+    public void listToEntity() {
+
         Map map = new HashMap();
         map.put("sona_me", "女儿-小丽丽");
         map.put("sohi_ght", "1.99");
@@ -506,7 +511,7 @@ public class SQlFactoryTest {
         System.out.println(sql.toString());
 
         List<Map> map0 = (List<Map>) SQLFactory.batch().listToEntity(list,
-                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean)),new Son(), new Father());
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean)), new Son(), new Father());
 
         SQLConfig config = new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean));
 
@@ -515,7 +520,7 @@ public class SQlFactoryTest {
         List<Map> map1 = (List<Map>) SQLFactory.batch().listToEntity(list,
                 config);
         List<Map> map2 = (List<Map>) SQLFactory.batch().listToEntity(list,
-                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean),SQLConfig.ReturnEnum.LISR),new Son(), new Father());
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.LISR), new Son(), new Father());
         List<Map> map3 = (List<Map>) SQLFactory.batch().listToEntity(list,
                 new SQLConfig(SQLConfig.ReturnEnum.DEFAULT,
                         SQLConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy"),
@@ -526,7 +531,7 @@ public class SQlFactoryTest {
 
         System.out.println("测试 ---< 第二种返回结果是Map<String, List>");
         Map<String, List> map4 = (Map<String, List>) SQLFactory.batch().listToEntity(list,
-                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean),SQLConfig.ReturnEnum.MAP),new Son(), new Father());
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.MAP), new Son(), new Father());
         System.out.println("测试 ---< 第二种返回结果是Map<String, List>");
 
 
@@ -534,13 +539,13 @@ public class SQlFactoryTest {
         List<Son> testBeans = new ArrayList<>();
         List<Father> testBeanBean = new ArrayList<>();
         SQLFactory.batch().listToEntity(list,
-                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean),SQLConfig.ReturnEnum.FILL_LIST.setList(testBeans, testBeanBean)),new Son(), new Father());
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.FILL_LIST.setList(testBeans, testBeanBean)), new Son(), new Father());
         System.out.println("测试 ---< 第三种返回结果是Map<String, List>");
 
 
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
         List<Son> beans = (List<Son>) SQLFactory.batch().listToEntity(list,
-                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean),SQLConfig.ReturnEnum.FILL_CLASS),new Son());
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.FILL_CLASS), new Son());
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
         long end = System.currentTimeMillis();
         System.err.println("------>一千万 耗时" + (end - start) / 1000 + "秒<------");

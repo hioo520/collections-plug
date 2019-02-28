@@ -130,7 +130,7 @@ public class SQLBean {
         return this;
     }
 
-    public SQLBean build() throws NoticeException {
+    public SQLBean build() {
 
         Map<String, String> map = null;
         if (1 == this.clazz.size()) {
@@ -140,7 +140,8 @@ public class SQLBean {
             return this;
         }
         if (null == this.clazz || this.clazz.size() == 0) {
-            throw new NoticeException("缺少带查询表对应的对象 addClass 为空");
+            new NoticeException("缺少带查询表对应的对象 addClass 为空");
+            return null;
         }
         map = new HashMap<>(this.clazz.size());
         if (null == this.nick) {

@@ -46,7 +46,6 @@ public class PublicMethod {
     public static <E> Map<String, ParameterCache> tableNameMatchParameter(Map list, E... e) {
 
         if (!isBeingCache(e)) {
-
             addCache(list, e);
         }
         Map<String, ParameterCache> map = SecondCache.getCache(StrUtils.splicingObjectName(e));
@@ -66,7 +65,7 @@ public class PublicMethod {
      *
      * @author: hihuzi 2019/2/12 14:06
      */
-    public static <E> Map<String, ParameterCache> tableNameMatchParameter(SQLConfig config, Map list, E... e) {
+    public static <E> Map<String, ParameterCache> tableNameMatchParameter(SQLConfig config, E... e) {
 
         String sqlKey = config.getSqlEeum().get().key();
         Map<String, ParameterCache> map = SecondCache.getCache(sqlKey);

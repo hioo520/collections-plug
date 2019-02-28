@@ -84,7 +84,7 @@ public class FillFactoryTest implements Runnable {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_request() throws Exception {
+    public void fill_entity_request() {
 
         request.setParameter("booleanMax", "");
         request.setParameter("byteMax", "");
@@ -120,7 +120,7 @@ public class FillFactoryTest implements Runnable {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_request1() throws Exception {
+    public void fill_entity_request1() {
 
         request.setParameter("booleanMax", "true");
         request.setParameter("byteMax", "1");
@@ -158,7 +158,7 @@ public class FillFactoryTest implements Runnable {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_request2() throws Exception {
+    public void fill_entity_request2() {
 
         request.setParameter("stringMax", "你好师姐!!!");
         request.setParameter("dateMax", "2012-12-12");
@@ -182,7 +182,7 @@ public class FillFactoryTest implements Runnable {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_map() throws Exception {
+    public void fill_entity_map() {
 
         Map map = new HashMap(20);
         map.put("booleanMax", "true");
@@ -214,7 +214,7 @@ public class FillFactoryTest implements Runnable {
      * tips 针对不同时间格式处理不同时间配置(错误的属性直接丢掉)
      */
     @Test
-    public void fill_entity_map0() throws Exception {
+    public void fill_entity_map0() {
 
         Map map = new HashMap(20);
         map.put("stringMax", "你好师姐!!!");
@@ -246,7 +246,7 @@ public class FillFactoryTest implements Runnable {
      * @author: hihuzi 2018/6/26 14:51
      */
     @Test
-    public void fill_entity_class() throws Exception {
+    public void fill_entity_class() {
 
         List list = new ArrayList();
         List list0 = new ArrayList();
@@ -300,7 +300,7 @@ public class FillFactoryTest implements Runnable {
      */
 
     @Test
-    public void fill_map() throws Exception {
+    public void fill_map() {
 
         Map map = new HashMap(20);
         map.put("stringMax", "你好师姐!!!");
@@ -329,7 +329,7 @@ public class FillFactoryTest implements Runnable {
      */
 
     @Test
-    public void list_to_entity() throws Exception {
+    public void list_to_entity() {
 
         List list = new ArrayList();
         list.add("true");
@@ -353,7 +353,7 @@ public class FillFactoryTest implements Runnable {
         List<TestBean> bean = FillFactory.batch().listToEntity(list, new TestBean());
         System.out.println(bean.get(0).toString());
 //        long start = System.currentTimeMillis();
-//        for (int i = 0; i < 10000000; i++) {
+//        for (int i = 0; i < 100000; i++) {
 //            List<TestBean> bean0 = FillFactory.batch().listToEntity(list, new TestBean());
 //        }
 //        long end = System.currentTimeMillis();
@@ -368,7 +368,7 @@ public class FillFactoryTest implements Runnable {
      * @author:hihuzi 2018/6/14 14:50
      */
     @Test
-    public void list_to_class() throws Exception {
+    public void list_to_class() {
 
         List list = new ArrayList();
         Map map = new HashMap();

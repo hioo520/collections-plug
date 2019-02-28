@@ -41,7 +41,7 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
             }
             e = (E[]) ee;
         }
-        Map<String, ParameterCache> tableNameMatchParameter = PublicMethod.tableNameMatchParameter(config, list.get(0), e);
+        Map<String, ParameterCache> tableNameMatchParameter = PublicMethod.tableNameMatchParameter(config, e);
         switch (config.getReturnEnum()) {
             case DEFAULT:
             case LISR:
@@ -77,10 +77,7 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                 try {
                     newClazz = clazz.getDeclaredConstructor().newInstance();
                 } catch (Exception ex) {
-                    try {
-                        throw new NoticeException("创建对象错误: " + clazz, ex);
-                    } catch (NoticeException exc) {
-                    }
+                    new NoticeException("创建对象错误: " + clazz, ex);
                 }
                 for (Object obj : map.entrySet()) {
                     Map.Entry entry = (Map.Entry) obj;
@@ -114,10 +111,7 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                         i++;
                     }
                 } catch (Exception ex) {
-                    try {
-                        throw new NoticeException("从新配置list顺序有误", ex);
-                    } catch (NoticeException exc) {
-                    }
+                    new NoticeException("从新配置list顺序有误", ex);
                 }
                 return true;
             case FILL_CLASS:

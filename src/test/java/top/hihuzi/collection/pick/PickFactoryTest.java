@@ -26,7 +26,7 @@ public class PickFactoryTest implements Runnable {
      * @author: hihuzi 2018/10/18 11:16
      */
     @Test
-    public void pick0() throws Exception {
+    public void pick0() {
 
 
         List<TestBean> list = new ArrayList<>();
@@ -53,7 +53,7 @@ public class PickFactoryTest implements Runnable {
     }
 
     @Test
-    public void pick() throws Exception {
+    public void pick() {
 
         List<TestBean> list = new ArrayList<>();
         for (int i = 2; i < 3; i++) {
@@ -99,7 +99,7 @@ public class PickFactoryTest implements Runnable {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Test
-    public void pickValue() throws Exception {
+    public void pickValue() {
 
         List<TestBean> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -126,7 +126,7 @@ public class PickFactoryTest implements Runnable {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Test
-    public void pickValue0() throws Exception {
+    public void pickValue0() {
 
         TestBean bean = new TestBean();
         bean.setName("你好师姐");
@@ -154,7 +154,7 @@ public class PickFactoryTest implements Runnable {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Test
-    public void pickMap() throws Exception {
+    public void pickMap() {
 
         Map bean = new HashMap(5);
         bean.put("id", UUID.randomUUID());
@@ -182,7 +182,7 @@ public class PickFactoryTest implements Runnable {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Test
-    public void pickList() throws Exception {
+    public void pickList() {
 
         List list = new ArrayList();
         Map bean = new HashMap(5);

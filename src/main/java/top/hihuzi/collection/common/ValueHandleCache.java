@@ -38,7 +38,7 @@ public class ValueHandleCache {
                 }
             }
         }
-        if (StrUtils.isNNoE(value)) {
+        if (null != value && !"".equals(value)) {
             switch (typeEnum) {
                 case STRING:
                     obj = value;
@@ -47,10 +47,7 @@ public class ValueHandleCache {
                     try {
                         obj = config.getDateStyleEnum().getFormartStyle().parse(value);
                     } catch (ParseException ex) {
-                        try {
-                            throw new NoticeException("时间转换错误: " + typeEnum.toString() + "待处理的数据是: " + value, ex);
-                        } catch (NoticeException exc) {
-                        }
+                        new NoticeException("时间转换错误: " + typeEnum.toString() + "待处理的数据是: " + value, ex);
                     }
                     break;
                 case CHAR:
@@ -88,15 +85,26 @@ public class ValueHandleCache {
                     obj = new BigDecimal(value);
                     break;
                 default:
-                    try {
-                        throw new NoticeException("未定义类型错误" + typeEnum.toString());
-                    } catch (NoticeException ex) {
-                    }
+                    new NoticeException("未定义类型错误" + typeEnum.toString());
+                    break;
+
             }
         } else {
             switch (typeEnum) {
                 case STRING:
                     obj = value;
+                    break;
+                case CHAR:
+                    return;
+                case SHORT_MIN:
+                    obj = (short) 0;
+                    break;
+                case BYTE_MIN:
+                    obj = Byte.parseByte("0");
+                    break;
+                case BOOLEAN:
+                case BOOLEAN_MIN:
+                    obj = false;
                     break;
                 case INT:
                 case FLOAT_MIN:
@@ -104,29 +112,25 @@ public class ValueHandleCache {
                 case DOUBLE_MIN:
                     obj = 0;
                     break;
-                case BOOLEAN_MIN:
-                    obj = false;
-                    break;
-                case SHORT_MIN:
-                    obj = (short) 0;
-                    break;
-                case BYTE_MIN:
-                    obj = Byte.parseByte("0");
-                    break;
-                case CHAR:
+                case BYTE:
+                case INTEGER:
+                case SHORT:
+                case FLOAT:
+                case LONG:
+                case DOUBLE:
+                case BIGDECIMAL:
+                case DATE:
+                    obj = null;
                     break;
                 default:
-                    obj = new Object[]{null};
+                    new NoticeException("未定义类型错误" + typeEnum.toString());
                     break;
             }
         }
         try {
             method.invoke(e, obj);
         } catch (Exception ex) {
-            try {
-                throw new NoticeException("类型错误 " + typeEnum.toString() + "值是: " + obj, ex);
-            } catch (NoticeException exc) {
-            }
+            new NoticeException("类型错误 " + typeEnum.toString() + "值是: " + obj, ex);
         }
     }
 
@@ -156,83 +160,80 @@ public class ValueHandleCache {
         /**
          * 数据类型
          */
-        BOOLEAN(1, "Boolean"),
+        BOOLEAN("Boolean"),
         /**
          * 数据类型
          */
-        BYTE(2, "Byte"),
+        BYTE("Byte"),
         /**
          * 数据类型
          */
-        SHORT(3, "Short"),
+        SHORT("Short"),
         /**
          * 数据类型
          */
-        INTEGER(4, "Integer"),
+        INTEGER("Integer"),
         /**
          * 数据类型
          */
-        LONG(5, "Long"),
+        LONG("Long"),
         /**
          * 数据类型
          */
-        FLOAT(6, "Float"),
+        FLOAT("Float"),
         /**
          * 数据类型
          */
-        DOUBLE(7, "Double"),
+        DOUBLE("Double"),
         /**
          * 数据类型
          */
-        STRING(8, "String"),
+        STRING("String"),
         /**
          * 数据类型
          */
-        BIGDECIMAL(9, "BigDecimal"),
+        BIGDECIMAL("BigDecimal"),
         /**
          * 数据类型
          */
-        DATE(10, "Date"),
+        DATE("Date"),
         /**
          * 数据类型
          */
-        CHAR(11, "char"),
+        CHAR("char"),
         /**
          * 数据类型
          */
-        INT(12, "int"),
+        INT("int"),
         /**
          * 数据类型
          */
-        BOOLEAN_MIN(13, "boolean"),
+        BOOLEAN_MIN("boolean"),
         /**
          * 数据类型
          */
-        BYTE_MIN(14, "byte"),
+        BYTE_MIN("byte"),
         /**
          * 数据类型
          */
-        SHORT_MIN(15, "short"),
+        SHORT_MIN("short"),
         /**
          * 数据类型
          */
-        LONG_MIN(16, "long"),
+        LONG_MIN("long"),
         /**
          * 数据类型
          */
-        FLOAT_MIN(17, "float"),
+        FLOAT_MIN("float"),
         /**
          * 数据类型
          */
-        DOUBLE_MIN(18, "double");
-
-        private Integer key;
+        DOUBLE_MIN("double");
 
         private String value;
 
-        TypeEnum(Integer key, String value) {
+        TypeEnum(String value) {
 
-            this.key = key;
             this.value = value;
 
         }

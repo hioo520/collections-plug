@@ -63,10 +63,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
                     try {
                         invoke = method.invoke(t);
                     } catch (Exception ex) {
-                        try {
-                            throw new NoticeException("获取对象值错误:" + t, ex);
-                        } catch (NoticeException exc) {
-                        }
+                        new NoticeException("获取对象值错误:" + t, ex);
                     }
                     invoke = PublicMethod.processingTimeType(cache.getParamtertype(), config, invoke);
                 } else {
@@ -128,10 +125,9 @@ abstract class PickServiceImpl implements PickMethodFactory {
                 }
                 break;
             default:
-                try {
-                    throw new NoticeException("数据输出超出范围 PickConfig" + config.getReturnStyleEnum().toString());
-                } catch (NoticeException e) {
-                }
+                new NoticeException("数据输出超出范围 PickConfig" + config.getReturnStyleEnum().toString());
+                break;
+
         }
     }
 
@@ -174,10 +170,8 @@ abstract class PickServiceImpl implements PickMethodFactory {
             case CUSTOM_SUFFIX:
                 return config.getReturnNameEnum().getKey() + property;
             default:
-                try {
-                    throw new NoticeException("命名风格未定义或者错误");
-                } catch (NoticeException e) {
-                }
+                new NoticeException("命名风格未定义或者错误");
+                break;
         }
         return null;
     }
@@ -199,27 +193,18 @@ abstract class PickServiceImpl implements PickMethodFactory {
         try {
             method = clazz.getMethod(name);
         } catch (Exception e) {
-            try {
-                throw new NoticeException("类获取方法错误: ", e);
-            } catch (NoticeException exc) {
-            }
+            new NoticeException("类获取方法错误: ", e);
         }
         method.setAccessible(true);
         try {
             invoke = method.invoke(t);
         } catch (Exception e) {
-            try {
-                throw new NoticeException("类获取属性值错误: ", e);
-            } catch (NoticeException exc) {
-            }
+            new NoticeException("类获取属性值错误: ", e);
         }
         try {
             invoke = PublicMethod.processingTimeType(clazz.getDeclaredField(property).getType(), config, invoke);
         } catch (Exception e) {
-            try {
-                throw new NoticeException("类获取属性值错误: ", e);
-            } catch (NoticeException exc) {
-            }
+            new NoticeException("类获取属性值错误: ", e);
         }
         ClassCache.get().add(t.getClass(), property);
         return invoke;
