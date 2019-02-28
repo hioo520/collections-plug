@@ -6,6 +6,7 @@ import top.hihuzi.collection.utils.StrUtils;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.text.ParseException;
 
 
 /**
@@ -26,8 +27,9 @@ public class ValueHandleCache {
      * @return:
      * @author: hihuzi 2018/7/19 10:26
      */
-    public static <E> void invokeValue(E e, Method method, String value, String fieldType, Config config, TypeEnum typeEnum) throws Exception {
+    public static <E> void invokeValue(E e, Method method, String value, String fieldType, Config config, TypeEnum typeEnum) {
 
+        Object obj = null;
         if (fieldType != null) {
             for (TypeEnum typeEnu : TypeEnum.values()) {
                 if (typeEnu.getValue().equals(fieldType)) {
@@ -39,93 +41,91 @@ public class ValueHandleCache {
         if (StrUtils.isNNoE(value)) {
             switch (typeEnum) {
                 case STRING:
-                    method.invoke(e, value);
+                    obj = value;
                     break;
                 case DATE:
-                    method.invoke(e, config.getDateStyleEnum().getFormartStyle().parse(value));
+                    try {
+                        obj = config.getDateStyleEnum().getFormartStyle().parse(value);
+                    } catch (ParseException ex) {
+                        try {
+                            throw new NoticeException("时间转换错误: " + typeEnum.toString() + "待处理的数据是: " + value, ex);
+                        } catch (NoticeException exc) {
+                        }
+                    }
                     break;
                 case CHAR:
-                    method.invoke(e, value.toCharArray()[0]);
+                    obj = value.toCharArray()[0];
                     break;
                 case BYTE:
-                    method.invoke(e, Byte.valueOf(value));
-                    break;
                 case BYTE_MIN:
-                    method.invoke(e, Byte.valueOf(value));
+                    obj = Byte.valueOf(value);
                     break;
                 case LONG:
-                    method.invoke(e, Long.parseLong(value));
-                    break;
                 case LONG_MIN:
-                    method.invoke(e, Long.parseLong(value));
+                    obj = Long.parseLong(value);
                     break;
                 case SHORT:
-                    method.invoke(e, Short.parseShort(value));
-                    break;
                 case SHORT_MIN:
-                    method.invoke(e, Short.parseShort(value));
+                    obj = Short.parseShort(value);
                     break;
                 case FLOAT:
-                    method.invoke(e, Float.parseFloat(value));
-                    break;
                 case FLOAT_MIN:
-                    method.invoke(e, Float.parseFloat(value));
+                    obj = Float.parseFloat(value);
                     break;
                 case DOUBLE:
-                    method.invoke(e, Double.parseDouble(value));
-                    break;
                 case DOUBLE_MIN:
-                    method.invoke(e, Double.parseDouble(value));
+                    obj = Double.parseDouble(value);
                     break;
                 case INTEGER:
-                    method.invoke(e, Integer.parseInt(value));
-                    break;
                 case INT:
-                    method.invoke(e, Integer.parseInt(value));
+                    obj = Integer.parseInt(value);
                     break;
                 case BOOLEAN:
-                    method.invoke(e, Boolean.parseBoolean(value));
-                    break;
                 case BOOLEAN_MIN:
-                    method.invoke(e, Boolean.parseBoolean(value));
+                    obj = Boolean.parseBoolean(value);
                     break;
                 case BIGDECIMAL:
-                    method.invoke(e, new BigDecimal(value));
+                    obj = new BigDecimal(value);
                     break;
                 default:
-                    throw new NoticeException("类型错误" + typeEnum.toString());
+                    try {
+                        throw new NoticeException("未定义类型错误" + typeEnum.toString());
+                    } catch (NoticeException ex) {
+                    }
             }
         } else {
             switch (typeEnum) {
                 case STRING:
-                    method.invoke(e, value);
+                    obj = value;
                     break;
                 case INT:
-                    method.invoke(e, 0);
-                    break;
                 case FLOAT_MIN:
-                    method.invoke(e, 0);
-                    break;
                 case LONG_MIN:
-                    method.invoke(e, 0);
-                    break;
                 case DOUBLE_MIN:
-                    method.invoke(e, 0);
+                    obj = 0;
                     break;
                 case BOOLEAN_MIN:
-                    method.invoke(e, false);
+                    obj = false;
                     break;
                 case SHORT_MIN:
-                    method.invoke(e, (short) 0);
+                    obj = (short) 0;
                     break;
                 case BYTE_MIN:
-                    method.invoke(e, Byte.parseByte("0"));
+                    obj = Byte.parseByte("0");
                     break;
                 case CHAR:
                     break;
                 default:
-                    method.invoke(e, new Object[]{null});
+                    obj = new Object[]{null};
                     break;
+            }
+        }
+        try {
+            method.invoke(e, obj);
+        } catch (Exception ex) {
+            try {
+                throw new NoticeException("类型错误 " + typeEnum.toString() + "值是: " + obj, ex);
+            } catch (NoticeException exc) {
             }
         }
     }

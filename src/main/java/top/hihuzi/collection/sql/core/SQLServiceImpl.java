@@ -1,6 +1,9 @@
 package top.hihuzi.collection.sql.core;
 
-import top.hihuzi.collection.cache.*;
+import top.hihuzi.collection.cache.ClassCache;
+import top.hihuzi.collection.cache.ParameterCache;
+import top.hihuzi.collection.cache.SQLCache;
+import top.hihuzi.collection.cache.TypeCache;
 import top.hihuzi.collection.common.PublicMethod;
 import top.hihuzi.collection.common.ValueHandleCache;
 import top.hihuzi.collection.exception.NoticeException;
@@ -23,7 +26,7 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
      * @notice: 对象属性和表 遵循驼峰或者下划线命名
      * @author: hihuzi 2019/2/11 9:53
      */
-    <E> Object listToEntityDefault(List<Map> list, SQLConfig config, E... e) throws Exception {
+    <E> Object listToEntityDefault(List<Map> list, SQLConfig config, E... e) {
 
         SQLBean sqlBean = config.getSqlEeum().get();
         List<Map> lm = new ArrayList<>(list.size());
@@ -71,7 +74,14 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
         for (E es : e) {
             Class<?> clazz = (Class<?>) es;
             for (Map map : list) {
-                newClazz = clazz.getDeclaredConstructor().newInstance();
+                try {
+                    newClazz = clazz.getDeclaredConstructor().newInstance();
+                } catch (Exception ex) {
+                    try {
+                        throw new NoticeException("创建对象错误: " + clazz, ex);
+                    } catch (NoticeException exc) {
+                    }
+                }
                 for (Object obj : map.entrySet()) {
                     Map.Entry entry = (Map.Entry) obj;
                     String names = String.valueOf(entry.getKey());
@@ -104,7 +114,10 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                         i++;
                     }
                 } catch (Exception ex) {
-                    throw new NoticeException("从新配置list顺序有误");
+                    try {
+                        throw new NoticeException("从新配置list顺序有误", ex);
+                    } catch (NoticeException exc) {
+                    }
                 }
                 return true;
             case FILL_CLASS:
@@ -165,7 +178,7 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                             } else {
                                 ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
                             }
-                            if (i < size - 1 && 0 < times-1) {
+                            if (i < size - 1 && 0 < times - 1) {
                                 sql.append(",");
                                 times--;
                             }

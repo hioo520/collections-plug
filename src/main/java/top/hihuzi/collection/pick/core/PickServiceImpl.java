@@ -29,7 +29,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
      * @return: List<Map>
      * @author: hihuzi 2018/7/12 8:03
      */
-    public <T> Collection batch(List<T> list, PickConfig config, String... key) throws Exception {
+    public <T> Collection batch(List<T> list, PickConfig config, String... key) {
 
         Class clacc = list.get(0).getClass();
         Class clazz = clacc;
@@ -60,7 +60,14 @@ abstract class PickServiceImpl implements PickMethodFactory {
                 if (null != cache) {
                     method = cache.getMethodGet();
                     method.setAccessible(true);
-                    invoke = method.invoke(t);
+                    try {
+                        invoke = method.invoke(t);
+                    } catch (Exception ex) {
+                        try {
+                            throw new NoticeException("获取对象值错误:" + t, ex);
+                        } catch (NoticeException exc) {
+                        }
+                    }
                     invoke = PublicMethod.processingTimeType(cache.getParamtertype(), config, invoke);
                 } else {
                     try {
@@ -103,7 +110,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
                                       Map maps,
                                       Map map,
                                       String property,
-                                      Object invoke) throws Exception {
+                                      Object invoke) {
 
         switch (config.getReturnStyleEnum()) {
             case DEFAULT:
@@ -121,7 +128,10 @@ abstract class PickServiceImpl implements PickMethodFactory {
                 }
                 break;
             default:
-                throw new NoticeException("数据输出超出范围 参考PickEnum定义" + list.toString());
+                try {
+                    throw new NoticeException("数据输出超出范围 PickConfig" + config.getReturnStyleEnum().toString());
+                } catch (NoticeException e) {
+                }
         }
     }
 
@@ -133,7 +143,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
      * @return:
      * @author: hihuzi 2018/9/28 16:03
      */
-    private void achieveMap(Map map, String key, Object invoke, PickConfig config) throws Exception {
+    private void achieveMap(Map map, String key, Object invoke, PickConfig config) {
 
 
         if (null != invoke) {
@@ -150,7 +160,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
      * @return:
      * @author: hihuzi 2018/9/28 16:03
      */
-    private String achieveKey(String property, PickConfig config) throws Exception {
+    private String achieveKey(String property, PickConfig config) {
 
         switch (config.getReturnNameEnum()) {
             case DEFAULT:
@@ -164,8 +174,12 @@ abstract class PickServiceImpl implements PickMethodFactory {
             case CUSTOM_SUFFIX:
                 return config.getReturnNameEnum().getKey() + property;
             default:
-                throw new NoticeException("命名风格未定义或者错误");
+                try {
+                    throw new NoticeException("命名风格未定义或者错误");
+                } catch (NoticeException e) {
+                }
         }
+        return null;
     }
 
     /**
@@ -180,12 +194,33 @@ abstract class PickServiceImpl implements PickMethodFactory {
                                      Method method,
                                      Object invoke,
                                      String property,
-                                     PickConfig config) throws Exception {
+                                     PickConfig config) {
 
-        method = clazz.getMethod(name);
+        try {
+            method = clazz.getMethod(name);
+        } catch (Exception e) {
+            try {
+                throw new NoticeException("类获取方法错误: ", e);
+            } catch (NoticeException exc) {
+            }
+        }
         method.setAccessible(true);
-        invoke = method.invoke(t);
-        invoke = PublicMethod.processingTimeType(clazz.getDeclaredField(property).getType(), config, invoke);
+        try {
+            invoke = method.invoke(t);
+        } catch (Exception e) {
+            try {
+                throw new NoticeException("类获取属性值错误: ", e);
+            } catch (NoticeException exc) {
+            }
+        }
+        try {
+            invoke = PublicMethod.processingTimeType(clazz.getDeclaredField(property).getType(), config, invoke);
+        } catch (Exception e) {
+            try {
+                throw new NoticeException("类获取属性值错误: ", e);
+            } catch (NoticeException exc) {
+            }
+        }
         ClassCache.get().add(t.getClass(), property);
         return invoke;
     }

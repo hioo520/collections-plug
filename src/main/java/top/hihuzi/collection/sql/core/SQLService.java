@@ -20,12 +20,10 @@ public class SQLService extends SQLServiceImpl {
      * @author: hihuzi 2019/2/14 9:08
      */
     @Override
-    public <E> Object listToEntity(List<Map> list, E... e) throws Exception {
+    public <E> Object listToEntity(List<Map> list, E... e) {
 
         if (null == list || 0 == list.size() || null == e || 0 == e.length) return null;
-        Object b = listToEntityDefault(list, new SQLConfig(), e);
-        SQLConfig.reset();
-        return b;
+        return listToEntityDefault(list, new SQLConfig(), e);
     }
 
     /**
@@ -35,12 +33,10 @@ public class SQLService extends SQLServiceImpl {
      * @author: hihuzi 2019/2/14 9:08
      */
     @Override
-    public <E> Object listToEntity(List<Map> list, SQLConfig config) throws Exception {
+    public <E> Object listToEntity(List<Map> list, SQLConfig config) {
 
         if (null == list || 0 == list.size()) return null;
-        Object b = listToEntityDefault(list, config);
-        SQLConfig.reset();
-        return b;
+        return listToEntityDefault(list, config);
     }
 
     /**
@@ -50,16 +46,14 @@ public class SQLService extends SQLServiceImpl {
      * @author: hihuzi 2019/2/14 9:08
      */
     @Override
-    public <E> Object listToEntity(List<Map> list, SQLConfig config, E... e) throws Exception {
+    public <E> Object listToEntity(List<Map> list, SQLConfig config, E... e) {
 
         if (null == list || 0 == list.size() || null == e || 0 == e.length) return null;
-        Object b = listToEntityDefault(list, config, e);
-        SQLConfig.reset();
-        return b;
+        return listToEntityDefault(list, config, e);
     }
 
     @Override
-    public <E> Object getSQL(SQLBean config) throws Exception {
+    public <E> Object getSQL(SQLBean config) {
 
         return getSQLDefault(config);
     }

@@ -23,12 +23,10 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/7/12 8:03
      */
     @Override
-    public <E> List<Map> pick(List<E> list, String... parameter) throws Exception {
+    public <E> List<Map> pick(List<E> list, String... parameter) {
 
         if (null == list || 0 == list.size()) return null;
-        List<Map> lists = (List<Map>) batch(list, new PickConfig(), parameter);
-        PickConfig.reset();
-        return lists;
+        return (List<Map>) batch(list, new PickConfig(), parameter);
     }
 
     /**
@@ -41,12 +39,10 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/7/12 8:03
      */
     @Override
-    public <E> List<Map> pick(List<E> list, PickConfig config, String... parameter) throws Exception {
+    public <E> List<Map> pick(List<E> list, PickConfig config, String... parameter) {
 
         if (null == list || 0 == list.size()) return null;
-        List<Map> lists = (List<Map>) batch(list, config, parameter);
-        PickConfig.reset();
-        return lists;
+        return (List<Map>) batch(list, config, parameter);
     }
 
     /**
@@ -58,15 +54,13 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Override
-    public <E> Set pickValue(List<E> list, String... parameter) throws Exception {
+    public <E> Set pickValue(List<E> list, String... parameter) {
 
         if (null == list || 0 == list.size()) return null;
-        Set set = (Set) batch(list, new PickConfig(
+        return (Set) batch(list, new PickConfig(
                 PickConfig.ReturnStyleEnum.SET,
                 PickConfig.ReturnNameEnum.DEFAULT,
                 PickConfig.SaveStyleEnum.DEFAULT), parameter);
-        PickConfig.reset();
-        return set;
     }
 
     /**
@@ -79,13 +73,11 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Override
-    public <E> Set pickValue(List<E> list, PickConfig config, String... parameter) throws Exception {
+    public <E> Set pickValue(List<E> list, PickConfig config, String... parameter) {
 
         if (null == list || 0 == list.size()) return null;
-        Set set = (Set) batch(list,
+        return (Set) batch(list,
                 config.setReturnStyleEnum(PickConfig.ReturnStyleEnum.SET), parameter);
-        PickConfig.reset();
-        return set;
     }
 
     /**
@@ -97,17 +89,15 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Override
-    public <E> Map pickValue(E obj, String... key) throws Exception {
+    public <E> Map pickValue(E obj, String... key) {
 
         if (null == obj) return null;
-        List<E> list = new ArrayList<>();
+        List<E> list = new ArrayList<E>(1);
         list.add(obj);
-        Map map = ((List<Map>) batch(list, new PickConfig(
+        return ((List<Map>) batch(list, new PickConfig(
                 PickConfig.ReturnStyleEnum.MAP,
                 PickConfig.ReturnNameEnum.DEFAULT,
                 PickConfig.SaveStyleEnum.DEFAULT), key)).get(0);
-        PickConfig.reset();
-        return map;
     }
 
     /**
@@ -120,14 +110,12 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/4/30 15:49
      */
     @Override
-    public <E> Map pickValue(E e, PickConfig config, String... key) throws Exception {
+    public <E> Map pickValue(E e, PickConfig config, String... key) {
 
         if (null == e) return null;
-        List<E> list = new ArrayList<>();
+        List<E> list = new ArrayList<E>(1);
         list.add(e);
-        Map map = ((List<Map>) (batch(list, config.setReturnStyleEnum(PickConfig.ReturnStyleEnum.MAP), key))).get(0);
-        PickConfig.reset();
-        return map;
+        return ((List<Map>) (batch(list, config.setReturnStyleEnum(PickConfig.ReturnStyleEnum.MAP), key))).get(0);
     }
 
     /**
@@ -139,17 +127,15 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/8/3 17:09
      */
     @Override
-    public Map pickMap(Map map, String... parameter) throws Exception {
+    public Map pickMap(Map map, String... parameter) {
 
         if (null == map || 0 == map.size()) return null;
-        Map maps = ((List<Map>) batch(new ArrayList() {{
+        return ((List<Map>) batch(new ArrayList() {{
             add(map);
         }}, new PickConfig(
                 PickConfig.ReturnStyleEnum.MAP,
                 PickConfig.ReturnNameEnum.DEFAULT,
                 PickConfig.SaveStyleEnum.DEFAULT), parameter)).get(0);
-        PickConfig.reset();
-        return maps;
     }
 
     /**
@@ -162,35 +148,29 @@ public class PickService extends PickServiceImpl {
      * @author: hihuzi 2018/8/3 17:09
      */
     @Override
-    public Map pickMap(Map map, PickConfig config, String... parameter) throws Exception {
+    public Map pickMap(Map map, PickConfig config, String... parameter) {
 
         if (null == map || 0 == map.size()) return null;
-        Map maps = ((List<Map>) batch(new ArrayList() {{
+        return ((List<Map>) batch(new ArrayList() {{
             add(map);
         }}, new PickConfig(
                 PickConfig.ReturnStyleEnum.MAP,
                 PickConfig.ReturnNameEnum.DEFAULT,
                 PickConfig.SaveStyleEnum.DEFAULT), parameter)).get(0);
-        PickConfig.reset();
-        return maps;
     }
 
     @Override
-    public List<Map> pickList(List<Map> list, String... key) throws Exception {
+    public List<Map> pickList(List<Map> list, String... key) {
 
         if (null == list || 0 == list.size()) return null;
-        List<Map> maps = (List<Map>) batch(list, new PickConfig(), key);
-        PickConfig.reset();
-        return maps;
+        return (List<Map>) batch(list, new PickConfig(), key);
     }
 
     @Override
-    public List<Map> pickList(List<Map> list, PickConfig config, String... key) throws Exception {
+    public List<Map> pickList(List<Map> list, PickConfig config, String... key) {
 
         if (null == list || 0 == list.size()) return null;
-        List<Map> maps = (List<Map>) batch(list, config, key);
-        PickConfig.reset();
-        return maps;
+        return (List<Map>) batch(list, config, key);
     }
 
 

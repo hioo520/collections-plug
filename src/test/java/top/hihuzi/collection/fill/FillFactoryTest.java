@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import top.hihuzi.collection.cache.ClassCache;
 import top.hihuzi.collection.cache.TypeCache;
-import top.hihuzi.collection.fill.factory.FillFactory;
 import top.hihuzi.collection.fill.config.FillConfig;
+import top.hihuzi.collection.fill.factory.FillFactory;
 
 import java.util.*;
 
@@ -106,7 +106,7 @@ public class FillFactoryTest implements Runnable {
         request.setParameter("doubleMin", "");
         long start = System.currentTimeMillis();
         TestBean map1 = null;
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < 100000; i++) {
             map1 = FillFactory.batch().fillEntity(request, new TestBean());
         }
         long end = System.currentTimeMillis();
@@ -404,7 +404,7 @@ public class FillFactoryTest implements Runnable {
                 new FillConfig(FillConfig.ReturnEnum.LISR),
                 new TestBean(), new TestBeanBean());
         List<Map> map3 = (List<Map>) FillFactory.batch().listToClass(list,
-                new FillConfig(FillConfig.ReturnEnum.DEFAULT,FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy")),
+                new FillConfig(FillConfig.ReturnEnum.DEFAULT, FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy")),
                 new TestBean(), new TestBeanBean());
         System.out.println("测试 ---< 第一种返回结果是List<Map>");
 

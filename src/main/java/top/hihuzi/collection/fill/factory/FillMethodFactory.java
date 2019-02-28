@@ -66,7 +66,7 @@ public interface FillMethodFactory extends FillFactory {
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(HttpServletRequest request, E e) throws Exception;
+    <E> E fillEntity(HttpServletRequest request, E e);
 
     /**
      * tips HttpServletRequest--> obj
@@ -76,7 +76,7 @@ public interface FillMethodFactory extends FillFactory {
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(HttpServletRequest request, E e, FillConfig config) throws Exception;
+    <E> E fillEntity(HttpServletRequest request, E e, FillConfig config);
 
     /**
      * tips 对MAP数据装填--> 对象
@@ -86,7 +86,7 @@ public interface FillMethodFactory extends FillFactory {
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(Map map, E e) throws Exception;
+    <E> E fillEntity(Map map, E e);
 
     /**
      * tips 对MAP数据装填--> 对象
@@ -96,7 +96,7 @@ public interface FillMethodFactory extends FillFactory {
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(Map map, E e, FillConfig config) throws Exception;
+    <E> E fillEntity(Map map, E e, FillConfig config);
 
     /**
      * tips E --> Map  针对E的属性属性值填充到map
@@ -106,7 +106,7 @@ public interface FillMethodFactory extends FillFactory {
      * @return: map
      * @author: hihuzi 2018/6/26 14:51
      */
-    <E> Map fillMap(E e, Map map) throws Exception;
+    <E> Map fillMap(E e, Map map);
 
     /**
      * tips E --> Map  针对E的属性属性值填充到map
@@ -117,7 +117,7 @@ public interface FillMethodFactory extends FillFactory {
      * @return: map
      * @author: hihuzi 2018/6/26 14:51
      */
-    <E> Map fillMap(E e, Map map, FillConfig config) throws Exception;
+    <E> Map fillMap(E e, Map map, FillConfig config);
 
     /**
      * tips list<String> --> E --> list<E> 针对数据库与实体类名有区别
@@ -128,7 +128,7 @@ public interface FillMethodFactory extends FillFactory {
      * @author: hihuzi 2018/6/26 14:51
      */
 
-    <E> List<E> listToEntity(List<String> list, E e) throws Exception;
+    <E> List<E> listToEntity(List<String> list, E e);
 
     /**
      * tips E --> Map  针对E的属性属性值填充到map
@@ -139,7 +139,7 @@ public interface FillMethodFactory extends FillFactory {
      * @return: map
      * @author: hihuzi 2018/6/26 14:51
      */
-    <E> List<E> listToEntity(List<String> list, E e, FillConfig config) throws Exception;
+    <E> List<E> listToEntity(List<String> list, E e, FillConfig config);
     /**
      * tips E --> Map  针对数据库查询*数据  数据是驼峰的自动填充工具
      *
@@ -157,7 +157,7 @@ public interface FillMethodFactory extends FillFactory {
      * @notice: 对象属性和表 遵循驼峰或者下划线命名
      * @author: hihuzi 2019/2/11 9:53
      */
-    <E> Object listToClass(List<Map> list, E... e) throws Exception;
+    <E> Object listToClass(List<Map> list, E... e);
 
     /**
      * tips 数据库的元组转对象
@@ -166,6 +166,6 @@ public interface FillMethodFactory extends FillFactory {
      * @notice: 对象属性和表 遵循驼峰或者下划线命名
      * @author: hihuzi 2019/2/11 9:53
      */
-    <E> Object listToClass(List<Map> list, FillConfig config, E... e) throws Exception;
+    <E> Object listToClass(List<Map> list, FillConfig config, E... e);
 
 }

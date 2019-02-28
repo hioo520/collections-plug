@@ -73,7 +73,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E requestFillEntityDefault(HttpServletRequest request, E e, FillConfig config) throws Exception {
+    <E> E requestFillEntityDefault(HttpServletRequest request, E e, FillConfig config) {
 
         Enumeration pars = request.getParameterNames();
         Class clazz = e.getClass();
@@ -100,7 +100,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E mapFillEntity(Map map, E e, FillConfig config) throws Exception {
+    <E> E mapFillEntity(Map map, E e, FillConfig config) {
 
         Iterator iterator = map.entrySet().iterator();
         Class clazz = e.getClass();
@@ -125,7 +125,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
      *
      * @author:hihuzi 2018/6/26 14:51
      */
-    public <E> Map fillMapDefault(E e, Map map, FillConfig config) throws Exception {
+    public <E> Map fillMapDefault(E e, Map map, FillConfig config) {
 
         Map<String, TypeCache> caches = ClassCache.getCache(e.getClass());
         if (null != caches) {
@@ -133,7 +133,15 @@ abstract class FillServiceImpl implements FillMethodFactory {
                 TypeCache cache = (TypeCache) typeCache.getValue();
                 Method methodGet = cache.getMethodGet();
                 methodGet.setAccessible(true);
-                Object invoke = methodGet.invoke(e);
+                Object invoke = null;
+                try {
+                    invoke = methodGet.invoke(e);
+                } catch (Exception ex) {
+                    try {
+                        throw new NoticeException("类获取属性值错误-->类是: " + e.getClass().getSimpleName() + " 方法名是: " + methodGet.getName(), ex);
+                    } catch (NoticeException exc) {
+                    }
+                }
                 if (config.getSaveStyleEnum().getHaving() && null != invoke) {
                     invoke = ValueHandleCache.processingTimeType(cache.getParamtertype(), config, invoke);
                     map.put(typeCache.getKey(), invoke);
@@ -145,8 +153,17 @@ abstract class FillServiceImpl implements FillMethodFactory {
             for (Field field : declaredFields) {
                 field.setAccessible(true);
                 Class<?> type = field.getType();
-                Method method = clazz.getMethod(StrUtils.achieveGetFunction(field.getName()));
-                Object invoke = method.invoke(e);
+                Method method = null;
+                Object invoke = null;
+                try {
+                    method = clazz.getMethod(StrUtils.achieveGetFunction(field.getName()));
+                    invoke = method.invoke(e);
+                } catch (Exception ex) {
+                    try {
+                        throw new NoticeException("类获取方法或者获取方法值错误-->类是: " + e.getClass().getSimpleName() + " 属性是名是: " + StrUtils.achieveGetFunction(field.getName()), ex);
+                    } catch (NoticeException exc) {
+                    }
+                }
                 ClassCache.get().add(e.getClass(), field.getName(), type);
                 if (config.getSaveStyleEnum().getHaving() && null != invoke) {
                     invoke = ValueHandleCache.processingTimeType(type, config, invoke);
@@ -166,7 +183,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
      * @return: List<E>
      * @author: hihuzi 2018/6/26 14:51
      */
-    public <E> List<E> listToEntityDefault(List<String> list, E e, FillConfig config) throws Exception {
+    public <E> List<E> listToEntityDefault(List<String> list, E e, FillConfig config) {
 
         List<E> result = new ArrayList<>(list.size());
         List<String> field = new ArrayList<>(e.getClass().getDeclaredFields().length);
@@ -176,7 +193,7 @@ abstract class FillServiceImpl implements FillMethodFactory {
             Field[] fields = clazz.getDeclaredFields();
             for (Field value : fields) {
                 field.add(value.getName());
-                ClassCache.get().add(e.getClass(), value.getName(),value.getType());
+                ClassCache.get().add(e.getClass(), value.getName(), value.getType());
             }
         }
         int i = 0;
@@ -202,7 +219,15 @@ abstract class FillServiceImpl implements FillMethodFactory {
                 i++;
             }
         }
-        Object obj = e.getClass().getDeclaredConstructor().newInstance();
+        Object obj = null;
+        try {
+            obj = e.getClass().getDeclaredConstructor().newInstance();
+        } catch (Exception ex) {
+            try {
+                throw new NoticeException("类创建对象错误-->类是: " + e.getClass().getSimpleName(), ex);
+            } catch (NoticeException exc) {
+            }
+        }
         obj = mapFillEntity(map, obj, config);
         result.add((E) obj);
         return result;
@@ -214,11 +239,11 @@ abstract class FillServiceImpl implements FillMethodFactory {
      * @notice: 对象属性和表 遵循驼峰或者下划线命名
      * @author: hihuzi 2019/2/11 9:53
      */
-    <E> Object listToClassDefault(List<Map> list, FillConfig config, E... e) throws Exception {
+    <E> Object listToClassDefault(List<Map> list, FillConfig config, E... e) {
 
         List<Map> lm = new ArrayList<>(list.size());
-        Object newClazz ;
-        Map<String, List<E>> m ;
+        Object newClazz = null;
+        Map<String, List<E>> m;
         Map<String, ParameterCache> tableNameMatchParameter = PublicMethod.tableNameMatchParameter(list.get(0), e);
         switch (config.getReturnEnum()) {
             case DEFAULT:
@@ -245,7 +270,14 @@ abstract class FillServiceImpl implements FillMethodFactory {
         for (E es : e) {
             Class<?> clazz = es.getClass();
             for (Map map : list) {
-                newClazz = clazz.getDeclaredConstructor().newInstance();
+                try {
+                    newClazz = clazz.getDeclaredConstructor().newInstance();
+                } catch (Exception ex) {
+                    try {
+                        throw new NoticeException("类创建新对象错误-->类名是: " + e.getClass().getSimpleName(), ex);
+                    } catch (NoticeException exc) {
+                    }
+                }
                 for (Object obj : map.entrySet()) {
                     Map.Entry entry = (Map.Entry) obj;
                     String names = String.valueOf(entry.getKey());
@@ -278,7 +310,10 @@ abstract class FillServiceImpl implements FillMethodFactory {
                         i++;
                     }
                 } catch (Exception ex) {
-                    throw new NoticeException("从新配置list顺序有误");
+                    try {
+                        throw new NoticeException("从新配置list顺序有误", ex);
+                    } catch (NoticeException exc) {
+                    }
                 }
                 return true;
             case FILL_CLASS:

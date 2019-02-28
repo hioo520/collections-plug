@@ -39,18 +39,6 @@ public class FillConfig implements Config {
 
     }
 
-
-    /**
-     * 重置枚举对象
-     * 对枚举静态变量一定要初始化
-     */
-    public static void reset() {
-
-        SortStyleEnum.DEFAULT.setSort(new Integer[]{});
-        DateStyleEnum.DEFAULT.dateFormat.remove();
-        ReturnEnum.DEFAULT.setList(new List[]{});
-    }
-
     /**
      * tips: 默认
      *

@@ -24,9 +24,7 @@ public class FillService extends FillServiceImpl {
     @Override
     public Map fill(HttpServletRequest request) {
 
-        Map map = fillDefault(request, new FillConfig());
-        FillConfig.reset();
-        return map;
+        return fillDefault(request, new FillConfig());
     }
 
     /**
@@ -40,9 +38,7 @@ public class FillService extends FillServiceImpl {
     @Override
     public Map fill(HttpServletRequest request, String... str) {
 
-        Map map = fillDefault(request, new FillConfig(), str);
-        FillConfig.reset();
-        return map;
+        return fillDefault(request, new FillConfig(), str);
     }
 
     /**
@@ -56,9 +52,7 @@ public class FillService extends FillServiceImpl {
     @Override
     public Map fill(HttpServletRequest request, FillConfig config) {
 
-        Map map = fillDefault(request, config);
-        FillConfig.reset();
-        return map;
+        return fillDefault(request, config);
     }
 
     /**
@@ -73,9 +67,7 @@ public class FillService extends FillServiceImpl {
     @Override
     public Map fill(HttpServletRequest request, FillConfig config, String... key) {
 
-        Map map = fillDefault(request, config, key);
-        FillConfig.reset();
-        return map;
+        return fillDefault(request, config, key);
     }
 
     /**
@@ -87,11 +79,9 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(HttpServletRequest request, E e) throws Exception {
+    public <E> E fillEntity(HttpServletRequest request, E e) {
 
-        E entity = requestFillEntityDefault(request, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
-        FillConfig.reset();
-        return entity;
+        return requestFillEntityDefault(request, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
     }
 
     /**
@@ -103,11 +93,9 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(HttpServletRequest request, E e, FillConfig config) throws Exception {
+    public <E> E fillEntity(HttpServletRequest request, E e, FillConfig config) {
 
-        E entity = requestFillEntityDefault(request, e, config);
-        FillConfig.reset();
-        return entity;
+        return requestFillEntityDefault(request, e, config);
     }
 
     /**
@@ -119,12 +107,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(Map map, E e) throws Exception {
+    public <E> E fillEntity(Map map, E e) {
 
         if (null == map || 0 == map.size()) return null;
-        E entity = mapFillEntity(map, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
-        FillConfig.reset();
-        return entity;
+        return mapFillEntity(map, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
     }
 
     /**
@@ -136,12 +122,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(Map map, E e, FillConfig config) throws Exception {
+    public <E> E fillEntity(Map map, E e, FillConfig config) {
 
         if (null == map || 0 == map.size()) return null;
-        E entity = mapFillEntity(map, e, config);
-        FillConfig.reset();
-        return entity;
+        return mapFillEntity(map, e, config);
     }
 
     /**
@@ -153,12 +137,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/26 14:51
      */
     @Override
-    public <E> Map fillMap(E e, Map map) throws Exception {
+    public <E> Map fillMap(E e, Map map) {
 
         if (null == e) return null;
-        Map map1 = fillMapDefault(e, map, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
-        FillConfig.reset();
-        return map1;
+        return fillMapDefault(e, map, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
     }
 
     /**
@@ -170,12 +152,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/26 14:51
      */
     @Override
-    public <E> Map fillMap(E e, Map map, FillConfig config) throws Exception {
+    public <E> Map fillMap(E e, Map map, FillConfig config) {
 
         if (null == e) return null;
-        Map map1 = fillMapDefault(e, map, config);
-        FillConfig.reset();
-        return map1;
+        return fillMapDefault(e, map, config);
     }
 
     /**
@@ -187,12 +167,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/26 14:51
      */
     @Override
-    public <E> List<E> listToEntity(List<String> list, E e) throws Exception {
+    public <E> List<E> listToEntity(List<String> list, E e) {
 
         if (null == list || 0 == list.size()) return null;
-        List<E> es = listToEntityDefault(list, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
-        FillConfig.reset();
-        return es;
+        return listToEntityDefault(list, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
     }
 
     /**
@@ -204,12 +182,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2018/6/26 14:51
      */
     @Override
-    public <E> List<E> listToEntity(List<String> list, E e, FillConfig config) throws Exception {
+    public <E> List<E> listToEntity(List<String> list, E e, FillConfig config) {
 
         if (null == list || 0 == list.size()) return null;
-        List<E> es = listToEntityDefault(list, e, config);
-        FillConfig.reset();
-        return es;
+        return listToEntityDefault(list, e, config);
     }
 
     /**
@@ -219,12 +195,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E> Object listToClass(List<Map> list, E... e) throws Exception {
+    public <E> Object listToClass(List<Map> list, E... e) {
 
         if (null == list || 0 == list.size() || null == e || 0 == e.length) return null;
-        Object b = listToClassDefault(list, new FillConfig(), e);
-        FillConfig.reset();
-        return b;
+        return listToClassDefault(list, new FillConfig(), e);
     }
 
 
@@ -235,12 +209,10 @@ public class FillService extends FillServiceImpl {
      * @author: hihuzi 2019/2/11 9:57
      */
     @Override
-    public <E> Object listToClass(List<Map> list, FillConfig config, E... e) throws Exception {
+    public <E> Object listToClass(List<Map> list, FillConfig config, E... e) {
 
         if (null == list || 0 == list.size() || null == e || 0 == e.length) return null;
-        Object b = listToClassDefault(list, config, e);
-        FillConfig.reset();
-        return b;
+        return listToClassDefault(list, config, e);
 
     }
 

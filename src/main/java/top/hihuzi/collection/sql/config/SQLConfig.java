@@ -58,23 +58,13 @@ public class SQLConfig implements Config {
     }
 
     public SQLConfig(ReturnEnum returnEnum, DateStyleEnum dateStyleEnum, SQLEeum sqlEeum) {
+
         this.sqlEeum = sqlEeum;
         this.returnEnum = returnEnum;
         this.dateStyleEnum = dateStyleEnum;
 
     }
 
-
-    /**
-     * 重置枚举对象
-     * 对枚举静态变量一定要初始化
-     */
-    public static void reset() {
-
-        DateStyleEnum.DEFAULT.dateFormat.remove();
-        ReturnEnum.DEFAULT.setList(new List[]{});
-        SQLEeum.DEFAULT.set(null);
-    }
 
     /**
      * tips: 默认

@@ -66,7 +66,7 @@ public interface ConfigEnum {
         /**
          * tips 多线程并发时启用
          */
-        public static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>();
+        public volatile static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>();
 
         public SimpleDateFormat getFormartStyle() {
 
@@ -75,8 +75,8 @@ public interface ConfigEnum {
 
         public DateStyleEnum setFormartStyle(String formartStyle) {
 
-            SimpleDateFormat format = dateFormat.get();
-            if (null == format || !formartStyle.equals(format.toPattern())) {
+            SimpleDateFormat res = dateFormat.get();
+            if (null == res || !formartStyle.equals(res.toPattern())) {
                 dateFormat.set(new SimpleDateFormat(formartStyle));
             }
             return this;
@@ -95,16 +95,19 @@ public interface ConfigEnum {
          */
         DEFAULT;
 
-        private Integer[] sort;
+        public volatile static ThreadLocal<Integer[]> values = new ThreadLocal<Integer[]>();
 
         public Integer[] getSort() {
 
-            return sort;
+            return values.get();
         }
 
         public SortStyleEnum setSort(Integer[] sort) {
 
-            this.sort = sort;
+            Integer[] res = values.get();
+            if (null == res || !(res.length == sort.length)) {
+                values.set(sort);
+            }
             return this;
         }
 
@@ -140,20 +143,22 @@ public interface ConfigEnum {
          */
         FILL_CLASS;
 
-
-        private List[] list;
+        public volatile static ThreadLocal<List[]> values = new ThreadLocal<List[]>();
 
         /**
          * @author: hihuzi 2018/9/30 8:52
          **/
         public List[] getList() {
 
-            return list;
+            return values.get();
         }
 
         public ReturnEnum setList(List... list) {
 
-            this.list = list;
+            List[] res = values.get();
+            if (null == res || !(res.length == list.length)) {
+                values.set(list);
+            }
             return this;
         }
     }
@@ -206,47 +211,48 @@ public interface ConfigEnum {
          *
          * @author: hihuzi
          */
-        DEFAULT(null),
+        DEFAULT,
         /**
          * RenameKey="1":首字母大写
          *
          * @author: hihuzi
          */
-        INITIAL_CAPITAL(null),
+        INITIAL_CAPITAL,
         /**
          * RenameKey="2":全小写
          *
          * @author: hihuzi
          */
-        LOWER_CASE(null),
+        LOWER_CASE,
         /**
          * RenameKey="3":全大写
          *
          * @author: hihuzi
          */
-        UPPER_CASE(null),
+        UPPER_CASE,
         /**
          * RenameKey="XXXX":义可以的自定头缀
          *
          * @author: hihuzi
          */
-        CUSTOM_SUFFIX(null);
+        CUSTOM_SUFFIX;
 
-        private String key;
+        public volatile static ThreadLocal<String> values = new ThreadLocal<String>();
 
-        ReturnNameEnum(String key) {
+        private String value;
 
-            this.key = key;
-        }
 
         public String getKey() {
 
-            return key;
+            return values.get();
         }
 
-        public ReturnNameEnum setKey(String key) {
+        public ReturnNameEnum setKey(String mark) {
 
-            this.key = key;
+            String res = values.get();
+            if (null == res || !(res.equals(mark))) {
+                values.set(mark);
+            }
             return this;
         }
     }
@@ -264,17 +270,22 @@ public interface ConfigEnum {
          */
         DEFAULT;
 
-        private SQLBean bean;
+        public volatile static ThreadLocal<SQLBean> values = new ThreadLocal<SQLBean>();
 
-        public SQLEeum set(SQLBean bean) {
+        public SQLEeum set(SQLBean sqlBean) {
 
-            this.bean = bean;
+            SQLBean res = values.get();
+            if (null == res) {
+                values.set(sqlBean);
+            } else if (res.hashCode() != sqlBean.hashCode()) {
+                values.set(sqlBean);
+            }
             return this;
         }
 
         public SQLBean get() {
 
-            return bean;
+            return values.get();
         }
     }
 

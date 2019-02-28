@@ -33,16 +33,6 @@ public class PickConfig implements Config {
 
 
     /**
-     * 重置枚举对象
-     * 对枚举静态变量一定要初始化
-     */
-    public static void reset() {
-
-        DateStyleEnum.DEFAULT.dateFormat.remove();
-        ReturnNameEnum.CUSTOM_SUFFIX.setKey("");
-    }
-
-    /**
      * tips: 使用这个构造器所有值都是调用默认值
      *
      * @notice: this.returnNameEnum = ReturnNameEnum.DEFAULT;
@@ -52,7 +42,7 @@ public class PickConfig implements Config {
      * @author: hihuzi 2018/9/30 8:59
      **/
     public PickConfig() {
-        reset();
+
     }
 
     public PickConfig(SaveStyleEnum saveStyleEnum) {

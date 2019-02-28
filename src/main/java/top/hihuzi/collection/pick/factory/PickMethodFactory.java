@@ -23,7 +23,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: List<Map>
      * @author: hihuzi 2018/7/12 8:03
      */
-    <E> List<Map> pick(List<E> list, String... parameter) throws Exception;
+    <E> List<Map> pick(List<E> list, String... parameter);
 
     /**
      * tips 从对象集合中取特定字段(带控制返回值)
@@ -34,7 +34,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: List<Map>
      * @author: hihuzi 2018/7/12 8:03
      */
-    <E> List<Map> pick(List<E> list, PickConfig config, String... parameter) throws Exception;
+    <E> List<Map> pick(List<E> list, PickConfig config, String... parameter);
 
     /**
      * tips 从对象集合中取特定字段的value(带控制返回值)(去重)
@@ -44,7 +44,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Set<String>
      * @author: hihuzi 2018/4/30 15:49
      */
-    <E> Set pickValue(List<E> list, String... parameter) throws Exception;
+    <E> Set pickValue(List<E> list, String... parameter);
 
     /**
      * tips 从对象集合中取特定字段的value(带控制返回值)(去重)
@@ -55,7 +55,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Set<String>
      * @author: hihuzi 2018/4/30 15:49
      */
-    <E> Set pickValue(List<E> list, PickConfig config, String... parameter) throws Exception;
+    <E> Set pickValue(List<E> list, PickConfig config, String... parameter);
 
     /**
      * tips 单个对象取出特定字段
@@ -65,7 +65,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Map
      * @author: hihuzi 2018/4/30 15:49
      */
-    <E> Map pickValue(E e, String... key) throws Exception;
+    <E> Map pickValue(E e, String... key);
 
     /**
      * tips 单个对象 返回选定字段(带控制返回)
@@ -76,7 +76,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Map
      * @author: hihuzi 2018/4/30 15:49
      */
-    <E> Map pickValue(E e, PickConfig config, String... key) throws Exception;
+    <E> Map pickValue(E e, PickConfig config, String... key);
 
     /**
      * tips 从集合中取出特定key
@@ -86,7 +86,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Map
      * @author: hihuzi 2018/8/3 17:09
      */
-    Map pickMap(Map map, String... key)throws Exception;
+    Map pickMap(Map map, String... key);
 
     /**
      * tips 从集合中取出特定Key(带返回控制)
@@ -97,7 +97,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Map
      * @author: hihuzi 2018/8/3 17:09
      */
-    Map pickMap(Map map, PickConfig config, String... key)throws Exception;
+    Map pickMap(Map map, PickConfig config, String... key);
 
     /**
      * tips 从集合中取出特定key
@@ -107,7 +107,7 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Map
      * @author: hihuzi 2018/8/3 17:09
      */
-    List<Map> pickList(List<Map> list, String... key) throws Exception;
+    List<Map> pickList(List<Map> list, String... key);
 
     /**
      * tips 从集合中取出特定Key(带返回控制)
@@ -118,6 +118,6 @@ public interface PickMethodFactory extends PickFactory {
      * @return: Map
      * @author: hihuzi 2018/8/3 17:09
      */
-    List<Map> pickList(List<Map> list, PickConfig config, String... key) throws Exception;
+    List<Map> pickList(List<Map> list, PickConfig config, String... key);
 
 }
