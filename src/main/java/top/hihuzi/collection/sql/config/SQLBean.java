@@ -148,13 +148,15 @@ public class SQLBean implements CacheBean {
             throw new NoticeException("addClass不可为空");
         }
         Set<String> repeatTemp = new HashSet<>(this.clazz.size());
+        Set<String> repeats = new HashSet<>(this.clazz.size());
         map = new HashMap<>(this.clazz.size());
         if (null == this.nick) {
             if (this.repeat == null || 0 == this.repeat.size()) {
                 for (int i = 0; i < this.clazz.size(); i++) {
                     map.put(this.clazz.get(i).getName(), "");
-                    achieveClassFields(repeatTemp, this.clazz.get(i));
+                    achieveClassFields(repeatTemp, repeats, this.clazz.get(i));
                 }
+                this.repeat = new ArrayList<>(repeats);
             } else {
                 for (int i = 0; i < this.clazz.size(); i++) {
                     map.put(this.clazz.get(i).getName(), "");
@@ -167,8 +169,9 @@ public class SQLBean implements CacheBean {
         if (this.repeat == null || 0 == this.repeat.size()) {
             for (int i = 0; i < this.clazz.size(); i++) {
                 map.put(this.clazz.get(i).getName(), i <= nick.size() - 1 ? nick.get(i) : "");
-                achieveClassFields(repeatTemp, this.clazz.get(i));
+                achieveClassFields(repeatTemp, repeats, this.clazz.get(i));
             }
+            this.repeat = new ArrayList<>(repeats);
         } else {
             for (int i = 0; i < this.clazz.size(); i++) {
                 map.put(this.clazz.get(i).getName(), i <= nick.size() - 1 ? nick.get(i) : "");
@@ -184,7 +187,7 @@ public class SQLBean implements CacheBean {
      *
      * @author: hihuzi 2019/2/28 14:58
      */
-    private void achieveClassFields(Set<String> repeatTemp, Class<?> clazz) {
+    private void achieveClassFields(Set<String> repeatTemp, Set<String> repeats, Class<?> clazz) {
 
 
         this.repeat = new ArrayList<>(this.clazz.size() * 5);
@@ -192,7 +195,7 @@ public class SQLBean implements CacheBean {
             for (Field field : clazz.getDeclaredFields()) {
                 boolean state = repeatTemp.add(field.getName());
                 if (!state) {
-                    this.repeat.add(field.getName());
+                    repeats.add(field.getName());
                 }
             }
         }
@@ -208,5 +211,6 @@ public class SQLBean implements CacheBean {
         return MD5.StringToMd5(s);
 
     }
+
 
 }
