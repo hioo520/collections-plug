@@ -200,6 +200,13 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
+        SQLBean bean0 = new SQLBean()
+//                .addUnique("007")
+                .addClazz(new Son(), new Father())
+                .addNickname("so", "fa")
+                .addRepeat("naMe", "aGe", "sEx", "hiGht")
+                .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
+                .build();
         Object sql = SQLFactory.batch().getSQL(bean);
 
         SQLConfig config = new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean));

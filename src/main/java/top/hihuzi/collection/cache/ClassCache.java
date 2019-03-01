@@ -1,5 +1,8 @@
 package top.hihuzi.collection.cache;
 
+import top.hihuzi.collection.config.CacheBean;
+import top.hihuzi.collection.sql.config.SQLBean;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,35 +14,45 @@ import java.util.Map;
 public class ClassCache {
 
     /**
-     * tips 对象属性缓存器(用于对象填充)
+     * tips 对象属性缓存器(用于对象填充)--cache
      * 缓存class 全限定名 参数类型 参数
      * 第一个 String: class 全限定名
      * 第二个String: class 属性名
      * cache--->"Map<class 全限定名称,Map<属性名称,[各个属性的方法,属性类型]>>"
      */
-    public static Map<String, Map<String, TypeCache>> cache = null;
+    public volatile static Map<String, Map<String, TypeCache>> cache = null;
 
     /**
-     * tips 表-对象属性缓存器(用于非自定义SQL)
+     * tips 表-对象属性缓存器(用于非自定义SQL)--paramCache
      * 缓存class 全限定名 参数类型 参数
      * 第一个 String: class 全限定名
      * 第二个String: class 表名
      * cache--->"Map<class 全限定名称,Map<表名称,[各个属性的方法,属性类型]>>"
      */
-    private static Map<String, Map<String, ParameterCache>> paramCache = null;
+    private volatile static Map<String, Map<String, ParameterCache>> paramCache = null;
 
     /**
-     * tips 对象属性-表缓存器(用于自定义多SQL)
+     * tips 对象属性-表缓存器(用于自定义多SQL)-->tableCache未来兼容非驼峰结构待用
      * 缓存class 全限定名 参数类型 参数
      * 第一个 String: class 全限定名
      * 第二个String: class 表名
      * cache--->"Map<class 全限定名称,Map<各个属性的方法,表名称>>"
      */
-    private static Map<String, TableCache> tableCache = null;
+    private volatile static Map<String, TableCache> tableCache = null;
+
+    /**
+     * tips SQLBean-缓存器(解决重复计算问题)--objectCache
+     * 缓存class 全限定名 参数类型 参数
+     * 第一个 String: class 全限定名
+     * 第二个String: class 表名
+     * cache--->"Map<class 全限定名称,Map<各个属性的方法,表名称>>"
+     */
+    private volatile static Map<String, Object> objectCache = null;
 
     /**
      * tips 单例
-     *@author: hihuzi 2019/2/18 9:24
+     *
+     * @author: hihuzi 2019/2/18 9:24
      */
     private static ClassCache classCache = null;
 
@@ -103,6 +116,13 @@ public class ClassCache {
 
         TableCache result = null;
         if (null == tableCache || (result = tableCache.get(sqlKey)) == null) return null;
+        return result;
+    }
+
+    public static CacheBean getOCache(String sqlKey) {
+
+        CacheBean result = null;
+        if (null == objectCache || (result = (CacheBean) objectCache.get(sqlKey)) == null) return null;
         return result;
     }
 
@@ -210,6 +230,30 @@ public class ClassCache {
                 Map<String, String> cache = tableCacheMap.getCache();
                 cache.put(paramterName, tableName);
                 tableCache.put(sqlKey, tableCacheMap);
+            }
+
+        }
+    }
+
+    /**
+     * tips 加入缓存机制 objectCache
+     *
+     * @notice: 添加规则 同一个sql+ vo查询语句 只有一个 key 可以有多个
+     * @parameter: Class<?> clazz
+     * @parameter: String paramterName
+     * @author: hihuzi 2018/9/24 18:22
+     */
+    public void add(String sqlKey,
+                    CacheBean bean) {
+
+        SQLBean sqlBean = null;
+        if (bean instanceof SQLBean) {
+            sqlBean = (SQLBean) bean;
+            if (null == objectCache) {
+                objectCache = new HashMap<>(20);
+                objectCache.put(sqlKey, sqlBean);
+            } else if (null == objectCache.get(sqlKey)) {
+                objectCache.put(sqlKey, sqlBean);
             }
 
         }

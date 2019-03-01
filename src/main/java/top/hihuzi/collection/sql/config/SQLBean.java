@@ -1,6 +1,8 @@
 package top.hihuzi.collection.sql.config;
 
 
+import top.hihuzi.collection.cache.ClassCache;
+import top.hihuzi.collection.config.CacheBean;
 import top.hihuzi.collection.exception.NoticeException;
 import top.hihuzi.collection.utils.MD5;
 
@@ -12,7 +14,7 @@ import java.util.*;
  *
  * @author: hihuzi 2019/2/15 17:13
  */
-public class SQLBean {
+public class SQLBean implements CacheBean {
 
 
     /**
@@ -133,6 +135,8 @@ public class SQLBean {
 
     public SQLBean build() {
 
+        CacheBean oCache = ClassCache.getOCache(key());
+        if (null != oCache) return (SQLBean) oCache;
         Map<String, String> map = null;
         if (1 == this.clazz.size()) {
             map = new HashMap<>(1);
@@ -146,20 +150,32 @@ public class SQLBean {
         Set<String> repeatTemp = new HashSet<>(this.clazz.size());
         map = new HashMap<>(this.clazz.size());
         if (null == this.nick) {
-            for (int i = 0; i < this.clazz.size(); i++) {
-                map.put(this.clazz.get(i).getName(), "");
-                achieveClassFields(repeatTemp, i);
+            if (this.repeat == null || 0 == this.repeat.size()) {
+                for (int i = 0; i < this.clazz.size(); i++) {
+                    map.put(this.clazz.get(i).getName(), "");
+                    achieveClassFields(repeatTemp, this.clazz.get(i));
+                }
+            } else {
+                for (int i = 0; i < this.clazz.size(); i++) {
+                    map.put(this.clazz.get(i).getName(), "");
+                }
             }
-            autoAddRepeat(repeatTemp);
             this.nickname = map;
+            ClassCache.get().add(key(), this);
             return this;
         }
-        for (int i = 0; i < this.clazz.size(); i++) {
-            map.put(this.clazz.get(i).getName(), i <= nick.size() - 1 ? nick.get(i) : "");
-            achieveClassFields(repeatTemp, i);
+        if (this.repeat == null || 0 == this.repeat.size()) {
+            for (int i = 0; i < this.clazz.size(); i++) {
+                map.put(this.clazz.get(i).getName(), i <= nick.size() - 1 ? nick.get(i) : "");
+                achieveClassFields(repeatTemp, this.clazz.get(i));
+            }
+        } else {
+            for (int i = 0; i < this.clazz.size(); i++) {
+                map.put(this.clazz.get(i).getName(), i <= nick.size() - 1 ? nick.get(i) : "");
+            }
         }
-        autoAddRepeat(repeatTemp);
         this.nickname = map;
+        ClassCache.get().add(key(), this);
         return this;
     }
 
@@ -168,35 +184,20 @@ public class SQLBean {
      *
      * @author: hihuzi 2019/2/28 14:58
      */
-    private void achieveClassFields(Set<String> repeatTemp, int i) {
+    private void achieveClassFields(Set<String> repeatTemp, Class<?> clazz) {
 
 
-        if (this.repeat == null || 0 == this.repeat.size()) {
-            for (Field field : this.clazz.get(i).getDeclaredFields()) {
-                repeatTemp.add(field.getName());
-            }
-        }
-    }
-
-    /**
-     * tips 获取重复的属性名
-     *
-     * @author: hihuzi 2019/2/28 14:58
-     */
-    private void autoAddRepeat(Set<String> repeatTemp) {
-
-
-        if (this.repeat == null || 0 == this.repeat.size()) {
-            this.repeat = new ArrayList<>(repeatTemp.size());
-            for (Class<?> clazz : this.clazz) {
-                for (Field field : clazz.getDeclaredFields()) {
-                    if (!repeatTemp.contains(field.getName())) {
-                        repeat.add(field.getName());
-                    }
+        this.repeat = new ArrayList<>(this.clazz.size() * 5);
+        for (; Object.class != clazz; clazz = clazz.getSuperclass()) {
+            for (Field field : clazz.getDeclaredFields()) {
+                boolean state = repeatTemp.add(field.getName());
+                if (!state) {
+                    this.repeat.add(field.getName());
                 }
             }
         }
     }
+
 
     public String key() {
 
