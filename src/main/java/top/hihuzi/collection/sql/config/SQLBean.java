@@ -190,7 +190,7 @@ public class SQLBean {
             this.repeat = new ArrayList<>(repeatTemp.size());
             for (Class<?> clazz : this.clazz) {
                 for (Field field : clazz.getDeclaredFields()) {
-                    if (repeatTemp.contains(field.getName())) {
+                    if (!repeatTemp.contains(field.getName())) {
                         repeat.add(field.getName());
                     }
                 }
