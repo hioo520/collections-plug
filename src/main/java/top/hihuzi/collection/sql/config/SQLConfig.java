@@ -24,96 +24,28 @@ public class SQLConfig implements Config {
 
     private SQLEeum sqlEeum;
 
-    public SQLConfig(DateStyleEnum dateStyleEnum, ReturnEnum returnEnum) {
-
-        this.dateStyleEnum = dateStyleEnum;
-        this.returnEnum = returnEnum;
-
-    }
-
-    public SQLConfig(ReturnEnum returnEnum, DateStyleEnum dateStyleEnum) {
-
-        this.returnEnum = returnEnum;
-        this.dateStyleEnum = dateStyleEnum;
-
-    }
-
-    public SQLConfig(SQLEeum sqlEeum, DateStyleEnum dateStyleEnum) {
-
-        this.sqlEeum = sqlEeum;
-        this.dateStyleEnum = dateStyleEnum;
-
-    }
-
-    public SQLConfig(ReturnEnum returnEnum, SQLEeum sqlEeum) {
-
-        this.sqlEeum = sqlEeum;
-        this.returnEnum = returnEnum;
-    }
-
-    public SQLConfig(SQLEeum sqlEeum, ReturnEnum returnEnum) {
-
-        this.sqlEeum = sqlEeum;
-        this.returnEnum = returnEnum;
-    }
-
-    public SQLConfig(ReturnEnum returnEnum, DateStyleEnum dateStyleEnum, SQLEeum sqlEeum) {
-
-        this.sqlEeum = sqlEeum;
-        this.returnEnum = returnEnum;
-        this.dateStyleEnum = dateStyleEnum;
-
-    }
-
-
     /**
      * tips: 默认
      *
      * @notice: saveStyleEnum=SaveStyleEnum.DEFAULT
      * @author: hihuzi 2018/9/30 10:59
      **/
-    public SQLConfig() {
 
-    }
+    public <E> SQLConfig(E... e) {
 
-    public SQLConfig(SaveStyleEnum saveStyleEnum, ReturnNameEnum returnNameEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-        this.returnNameEnum = returnNameEnum;
-    }
-
-    public SQLConfig(SaveStyleEnum saveStyleEnum, ReturnNameEnum returnNameEnum, DateStyleEnum dateStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-        this.returnNameEnum = returnNameEnum;
-        this.dateStyleEnum = dateStyleEnum;
-    }
-
-    public SQLConfig(SaveStyleEnum saveStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-    }
-
-    public SQLConfig(DateStyleEnum dateStyleEnum) {
-
-        this.dateStyleEnum = dateStyleEnum;
-    }
-
-    public SQLConfig(ReturnEnum returnEnum) {
-
-        this.returnEnum = returnEnum;
-    }
-
-    public SQLConfig(SQLEeum sqlEeum) {
-
-        this.sqlEeum = sqlEeum;
-    }
-
-    public SQLConfig(SQLEeum sqlEeum, ReturnEnum returnEnum, ReturnNameEnum returnNameEnum) {
-        this.sqlEeum = sqlEeum;
-        this.returnNameEnum = returnNameEnum;
-        this.returnNameEnum = returnNameEnum;
-
+        for (E ex : e) {
+            if (ex instanceof SaveStyleEnum) {
+                this.saveStyleEnum = (SaveStyleEnum) ex;
+            } else if (ex instanceof ReturnNameEnum) {
+                this.returnNameEnum = (ReturnNameEnum) ex;
+            } else if (ex instanceof DateStyleEnum) {
+                this.dateStyleEnum = (DateStyleEnum) ex;
+            } else if (ex instanceof ReturnEnum) {
+                this.returnEnum = (ReturnEnum) ex;
+            } else if (ex instanceof SQLEeum) {
+                this.sqlEeum = (SQLEeum) ex;
+            }
+        }
     }
 
     public SaveStyleEnum getSaveStyleEnum() {
@@ -121,11 +53,6 @@ public class SQLConfig implements Config {
         return null != saveStyleEnum ? saveStyleEnum : SaveStyleEnum.DEFAULT;
     }
 
-    public SQLConfig setSaveStyleEnum(SaveStyleEnum saveStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-        return this;
-    }
 
     public ReturnNameEnum getReturnNameEnum() {
 

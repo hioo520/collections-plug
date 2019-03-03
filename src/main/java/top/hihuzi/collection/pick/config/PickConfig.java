@@ -41,62 +41,19 @@ public class PickConfig implements Config {
      * @notice: this.dateStyleEnum = DateStyleEnum.DEFAULT.setFormartStyle(DATE_FORMART);
      * @author: hihuzi 2018/9/30 8:59
      **/
-    public PickConfig() {
+    public <E> PickConfig(E... e) {
 
-    }
-
-    public PickConfig(SaveStyleEnum saveStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-    }
-
-    public PickConfig(ReturnStyleEnum returnStyleEnum, ReturnNameEnum returnNameEnum, SaveStyleEnum saveStyleEnum) {
-
-        this.returnNameEnum = returnNameEnum;
-        this.returnStyleEnum = returnStyleEnum;
-        this.saveStyleEnum = saveStyleEnum;
-    }
-
-    public PickConfig(ReturnNameEnum returnNameEnum) {
-
-        this.returnNameEnum = returnNameEnum;
-    }
-
-    public PickConfig(SaveStyleEnum saveStyleEnum, DateStyleEnum dateStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-        this.dateStyleEnum = dateStyleEnum;
-    }
-
-    public PickConfig(ReturnNameEnum returnNameEnum, SaveStyleEnum saveStyleEnum) {
-
-        this.returnNameEnum = returnNameEnum;
-        this.saveStyleEnum = saveStyleEnum;
-    }
-
-    public PickConfig(ReturnNameEnum returnNameEnum, SaveStyleEnum saveStyleEnum, DateStyleEnum dateStyleEnum) {
-
-        this.returnNameEnum = returnNameEnum;
-        this.saveStyleEnum = saveStyleEnum;
-        this.dateStyleEnum = dateStyleEnum;
-    }
-
-    public PickConfig(ReturnStyleEnum returnStyleEnum) {
-
-        this.returnStyleEnum = returnStyleEnum;
-    }
-
-    public PickConfig(DateStyleEnum dateStyleEnum) {
-
-        this.dateStyleEnum = dateStyleEnum;
-    }
-
-    public PickConfig(ReturnNameEnum returnNameEnum, ReturnStyleEnum returnStyleEnum, SaveStyleEnum saveStyleEnum, DateStyleEnum dateStyleEnum) {
-
-        this.returnNameEnum = returnNameEnum;
-        this.returnStyleEnum = returnStyleEnum;
-        this.saveStyleEnum = saveStyleEnum;
-        this.dateStyleEnum = dateStyleEnum;
+        for (E ex : e) {
+            if (ex instanceof SaveStyleEnum) {
+                this.saveStyleEnum = (SaveStyleEnum) ex;
+            } else if (ex instanceof ReturnNameEnum) {
+                this.returnNameEnum = (ReturnNameEnum) ex;
+            } else if (ex instanceof DateStyleEnum) {
+                this.dateStyleEnum = (DateStyleEnum) ex;
+            } else if (ex instanceof ReturnStyleEnum) {
+                this.returnStyleEnum = (ReturnStyleEnum) ex;
+            }
+        }
     }
 
     public ReturnNameEnum getReturnNameEnum() {

@@ -25,56 +25,25 @@ public class FillConfig implements Config {
 
     private ReturnEnum returnEnum;
 
-    public FillConfig(DateStyleEnum dateStyleEnum, ReturnEnum returnEnum) {
-
-        this.dateStyleEnum = dateStyleEnum;
-        this.returnEnum = returnEnum;
-
-    }
-
-    public FillConfig(ReturnEnum returnEnum, DateStyleEnum dateStyleEnum) {
-
-        this.returnEnum = returnEnum;
-        this.dateStyleEnum = dateStyleEnum;
-
-    }
-
     /**
      * tips: 默认
      *
      * @notice: saveStyleEnum=SaveStyleEnum.DEFAULT
      * @author: hihuzi 2018/9/30 10:59
      **/
-    public FillConfig() {
+    public <E> FillConfig(E... e) {
 
-    }
-
-    public FillConfig(SaveStyleEnum saveStyleEnum, SortStyleEnum sortStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-        this.sortStyleEnum = sortStyleEnum;
-    }
-
-    public FillConfig(SaveStyleEnum saveStyleEnum, SortStyleEnum sortStyleEnum, DateStyleEnum dateStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-        this.sortStyleEnum = sortStyleEnum;
-        this.dateStyleEnum = dateStyleEnum;
-    }
-
-    public FillConfig(SaveStyleEnum saveStyleEnum) {
-
-        this.saveStyleEnum = saveStyleEnum;
-    }
-
-    public FillConfig(DateStyleEnum dateStyleEnum) {
-
-        this.dateStyleEnum = dateStyleEnum;
-    }
-
-    public FillConfig(ReturnEnum returnEnum) {
-
-        this.returnEnum = returnEnum;
+        for (E ex : e) {
+            if (ex instanceof SaveStyleEnum) {
+                this.saveStyleEnum = (SaveStyleEnum) ex;
+            } else if (ex instanceof SortStyleEnum) {
+                this.sortStyleEnum = (SortStyleEnum) ex;
+            } else if (ex instanceof DateStyleEnum) {
+                this.dateStyleEnum = (DateStyleEnum) ex;
+            } else if (ex instanceof ReturnEnum) {
+                this.returnEnum = (ReturnEnum) ex;
+            }
+        }
     }
 
     public SaveStyleEnum getSaveStyleEnum() {
