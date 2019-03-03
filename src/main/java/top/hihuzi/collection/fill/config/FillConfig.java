@@ -82,6 +82,12 @@ public class FillConfig implements Config {
         return null != saveStyleEnum ? saveStyleEnum : SaveStyleEnum.DEFAULT;
     }
 
+    @Override
+    public ReturnNameEnum getReturnNameEnum() {
+
+        return null;
+    }
+
     public FillConfig setSaveStyleEnum(SaveStyleEnum saveStyleEnum) {
 
         this.saveStyleEnum = saveStyleEnum;

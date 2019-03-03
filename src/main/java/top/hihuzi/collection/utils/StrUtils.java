@@ -2,6 +2,8 @@ package top.hihuzi.collection.utils;
 
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -248,6 +250,52 @@ public class StrUtils {
             i++;
         }
         return String.valueOf(buffer);
+    }
+
+    /**
+     * tips 简化创建Map
+     *
+     * @author: hihuzi 18-11-8 下午8:54
+     */
+    public static Map map(Object... args) {
+
+        if (null == args) {
+            return null;
+        }
+        int length = 0;
+        if ((length = args.length) % 2 != 0) {
+            length--;
+        }
+        Map map = new HashMap(length / 2);
+        for (int i = 0; i < length; i += 2) {
+            map.put(args[i], args[i + 1]);
+        }
+        return map;
+    }
+
+    /**
+     * tips 首字母大写
+     *
+     * @author: hihuzi 2019/3/2 19:38
+     */
+    public static String capsHead(String name) {
+
+
+        char[] cs = name.toCharArray();
+        cs[0] -= 32;
+        return String.valueOf(cs);
+    }
+
+    /**
+     * tips 首字母小写
+     *
+     * @author: hihuzi 2019/3/2 19:38
+     */
+    public static String lowerCase(String name) {
+
+        char[] cs = name.toCharArray();
+        cs[0] += 32;
+        return String.valueOf(cs);
     }
 
 }

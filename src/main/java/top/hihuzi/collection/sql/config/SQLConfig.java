@@ -109,6 +109,13 @@ public class SQLConfig implements Config {
         this.sqlEeum = sqlEeum;
     }
 
+    public SQLConfig(SQLEeum sqlEeum, ReturnEnum returnEnum, ReturnNameEnum returnNameEnum) {
+        this.sqlEeum = sqlEeum;
+        this.returnNameEnum = returnNameEnum;
+        this.returnNameEnum = returnNameEnum;
+
+    }
+
     public SaveStyleEnum getSaveStyleEnum() {
 
         return null != saveStyleEnum ? saveStyleEnum : SaveStyleEnum.DEFAULT;

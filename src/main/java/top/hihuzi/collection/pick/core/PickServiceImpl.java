@@ -41,7 +41,7 @@ abstract class PickServiceImpl implements PickMethodFactory {
                 Map map0 = new HashMap(map.size());
                 for (Object obj : map.keySet()) {
                     if (strs.contains(obj)) {
-                        achieveMap(map0, String.valueOf(obj), map.get(obj), config);
+                        PublicMethod.achieveMap(map0, String.valueOf(obj), map.get(obj), config);
                     }
                 }
                 lists.add(map0);
@@ -112,10 +112,10 @@ abstract class PickServiceImpl implements PickMethodFactory {
         switch (config.getReturnStyleEnum()) {
             case DEFAULT:
             case LIST_MAP:
-                achieveMap(map, property, invoke, config);
+                PublicMethod.achieveMap(map, property, invoke, config);
                 break;
             case MAP:
-                achieveMap(maps, property, invoke, config);
+                PublicMethod.achieveMap(maps, property, invoke, config);
                 break;
             case SET:
                 if (invoke != null) {
@@ -127,49 +127,6 @@ abstract class PickServiceImpl implements PickMethodFactory {
             default:
                 throw new NoticeException("数据输出超出配置范围: " + config.getReturnStyleEnum().toString());
 
-        }
-    }
-
-
-    /**
-     * tips 从新命名key
-     *
-     * @parameter:
-     * @return:
-     * @author: hihuzi 2018/9/28 16:03
-     */
-    private void achieveMap(Map map, String key, Object invoke, PickConfig config) {
-
-
-        if (null != invoke) {
-            map.put(achieveKey(key, config), invoke);
-        } else if (config.getSaveStyleEnum().getHaving()) {
-            map.put(achieveKey(key, config), "");
-        }
-    }
-
-    /**
-     * tips 从新命名key
-     *
-     * @parameter:
-     * @return:
-     * @author: hihuzi 2018/9/28 16:03
-     */
-    private String achieveKey(String property, PickConfig config) {
-
-        switch (config.getReturnNameEnum()) {
-            case DEFAULT:
-                return property;
-            case LOWER_CASE:
-                return property.toLowerCase();
-            case UPPER_CASE:
-                return property.toUpperCase();
-            case INITIAL_CAPITAL:
-                return property.substring(0, 1).toUpperCase() + property.substring(1);
-            case CUSTOM_SUFFIX:
-                return config.getReturnNameEnum().getKey() + property;
-            default:
-                throw new NoticeException("命名风格未定义");
         }
     }
 

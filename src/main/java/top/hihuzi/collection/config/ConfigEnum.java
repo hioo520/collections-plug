@@ -235,7 +235,13 @@ public interface ConfigEnum {
          *
          * @author: hihuzi
          */
-        CUSTOM_SUFFIX;
+        CUSTOM_SUFFIX,
+        /**
+         * RenameKey=class_param(首字母小写)
+         *
+         * @author: hihuzi
+         */
+        CLASS_HUMP;
 
         public volatile static ThreadLocal<String> values = new ThreadLocal<String>();
 

@@ -1,6 +1,5 @@
 package top.hihuzi.collection.function;
 
-import lombok.Data;
 import top.hihuzi.collection.exception.NoticeException;
 
 /**
@@ -8,7 +7,6 @@ import top.hihuzi.collection.exception.NoticeException;
  *
  * @author: hihuzi 2018/10/26 11:16
  */
-@Data
 public class Person {
 
     private String name;
@@ -29,7 +27,27 @@ public class Person {
     public static void main(String[] args) {
 
 
-         throw new NoticeException("菜农啊");
+        throw new NoticeException("菜农啊");
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+    public Integer getAge() {
+
+        return age;
+    }
+
+    public void setAge(Integer age) {
+
+        this.age = age;
     }
 
 }

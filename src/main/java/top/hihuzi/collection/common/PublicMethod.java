@@ -3,7 +3,10 @@ package top.hihuzi.collection.common;
 import top.hihuzi.collection.cache.ClassCache;
 import top.hihuzi.collection.cache.ParameterCache;
 import top.hihuzi.collection.cache.SecondCache;
+import top.hihuzi.collection.cache.TypeCache;
 import top.hihuzi.collection.config.Config;
+import top.hihuzi.collection.exception.NoticeException;
+import top.hihuzi.collection.sql.config.SQLBean;
 import top.hihuzi.collection.sql.config.SQLConfig;
 import top.hihuzi.collection.utils.StrUtils;
 
@@ -182,5 +185,79 @@ public class PublicMethod {
         }
         return i;
     }
+
+
+    /**
+     * tips sql+ 处理key  处理value
+     *
+     * @author: hihuzi 2019/3/3 16:10
+     */
+    public static void achieveMap(Map map0, String name, Object value, SQLConfig config, TypeCache typeCache) {
+
+        SQLBean sqlBean = config.getSqlEeum().get();
+        Map<String, String> displayNickname = sqlBean.getDisplayNickname();
+        String paramterName = typeCache.getParamterName();
+        /**notice 查询所有属性**/
+        if (null == displayNickname) {
+            if (sqlBean.getRepeat().contains(paramterName))
+                name = typeCache.getClazz().getSimpleName() + StrUtils.capsHead(paramterName);
+            else
+                name = paramterName;
+        } else {
+            if (!sqlBean.getRepeat().contains(paramterName)) {
+                name = paramterName;
+            } else if (sqlBean.getRepeat().contains(paramterName) && !displayNickname.containsValue(name)) {
+                name = typeCache.getClazz().getSimpleName() + StrUtils.capsHead(paramterName);
+            }
+        }
+        Object val = PublicMethod.processTimeType(typeCache.getParamtertype(), config, value);
+        achieveMap(map0, name, val, config);
+
+    }
+
+    /**
+     * tips 从新命名key
+     *
+     * @parameter:
+     * @return:
+     * @author: hihuzi 2018/9/28 16:03
+     */
+    public static void achieveMap(Map map, String key, Object invoke, Config config) {
+
+
+        if (null != invoke) {
+            map.put(achieveKey(key, config), invoke);
+        } else if (config.getSaveStyleEnum().getHaving()) {
+            map.put(achieveKey(key, config), "");
+        }
+    }
+
+    /**
+     * tips 从新命名key
+     *
+     * @parameter:
+     * @return:
+     * @author: hihuzi 2018/9/28 16:03
+     */
+    private static String achieveKey(String property, Config config) {
+
+        switch (config.getReturnNameEnum()) {
+            case DEFAULT:
+                return property;
+            case LOWER_CASE:
+                return property.toLowerCase();
+            case UPPER_CASE:
+                return property.toUpperCase();
+            case INITIAL_CAPITAL:
+                return StrUtils.capsHead(property);
+            case CUSTOM_SUFFIX:
+                return config.getReturnNameEnum().getKey() + property;
+            case CLASS_HUMP:
+            return property.substring(0, 1).toLowerCase() + property.substring(1);
+            default:
+                throw new NoticeException("命名风格未定义");
+        }
+    }
+
 
 }

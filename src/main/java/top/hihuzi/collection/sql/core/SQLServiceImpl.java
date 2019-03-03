@@ -50,17 +50,11 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                     for (Object obj : map.entrySet()) {
                         Map.Entry entry = (Map.Entry) obj;
                         String names = String.valueOf(entry.getKey());
-                        String values = String.valueOf(entry.getValue());
+                        Object value = entry.getValue();
                         ParameterCache parameterCache = tableNameMatchParameter.get(names);
                         if (null != parameterCache) {
                             TypeCache typeCache = parameterCache.getCache().get(names);
-                            String paramterName = typeCache.getParamterName();
-                            if (sqlBean.getRepeat().contains(paramterName)) {
-                                map0.put(typeCache.getClazz().getSimpleName() + "." + paramterName, PublicMethod.processTimeType(typeCache.getParamtertype(), config, values));
-                            } else {
-                                map0.put(paramterName, PublicMethod.processTimeType(typeCache.getParamtertype(), config, values));
-
-                            }
+                            PublicMethod.achieveMap(map0, names, value, config, typeCache);
                         }
                     }
                     lm.add(map0);
@@ -139,8 +133,12 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                 Iterator iterator = humpToLineMap.entrySet().iterator();
                 int i = 0, size = humpToLineMap.size();
                 int times = 0;
-                if (null != config.getDisplay() && config.getDisplay().size() != 0) {
+                Map<String, String> displayParamAndNickname = null;
+                if (null != config.getDisplay() && 0 != config.getDisplay().size()) {
                     times = PublicMethod.achieveTimes(clazz, config.getDisplay());
+                    if (null != config.getDisplayParamAndNickname()) {
+                        displayParamAndNickname = config.getDisplayParamAndNickname().get(clazz.getSimpleName());
+                    }
                 }
                 while (iterator.hasNext()) {
                     Map.Entry humpToLine = (Map.Entry) iterator.next();
@@ -161,7 +159,9 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                         if (i < size - 1)
                             sql.append(",");
                     } else if (0 != config.getDisplay().size()) {
-                        if (config.getDisplay().contains(param)) {
+                        String nickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(param);
+                        /**notice 处理自定义 输出格式(无昵称指向)**/
+                        if (config.getDisplay().contains(param) && null == nickname) {
                             if (null != config.getNickname() && !"".equals(mark.trim())) {
                                 sql.append(mark + ".");
                             }
@@ -176,7 +176,24 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                                 sql.append(",");
                                 times--;
                             }
+                        } else {
+                            /**notice 处理自定义 输出格式(带昵称指向)**/
+                            if (null != nickname) {
+                                if (null != config.getNickname() && !"".equals(mark.trim())) {
+                                    sql.append(mark + ".");
+                                }
+                                sql.append(table);
+                                if (config.getRepeat() != null && config.getRepeat().contains(param)) {
+                                    sql.append(" " + nickname);
+                                }
+                                ClassCache.get().add((Class<?>) clazz, param, null, nickname, config.key());
+                                if (i < size - 1 && 0 < times - 1) {
+                                    sql.append(",");
+                                    times--;
+                                }
+                            }
                         }
+
                     }
 
                     i++;

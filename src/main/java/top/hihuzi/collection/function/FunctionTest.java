@@ -1,6 +1,5 @@
 package top.hihuzi.collection.function;
 
-import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,12 +12,12 @@ import java.util.stream.Collectors;
  */
 public class FunctionTest {
 
-    public Long getAdd(Long x, Long y,Long z, ParallerEcho<Long, Long, Long> myFunction) {
+    public Long getAdd(Long x, Long y, Long z, ParallerEcho<Long, Long, Long> myFunction) {
 
         return myFunction.handler(x, y);
     }
 
-    @Test
+    //    @Test
     public void testGetAdd() {
 
         Long result = getAdd(1L, 2L, 2L, (x, y) -> {
@@ -31,19 +30,24 @@ public class FunctionTest {
 
         return myFunction.handler(x, y);
     }
-    @Test
+
+    //    @Test
     public void testGetIntToString() {
+
         String result = getIntToString(18, 20, (x, y) -> {
             return "小明的年龄在".concat(String.valueOf(x)).concat("岁到").concat(String.valueOf(y)).concat("岁之间");
         });
         System.out.println(result);
     }
 
-    public List<Person> getPersonsByNameAndAge(String x, String y, ParallerEcho<String, List<Person>,String > myFunction){
+    public List<Person> getPersonsByNameAndAge(String x, String y, ParallerEcho<String, List<Person>, String> myFunction) {
+
         return myFunction.handler(x, y);
     }
-    @Test
+
+    //    @Test
     public void testGetPersonsByNameAndAge() {
+
         List<Person> list = Arrays.asList(
                 new Person("刘亚壮", 20),
                 new Person("张三", 26),

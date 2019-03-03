@@ -170,6 +170,14 @@ public class SQlFactoryTest {
         QQ.na_me,QQ.hi_ght,QQ.id,QQ.a_ge,QQ.s_ex,na_me,hi_ght,a_ge,s_ex,id
         na_me,hi_ght,id,a_ge,s_ex,na_me,hi_ght,a_ge,s_ex,id
         na_me,hi_ght,id,a_ge,s_ex,na_me,hi_ght,a_ge,s_ex,id*/
+        SQLBean bean99 = new SQLBean()
+//                .addUnique("007")
+                .addClazz(new Son(), new Father(), new Mother())
+                .addNickname("son", "father", "mother")
+                .addDisplay("Son.naMe son儿子的名字", "Father.aGe     爸爸的年龄", "sEx", "hiGht", "id")
+                .build();
+        Object sql99 = SQLFactory.batch().getSQL(bean99);
+        System.out.println(sql99);
     }
 
     /**
@@ -320,16 +328,16 @@ public class SQlFactoryTest {
     public void listToEntity4() {
 
         Map map = new HashMap();
-        map.put("so.na_me", "女儿-小丽丽");
-        map.put("so.hi_ght", "1.99");
-        map.put("so.id", "123456789");
-        map.put("so.a_ge", "24");
-        map.put("so.s_ex", "女");
-        map.put("fa.na_me", "爸爸");
-        map.put("fa.hi_ght", "2.03");
-        map.put("fa.a_ge", "28");
-        map.put("fa.s_ex", "男");
-        map.put("fa.birthday", "2012-12-12");
+        map.put("sona_me", "女儿-小丽丽");
+        map.put("sohi_ght", "1.99");
+        map.put("id", "123456789");
+        map.put("soa_ge", "24");
+        map.put("sos_ex", "女");
+        map.put("fana_me", "爸爸");
+        map.put("fahi_ght", "2.03");
+        map.put("faa_ge", "28");
+        map.put("fas_ex", "男");
+        map.put("birthday", "2012-12-12");
         for (int i = 0; i < 2; i++) {
             list.add(map);
         }
@@ -361,16 +369,16 @@ public class SQlFactoryTest {
     public void listToEntity5() {
 
         Map map = new HashMap();
-        map.put("so.na_me", "女儿-小丽丽");
-        map.put("so.hi_ght", "1.99");
-        map.put("so.id", "123456789");
-        map.put("so.a_ge", "24");
-        map.put("so.s_ex", "女");
-        map.put("fa.na_me", "爸爸");
-        map.put("fa.hi_ght", "2.03");
-        map.put("fa.a_ge", "28");
-        map.put("fa.s_ex", "男");
-        map.put("fa.birthday", "2012-12-12");
+        map.put("sona_me", "女儿-小丽丽");
+        map.put("sohi_ght", "1.99");
+        map.put("id", "123456789");
+        map.put("soa_ge", "24");
+        map.put("sos_ex", "女");
+        map.put("fana_me", "爸爸");
+        map.put("fahi_ght", "2.03");
+        map.put("faa_ge", "28");
+        map.put("fas_ex", "男");
+        map.put("birthday", "2012-12-12");
         for (int i = 0; i < 2; i++) {
             list.add(map);
         }
@@ -401,16 +409,16 @@ public class SQlFactoryTest {
     public void listToEntity6() {
 
         Map map = new HashMap();
-        map.put("so.na_me", "女儿-小丽丽");
-        map.put("so.hi_ght", "1.99");
-        map.put("so.id", "123456789");
-        map.put("so.a_ge", "24");
-        map.put("so.s_ex", "女");
-        map.put("fa.na_me", "爸爸");
-        map.put("fa.hi_ght", "2.03");
-        map.put("fa.a_ge", "28");
-        map.put("fa.s_ex", "男");
-        map.put("fa.birthday", "2012-12-12");
+        map.put("sona_me", "女儿-小丽丽");
+        map.put("sohi_ght", "1.99");
+        map.put("id", "123456789");
+        map.put("soa_ge", "24");
+        map.put("sos_ex", "女");
+        map.put("fana_me", "爸爸");
+        map.put("fahi_ght", "2.03");
+        map.put("faa_ge", "28");
+        map.put("fas_ex", "男");
+        map.put("birthday", "2012-12-12");
         for (int i = 0; i < 2; i++) {
             list.add(map);
         }
@@ -444,16 +452,16 @@ public class SQlFactoryTest {
     public void listToEntity7() {
 
         Map map = new HashMap();
-        map.put("so.na_me", "女儿-小丽丽");
-        map.put("so.hi_ght", "1.99");
-        map.put("so.id", "123456789");
-        map.put("so.a_ge", "24");
-        map.put("so.s_ex", "女");
-        map.put("fa.na_me", "爸爸");
-        map.put("fa.hi_ght", "2.03");
-        map.put("fa.a_ge", "28");
-        map.put("fa.s_ex", "男");
-        map.put("fa.birthday", "2012-12-12");
+        map.put("sona_me", "女儿-小丽丽");
+        map.put("sohi_ght", "1.99");
+        map.put("id", "123456789");
+        map.put("soa_ge", "24");
+        map.put("sos_ex", "女");
+        map.put("fana_me", "爸爸");
+        map.put("fahi_ght", "2.03");
+        map.put("faa_ge", "28");
+        map.put("fas_ex", "男");
+        map.put("birthday", "2012-12-12");
         for (int i = 0; i < 2; i++) {
             list.add(map);
         }
@@ -556,6 +564,39 @@ public class SQlFactoryTest {
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
         long end = System.currentTimeMillis();
         System.err.println("------>一千万 耗时" + (end - start) / 1000 + "秒<------");
+    }
+
+    @Test
+    public void listToEntity0007() {
+
+        Map map = new HashMap();
+        map.put("name", "女儿-小丽丽");
+        map.put("sohi_ght", "1.99");
+        map.put("id", "123456789");
+        map.put("age", "24");
+        map.put("sos_ex", "女");
+        map.put("fana_me", "爸爸");
+        map.put("fahi_ght", "2.03");
+        map.put("faa_ge", "28");
+        map.put("sEx", "男");
+        map.put("birthday", "2012-12-12");
+        for (int i = 0; i < 2; i++) {
+            list.add(map);
+        }
+        SQLBean bean = new SQLBean()
+                .addUnique("007")
+                .addClazz(new Son(), new Father())
+                .addNickname("so", "fa")
+                .addDisplay("Son.naMe name", "Son.aGe age", "Father.sEx", "hiGht", "id")
+                .build();
+        Object sql = SQLFactory.batch().getSQL(bean);
+        System.out.println(sql);
+        List<Map> beans = (List<Map>) SQLFactory.batch().listToEntity(list,
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.LISR));
+        List<Map> beans1 = (List<Map>) SQLFactory.batch().listToEntity(list,
+                new SQLConfig(SQLConfig.SQLEeum.DEFAULT.set(bean), SQLConfig.ReturnEnum.LISR, SQLConfig.ReturnNameEnum.CLASS_HUMP));
+        System.out.println(beans);
+
     }
 
 }
