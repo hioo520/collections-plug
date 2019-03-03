@@ -2,7 +2,7 @@ package top.hihuzi.collection.fill.core;
 
 import top.hihuzi.collection.fill.config.FillConfig;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -15,85 +15,85 @@ public class FillService extends FillServiceImpl {
 
 
     /**
-     * tips HttpServletRequest-->MAP    保存空值
+     * tips ServletRequest-->MAP    保存空值
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @return: Map
      * @author: hihuzi 2018/6/14 14:51
      */
     @Override
-    public Map fill(HttpServletRequest request) {
+    public Map fill(ServletRequest request) {
 
         return fillDefault(request, new FillConfig());
     }
 
     /**
-     * tips HttpServletRequest-->MAP   str 去掉没用的字段
+     * tips ServletRequest-->MAP   str 去掉没用的字段
      *
-     * @parameter: HttpServletRequest
+     * @parameter: ServletRequest
      * @parameter: String[]
      * @return: Map
      * @author: hihuzi 2018/6/14 14:51
      */
     @Override
-    public Map fill(HttpServletRequest request, String... str) {
+    public Map fill(ServletRequest request, String... str) {
 
         return fillDefault(request, new FillConfig(), str);
     }
 
     /**
-     * tips HttpServletRequest-->MAP   是否舍弃空值  默认舍弃空字符
+     * tips ServletRequest-->MAP   是否舍弃空值  默认舍弃空字符
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @parameter: FillConfig config
      * @return: Map
      * @author: hihuzi 2018/6/14 14:51
      */
     @Override
-    public Map fill(HttpServletRequest request, FillConfig config) {
+    public Map fill(ServletRequest request, FillConfig config) {
 
         return fillDefault(request, config);
     }
 
     /**
-     * tips HttpServletRequest-->MAP    是否舍弃空值 并且舍弃str特定字段
+     * tips ServletRequest-->MAP    是否舍弃空值 并且舍弃str特定字段
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @parameter: FillConfig config
      * @parameter: String[] key
      * @return: Map
      * @author: hihuzi 2018/6/14 14:51
      */
     @Override
-    public Map fill(HttpServletRequest request, FillConfig config, String... key) {
+    public Map fill(ServletRequest request, FillConfig config, String... key) {
 
         return fillDefault(request, config, key);
     }
 
     /**
-     * tips HttpServletRequest--> obj
+     * tips ServletRequest--> obj
      *
      * @parameter: E
-     * @parameter: HttpServletRequest
+     * @parameter: ServletRequest
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(HttpServletRequest request, E e) {
+    public <E> E fillEntity(ServletRequest request, E e) {
 
         return requestFillEntityDefault(request, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
     }
 
     /**
-     * tips HttpServletRequest--> obj
+     * tips ServletRequest--> obj
      *
      * @parameter: E
-     * @parameter: HttpServletRequest
+     * @parameter: ServletRequest
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(HttpServletRequest request, E e, FillConfig config) {
+    public <E> E fillEntity(ServletRequest request, E e, FillConfig config) {
 
         return requestFillEntityDefault(request, e, config);
     }

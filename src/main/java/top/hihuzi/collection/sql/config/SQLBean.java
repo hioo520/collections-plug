@@ -232,13 +232,9 @@ public class SQLBean implements CacheBean {
         for (int i = 0; i < this.clazz.size(); i++) {
             String mark = (nick != null && i <= nick.size() - 1) ? nick.get(i) : "";
             /**notice 处理没有传重复的字段**/
-            if (this.repeat == null || 0 == this.repeat.size()) {
                 map.put(this.clazz.get(i).getName(), mark);
                 achieveClassFields(repeatTemp, repeats, this.clazz.get(i));
                 this.repeat = new ArrayList<>(repeats);
-            } else {
-                map.put(this.clazz.get(i).getName(), mark);
-            }
             /**notice 处理自定义昵称1.没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
             Map<String, String> paramNickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(this.clazz.get(i).getSimpleName());
             if (null != paramNickname) {

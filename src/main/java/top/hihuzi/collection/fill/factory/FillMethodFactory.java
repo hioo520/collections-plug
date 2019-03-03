@@ -2,7 +2,7 @@ package top.hihuzi.collection.fill.factory;
 
 import top.hihuzi.collection.fill.config.FillConfig;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -14,69 +14,69 @@ import java.util.Map;
 public interface FillMethodFactory extends FillFactory {
 
     /**
-     * tips HttpServletRequest-->MAP
+     * tips ServletRequest-->MAP
      * 默认 方法一 保存空值
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @return: Map
      * @author: hihuzi 2018/6/14 14:51
      */
-    Map fill(HttpServletRequest request);
+    Map fill(ServletRequest request);
 
     /**
-     * tips HttpServletRequest-->MAP
+     * tips ServletRequest-->MAP
      * 方法二 保存空值 并且舍弃str特定字段
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @parameter: String[] key
      * @return: Map
      * @author: hihuzi 2018/7/23 15:05
      */
-    Map fill(HttpServletRequest request, String... key);
+    Map fill(ServletRequest request, String... key);
 
     /**
-     * tips HttpServletRequest-->MAP
+     * tips ServletRequest-->MAP
      * 方法三 是否舍弃空值 并且舍弃str特定字段(默认舍弃空值)
      *
-     * @parameter: HttpServletRequest
+     * @parameter: ServletRequest
      * @parameter: FillConfig
      * @return: Map
      * @author: hihuzi 2018/7/23 15:05
      */
-    Map fill(HttpServletRequest request, FillConfig config);
+    Map fill(ServletRequest request, FillConfig config);
 
     /**
-     * tips HttpServletRequest-->MAP
+     * tips ServletRequest-->MAP
      * 方法四 是否舍弃空值 并且舍弃str特定字段(默认保存空值)
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @parameter: FillConfig config
      * @parameter: String[] key
      * @return: Map
      * @author: hihuzi 2018/7/23 15:05
      */
 
-    Map fill(HttpServletRequest request, FillConfig config, String... key);
+    Map fill(ServletRequest request, FillConfig config, String... key);
 
     /**
-     * tips HttpServletRequest--> obj
+     * tips ServletRequest--> obj
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @parameter: E e
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(HttpServletRequest request, E e);
+    <E> E fillEntity(ServletRequest request, E e);
 
     /**
-     * tips HttpServletRequest--> obj
+     * tips ServletRequest--> obj
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @parameter: E e
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(HttpServletRequest request, E e, FillConfig config);
+    <E> E fillEntity(ServletRequest request, E e, FillConfig config);
 
     /**
      * tips 对MAP数据装填--> 对象

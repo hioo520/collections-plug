@@ -11,13 +11,13 @@ import top.hihuzi.collection.fill.config.FillConfig;
 import top.hihuzi.collection.fill.factory.FillMethodFactory;
 import top.hihuzi.collection.utils.StrUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * tips HttpServletRequest-->MAP    是否舍弃空值 并且舍弃str特定字段
+ * tips ServletRequest-->MAP    是否舍弃空值 并且舍弃str特定字段
  *
  * @author: hihuzi 2018/9/23 16:03
  */
@@ -26,13 +26,13 @@ abstract class FillServiceImpl implements FillMethodFactory {
     /**
      * tips 缓存
      *
-     * @parameter: HttpServletRequest request
+     * @parameter: ServletRequest request
      * @parameter: config config
      * @parameter: String[] key
      * @return: Map
      * @author: hihuzi 2018/9/24 9:36
      */
-    Map fillDefault(HttpServletRequest request, FillConfig config, String... key) {
+    Map fillDefault(ServletRequest request, FillConfig config, String... key) {
 
         Map map = new HashMap(request.getParameterMap().size());
         List<String> exclude = null;
@@ -66,14 +66,14 @@ abstract class FillServiceImpl implements FillMethodFactory {
     }
 
     /**
-     * tips HttpServletRequest--> obj
+     * tips ServletRequest--> obj
      *
      * @parameter: E
-     * @parameter: HttpServletRequest
+     * @parameter: ServletRequest
      * @return: E
      * @author: hihuzi 2018/6/14 14:50
      */
-    <E> E requestFillEntityDefault(HttpServletRequest request, E e, FillConfig config) {
+    <E> E requestFillEntityDefault(ServletRequest request, E e, FillConfig config) {
 
         Enumeration pars = request.getParameterNames();
         Class clazz = e.getClass();

@@ -1,6 +1,6 @@
 package top.hihuzi.collection.utils;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import java.util.*;
 
 /**
@@ -16,7 +16,7 @@ public class ParamUtils {
      *
      * @author: hihuzi 2018/6/14 14:51
      */
-    public static Map fill(HttpServletRequest request) {
+    public static Map fill(ServletRequest request) {
 
         Enumeration pars = request.getParameterNames();
         Map parameter = new HashMap(request.getParameterMap().size());
@@ -32,11 +32,11 @@ public class ParamUtils {
     }
 
     /**
-     * tips HttpServletRequest-->MAP    是否舍弃空值 并且舍弃str特定字段
+     * tips ServletRequest-->MAP    是否舍弃空值 并且舍弃str特定字段
      *
      * @author: hihuzi 2018/6/14 14:51
      */
-    public Map fill(HttpServletRequest request, String... str) {
+    public Map fill(ServletRequest request, String... str) {
 
         Map map = new HashMap(request.getParameterMap().size() - str.length);
         List<String> exclude = null;

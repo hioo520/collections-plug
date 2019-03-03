@@ -6,8 +6,8 @@
 
     <groupId>com.github.hioo520</groupId>
     <artifactId>collections-plus</artifactId>
-    <version>1.2</version>
-    <packaging>pom</packaging>
+    <version>1.2.1</version>
+    <packaging>jar</packaging>
 
     <name>collections-plus</name>
     <description>a simple java api for collection tool extractor and filler. Enhanced VO class processing rich mybatis
