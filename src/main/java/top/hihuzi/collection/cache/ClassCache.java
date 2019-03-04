@@ -62,7 +62,7 @@ public class ClassCache {
      * <p> 从缓存中取出数据(TypeCache)
      *
      * @param clazz Class
-     * @return Map
+     * @return Map cache
      * @author hihuzi 2018/9/24 17:32
      */
     public static Map<String, TypeCache> getCache(Class<?> clazz) {
@@ -74,6 +74,13 @@ public class ClassCache {
         return result;
     }
 
+    /**
+     * Gets cache.
+     *
+     * @param clazz        the clazz
+     * @param paramterName the paramter name
+     * @return the cache
+     */
     public static TypeCache getCache(Class<?> clazz, String paramterName) {
 
         Map<String, TypeCache> result = null;
@@ -83,6 +90,12 @@ public class ClassCache {
         return result.get(paramterName);
     }
 
+    /**
+     * Gets p cache.
+     *
+     * @param clacc the clacc
+     * @return the p cache
+     */
     public static Map<String, ParameterCache> getPCache(Object clacc) {
 
         Class<?> clazz = null;
@@ -102,6 +115,13 @@ public class ClassCache {
         return null;
     }
 
+    /**
+     * Gets p cache.
+     *
+     * @param clacc        the clacc
+     * @param paramterName the paramter name
+     * @return the p cache
+     */
     public static ParameterCache getPCache(Object clacc, String paramterName) {
 
         Class<?> clazz = null;
@@ -124,6 +144,12 @@ public class ClassCache {
     }
 
 
+    /**
+     * Gets t cache.
+     *
+     * @param sqlKey the sql key
+     * @return the t cache
+     */
     public static TableCache getTCache(String sqlKey) {
 
         TableCache result = null;
@@ -133,6 +159,12 @@ public class ClassCache {
         return result;
     }
 
+    /**
+     * Gets o cache.
+     *
+     * @param sqlKey the sql key
+     * @return the o cache
+     */
     public static CacheBean getOCache(String sqlKey) {
 
         CacheBean result = null;
@@ -146,8 +178,7 @@ public class ClassCache {
      * <p> 加入缓存机制 Cache
      *
      * @param clazz        Class
-     * @param paramterName String
-     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @param paramterName String                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
      * @author hihuzi 2018/9/24 18:22
      */
     public void add(Class<?> clazz, String paramterName) {
@@ -160,8 +191,7 @@ public class ClassCache {
      *
      * @param clazz        Class
      * @param paramterName String
-     * @param paramtertype Class
-     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @param paramtertype Class                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
      * @author hihuzi 2018/9/24 18:22
      */
     public void add(Class<?> clazz,
@@ -189,8 +219,7 @@ public class ClassCache {
      * @param paramterName String
      * @param paramtertype Class
      * @param tableName    String
-     * @param sqlKey       String
-     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @param sqlKey       String                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
      * @author hihuzi 2018/9/24 18:22
      */
     public void add(Class<?> clazz,
@@ -231,8 +260,7 @@ public class ClassCache {
      *
      * @param sqlKey       String
      * @param paramterName String
-     * @param tableName    String
-     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @param tableName    String                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
      * @author hihuzi 2018/9/24 18:22
      */
     public void add(String sqlKey,
@@ -259,8 +287,7 @@ public class ClassCache {
      * <p> 加入缓存机制 objectCache
      *
      * @param sqlKey String
-     * @param bean   CacheBean
-     *               <p> 添加规则 同一个sql+ vo查询语句 只有一个 key 可以有多个
+     * @param bean   CacheBean               <p> 添加规则 同一个sql+ vo查询语句 只有一个 key 可以有多个
      * @author hihuzi 2018/9/24 18:22
      */
     public void add(String sqlKey,
@@ -321,6 +348,11 @@ public class ClassCache {
         }
     }
 
+    /**
+     * Get class cache.
+     *
+     * @return the class cache
+     */
     public static ClassCache get() {
 
         if (null == classCache) {

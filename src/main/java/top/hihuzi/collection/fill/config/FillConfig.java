@@ -9,8 +9,9 @@ import java.util.List;
  * <p>: 填充工具 配置工具
  *
  * <p> 默认时间类型是 yyyy-MM-dd
+ *
  * @author hihuzi 2018/9/30 10:08
- **/
+ */
 public class FillConfig implements Config {
 
 
@@ -29,10 +30,11 @@ public class FillConfig implements Config {
      * <p>: 默认
      *
      * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
+     *
      * @param e e
-     * @param <E> es
+     * @param <E> e
      * @author hihuzi 2018/9/30 10:59
-     **/
+     */
     public <E> FillConfig(E... e) {
 
         for (E ex : e) {
@@ -60,17 +62,33 @@ public class FillConfig implements Config {
         return null;
     }
 
+    /**
+     * Sets save style enum.
+     *
+     * @param saveStyleEnum the save style enum
+     * @return the save style enum
+     */
     public FillConfig setSaveStyleEnum(SaveStyleEnum saveStyleEnum) {
 
         this.saveStyleEnum = saveStyleEnum;
         return this;
     }
 
+    /**
+     * Gets sort style enum.
+     *
+     * @return the sort style enum
+     */
     public SortStyleEnum getSortStyleEnum() {
 
         return null != sortStyleEnum ? sortStyleEnum : SortStyleEnum.DEFAULT;
     }
 
+    /**
+     * Sets sort style enum.
+     *
+     * @param sortStyleEnum the sort style enum
+     */
     public void setSortStyleEnum(SortStyleEnum sortStyleEnum) {
 
         this.sortStyleEnum = sortStyleEnum;
@@ -82,6 +100,11 @@ public class FillConfig implements Config {
         return null != dateStyleEnum ? dateStyleEnum : DateStyleEnum.DEFAULT.setFormartStyle(Constants.DATE_FORMART);
     }
 
+    /**
+     * Sets date style enum.
+     *
+     * @param dateStyleEnum the date style enum
+     */
     public void setDateStyleEnum(DateStyleEnum dateStyleEnum) {
 
         this.dateStyleEnum = dateStyleEnum;
@@ -93,6 +116,11 @@ public class FillConfig implements Config {
         return null != returnEnum ? returnEnum : ReturnEnum.DEFAULT;
     }
 
+    /**
+     * Sets return enum.
+     *
+     * @param returnEnum the return enum
+     */
     public void setReturnEnum(ReturnEnum returnEnum) {
 
         this.returnEnum = returnEnum;

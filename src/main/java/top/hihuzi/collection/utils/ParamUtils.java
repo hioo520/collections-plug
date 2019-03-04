@@ -7,14 +7,16 @@ import java.util.*;
  * <p> 通用参数处理 paramter(K v)--转换成 entity
  *
  * <p> 没有缓冲效率比较低(可以用pick 或者fill 工具
- * @author hihuzi  2018/6/14 10:18
+ *
+ * @author hihuzi 2018/6/14 10:18
  */
 public class ParamUtils {
 
     /**
      * <p> 对请求进行参数进行装填--MAP  空值不保存
-     * @return Map
-     * @param  request request
+     *
+     * @param request request
+     * @return Map map
      * @author hihuzi 2018/6/14 14:51
      */
     public static Map fill(ServletRequest request) {
@@ -35,12 +37,10 @@ public class ParamUtils {
     /**
      * <p> ServletRequest--MAP    是否舍弃空值 并且舍弃str特定字段
      *
-     * @author hihuzi 2018/6/14 14:51
-
-     *
      * @param request request
-     * @param str str
-     * @return Map
+     * @param str     str
+     * @return Map map
+     * @author hihuzi 2018/6/14 14:51
      */
     public Map fill(ServletRequest request, String... str) {
 

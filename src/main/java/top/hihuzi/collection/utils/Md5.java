@@ -11,7 +11,14 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Md5 {
 
+    /**
+     * String to md 5 string.
+     *
+     * @param psw the psw
+     * @return the string
+     */
     public static String stringToMd5(String psw) {
+
         {
             try {
                 MessageDigest md5 = MessageDigest.getInstance("MD5");

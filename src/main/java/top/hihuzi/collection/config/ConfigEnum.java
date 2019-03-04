@@ -16,7 +16,7 @@ public interface ConfigEnum {
      * <p>: 返回值(value)规则
      *
      * @author hihuzi 2018/9/29 14:54
-     **/
+     */
     enum SaveStyleEnum {
         /**
          * 所有都保存
@@ -27,8 +27,9 @@ public interface ConfigEnum {
          * <p>: 对 (null or "")不处理 都保存
          *
          * <p> NULL
+         *
          * @author hihuzi 2018/9/29 17:21
-         **/
+         */
         REMOVE_NULL_EMPTY(false);
 
         private Boolean isHaving;
@@ -40,9 +41,10 @@ public interface ConfigEnum {
 
         /**
          * <p>: 判断是否存在Null empty "" "   "
-         * @return Boolean
+         *
+         * @return Boolean having
          * @author hihuzi 2018/9/30 8:52
-         **/
+         */
         public Boolean getHaving() {
 
             return isHaving;
@@ -53,8 +55,9 @@ public interface ConfigEnum {
      * <p>: 时间规则定制
      *
      * <p>默认 yyyy-MM-dd
+     *
      * @author hihuzi 2018/9/29 14:54
-     **/
+     */
     enum DateStyleEnum {
         /**
          * <p>  默认时间风格规则
@@ -68,11 +71,22 @@ public interface ConfigEnum {
          */
         public volatile static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>();
 
+        /**
+         * Gets formart style.
+         *
+         * @return the formart style
+         */
         public SimpleDateFormat getFormartStyle() {
 
             return dateFormat.get();
         }
 
+        /**
+         * Sets formart style.
+         *
+         * @param formartStyle the formart style
+         * @return the formart style
+         */
         public DateStyleEnum setFormartStyle(String formartStyle) {
 
             SimpleDateFormat res = dateFormat.get();
@@ -88,20 +102,34 @@ public interface ConfigEnum {
      * <p>: 排序规则定制
      *
      * @author hihuzi 2018/9/29 14:54
-     **/
+     */
     enum SortStyleEnum {
         /**
          * 默认排序规则
          */
         DEFAULT;
 
+        /**
+         * The constant values.
+         */
         public volatile static ThreadLocal<Integer[]> values = new ThreadLocal<Integer[]>();
 
+        /**
+         * Get sort integer [ ].
+         *
+         * @return the integer [ ]
+         */
         public Integer[] getSort() {
 
             return values.get();
         }
 
+        /**
+         * Sets sort.
+         *
+         * @param sort the sort
+         * @return the sort
+         */
         public SortStyleEnum setSort(Integer[] sort) {
 
             Integer[] res = values.get();
@@ -118,8 +146,9 @@ public interface ConfigEnum {
      * <p>: 返回数据泛型类型
      *
      * <p> 通用枚举
+     *
      * @author hihuzi 2018/9/29 14:54
-     **/
+     */
     enum ReturnEnum {
         /**
          * 默认和LIST返回一致
@@ -143,17 +172,28 @@ public interface ConfigEnum {
          */
         FILL_CLASS;
 
+        /**
+         * The constant values.
+         */
         public volatile static ThreadLocal<List[]> values = new ThreadLocal<List[]>();
 
         /**
-         * @return List[]
+         * Get list list [ ].
+         *
+         * @return List[] list [ ]
          * @author hihuzi 2018/9/30 8:52
-         **/
+         */
         public List[] getList() {
 
             return values.get();
         }
 
+        /**
+         * Sets list.
+         *
+         * @param list the list
+         * @return the list
+         */
         public ReturnEnum setList(List... list) {
 
             List[] res = values.get();
@@ -168,7 +208,7 @@ public interface ConfigEnum {
      * <p>: 返回类型枚举
      *
      * @author hihuzi 2018/9/29 14:54
-     **/
+     */
     enum ReturnStyleEnum {
         /**
          * value=1: 返回类型:List(Map)
@@ -202,8 +242,9 @@ public interface ConfigEnum {
      * <p>: 自定义返回Key
      *
      * <p> 通用枚举
+     *
      * @author hihuzi 2018/9/29 14:54
-     **/
+     */
     enum ReturnNameEnum {
         /**
          * RenameKey="0":默认 属性名输出
@@ -244,16 +285,30 @@ public interface ConfigEnum {
          */
         CLASS_HUMP;
 
+        /**
+         * The constant values.
+         */
         public volatile static ThreadLocal<String> values = new ThreadLocal<String>();
 
         private String value;
 
 
+        /**
+         * Gets key.
+         *
+         * @return the key
+         */
         public String getKey() {
 
             return values.get();
         }
 
+        /**
+         * Sets key.
+         *
+         * @param mark the mark
+         * @return the key
+         */
         public ReturnNameEnum setKey(String mark) {
 
             String res = values.get();
@@ -277,8 +332,17 @@ public interface ConfigEnum {
          */
         DEFAULT;
 
+        /**
+         * The constant values.
+         */
         public volatile static ThreadLocal<SqlBean> values = new ThreadLocal<SqlBean>();
 
+        /**
+         * Set sql eeum.
+         *
+         * @param sqlBean the sql bean
+         * @return the sql eeum
+         */
         public SqlEeum set(SqlBean sqlBean) {
 
             SqlBean res = values.get();
@@ -290,6 +354,11 @@ public interface ConfigEnum {
             return this;
         }
 
+        /**
+         * Get sql bean.
+         *
+         * @return the sql bean
+         */
         public SqlBean get() {
 
             return values.get();

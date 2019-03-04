@@ -12,7 +12,8 @@ public interface FillFactory {
 
     /**
      * <p> 获取填充工具工厂
-     * @return FillMethodFactory
+     *
+     * @return FillMethodFactory fill method factory
      * @author hihuzi 2018/9/23 22:59
      */
     static FillMethodFactory batch() {

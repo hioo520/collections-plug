@@ -17,10 +17,11 @@ public interface SqlMethodFactory extends SqlFactory {
      * <p> sql+ 增强工具(带缓存) 自动填充对象
      *
      * <p> 返回值  List(Map) "Map(String,List(E) list(E)
-     * @return Object
+     *
      * @param <E>    e
      * @param list   e
      * @param config e
+     * @return Object object
      * @author hihuzi 2019/2/14 9:08
      */
     public <E> Object listToEntity(List<Map> list, SqlConfig config);
@@ -29,10 +30,11 @@ public interface SqlMethodFactory extends SqlFactory {
      * <p> sql+ 增强工具(带缓存) 自动填充对象
      *
      * <p> 返回值  List(Map) "Map(String,List(E) list(E)
-     * @return Object
+     *
      * @param <E>  e
-     * @param e    e
      * @param list e
+     * @param e    e
+     * @return Object object
      * @author hihuzi 2019/2/14 9:08
      */
     public <E> Object listToEntity(List<Map> list, E... e);
@@ -42,11 +44,11 @@ public interface SqlMethodFactory extends SqlFactory {
      *
      * <p> 返回值  List(Map) "Map(String,List(E) list(E)
      *
+     * @param <E>    E
      * @param list   list
      * @param config config
      * @param e      e
-     * @param <E>    E
-     * @return Object
+     * @return Object object
      * @author hihuzi 2019/2/14 9:08
      */
     public <E> Object listToEntity(List<Map> list, SqlConfig config, E... e);
@@ -55,9 +57,10 @@ public interface SqlMethodFactory extends SqlFactory {
      * <p> sql+ 增强工具(带缓存) 自动填充对象
      *
      * <p> 返回值  List(Map) "Map(String,List(E) list(E)
-     * @return Object
+     *
      * @param <E>    e
      * @param config config
+     * @return Object sql
      * @author hihuzi 2019/2/14 9:08
      */
     public <E> Object getSQL(SqlBean config);

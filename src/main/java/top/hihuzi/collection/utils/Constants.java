@@ -4,8 +4,9 @@ package top.hihuzi.collection.utils;
  * <p>:
  *
  * <p>
+ *
  * @author hihuzi 2018/9/29 10:45
- **/
+ */
 public class Constants {
 
     /**

@@ -18,13 +18,13 @@ public class ValueHandleCache {
     /**
      * <p> 对对象进行注入值
      *
-     * @param e  e
-     * @param method  method
-     * @param value  value
-     * @param fieldType  fieldType
-     * @param config  config
+     * @param <E>       E
+     * @param e         e
+     * @param method    method
+     * @param value     value
+     * @param fieldType fieldType
+     * @param config    config
      * @param typeEnum  typeEnum
-     * @param <E>  E
      * @author hihuzi 2018/7/19 10:26
      */
     public static <E> void invokeValue(E e, Method method, String value, String fieldType, Config config, TypeEnum typeEnum) {
@@ -138,7 +138,7 @@ public class ValueHandleCache {
      * @param clazz  Class
      * @param config Config
      * @param obj    Object
-     * @return Object
+     * @return Object object
      * @author hihuzi 2018/10/10 19:30
      */
     public static Object processingTimeType(Class<?> clazz, Config config, Object obj) {
@@ -238,6 +238,11 @@ public class ValueHandleCache {
 
         }
 
+        /**
+         * Gets value.
+         *
+         * @return the value
+         */
         public String getValue() {
 
             return value;

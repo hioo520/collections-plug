@@ -106,22 +106,43 @@ public class SqlBean implements CacheBean {
         this.display = display;
     }
 
+    /**
+     * Instantiates a new Sql bean.
+     */
     public SqlBean() {
 
 
     }
 
+    /**
+     * Add unique sql bean.
+     *
+     * @param unique the unique
+     * @return the sql bean
+     */
     public SqlBean addUnique(Object unique) {
 
         this.unique = String.valueOf(unique);
         return this;
     }
 
+    /**
+     * Gets clazz.
+     *
+     * @return the clazz
+     */
     public List<Class<?>> getClazz() {
 
         return clazz;
     }
 
+    /**
+     * Add clazz sql bean.
+     *
+     * @param <E> the type parameter
+     * @param e   the e
+     * @return the sql bean
+     */
     public <E> SqlBean addClazz(E... e) {
 
         List<Class<?>> list = new ArrayList<>();
@@ -132,43 +153,89 @@ public class SqlBean implements CacheBean {
         return this;
     }
 
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
     public Map getNickname() {
 
         return nickname;
     }
 
+    /**
+     * Add nickname sql bean.
+     *
+     * @param <E> the type parameter
+     * @param e   the e
+     * @return the sql bean
+     */
     public <E> SqlBean addNickname(E... e) {
 
         nick = (List<String>) Arrays.asList(e);
         return this;
     }
 
+    /**
+     * Gets repeat.
+     *
+     * @return the repeat
+     */
     public List<String> getRepeat() {
 
         return repeat;
     }
 
+    /**
+     * Add repeat sql bean.
+     *
+     * @param <E> the type parameter
+     * @param e   the e
+     * @return the sql bean
+     */
     public <E> SqlBean addRepeat(E... e) {
 
         this.repeat = (List<String>) Arrays.asList(e);
         return this;
     }
 
+    /**
+     * Gets display.
+     *
+     * @return the display
+     */
     public List<String> getDisplay() {
 
         return display;
     }
 
+    /**
+     * Gets display nickname.
+     *
+     * @return the display nickname
+     */
     public Map<String, String> getDisplayNickname() {
 
         return displayNickname;
     }
 
+    /**
+     * Gets display param and nickname.
+     *
+     * @return the display param and nickname
+     */
     public Map<String, Map<String, String>> getDisplayParamAndNickname() {
 
         return displayParamAndNickname;
     }
 
+    /**
+     * Add display sql bean.
+     *
+     * @param <E> the type parameter
+     * @param e   the e
+     * @return the sql bean
+     */
     public <E> SqlBean addDisplay(E... e) {
 
         List<String> displayTemp;
@@ -224,6 +291,11 @@ public class SqlBean implements CacheBean {
         }
     }
 
+    /**
+     * Build sql bean.
+     *
+     * @return the sql bean
+     */
     public SqlBean build() {
 
         CacheBean oCache = ClassCache.getOCache(key());
@@ -300,6 +372,11 @@ public class SqlBean implements CacheBean {
     }
 
 
+    /**
+     * Key string.
+     *
+     * @return the string
+     */
     public String key() {
 
         if (this.unique != null) {

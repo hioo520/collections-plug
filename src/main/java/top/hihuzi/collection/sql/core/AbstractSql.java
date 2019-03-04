@@ -22,8 +22,12 @@ public abstract class AbstractSql implements SqlMethodFactory {
 
     /**
      * <p> 数据库的元组转对象
-     * @param <E> obj
-     * <p> 对象属性和表 遵循驼峰或者下划线命名
+     *
+     * @param <E>    obj <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @param list   the list
+     * @param config the config
+     * @param e      the e
+     * @return the object
      * @author hihuzi 2019/2/11 9:53
      */
     <E> Object listToEntityDefault(List<Map> list, SqlConfig config, E... e) {
@@ -119,6 +123,9 @@ public abstract class AbstractSql implements SqlMethodFactory {
      * <p> 生成SQL 自动 添加  对象的 缓存 和 ParameterCache 和 ClassCache
      *
      * <p>
+     *
+     * @param config the config
+     * @return the sql default
      * @author hihuzi 2019/2/18 14:07
      */
     String getSQLDefault(SqlBean config) {

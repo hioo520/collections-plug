@@ -23,11 +23,11 @@ abstract class AbstractPick implements PickMethodFactory {
     /**
      * <p> 同一对象集合 返回选定字段 集合返回
      *
-     * @param list   List
      * @param <T>    List
+     * @param list   List
      * @param config String[]
      * @param key    PickEnum
-     * @return List
+     * @return List collection
      * @author hihuzi 2018/7/12 8:03
      */
 

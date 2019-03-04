@@ -14,6 +14,12 @@ public class SqlCache {
 
     private static SqlCache sqlCache;
 
+    /**
+     * Gets cache.
+     *
+     * @param key the key
+     * @return the cache
+     */
     public static String getCache(String key) {
 
         if (cache == null) {
@@ -22,6 +28,12 @@ public class SqlCache {
         return cache.get(key);
     }
 
+    /**
+     * Add cache.
+     *
+     * @param sqlKey the sql key
+     * @param sql    the sql
+     */
     public static void addCache(String sqlKey, String sql) {
 
         String isbeing = getCache(sqlKey);
@@ -42,6 +54,11 @@ public class SqlCache {
 
     }
 
+    /**
+     * Get sql cache.
+     *
+     * @return the sql cache
+     */
     public static SqlCache get() {
 
         if (null == sqlCache) {

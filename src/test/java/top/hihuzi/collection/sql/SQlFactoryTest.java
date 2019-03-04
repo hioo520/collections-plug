@@ -21,6 +21,9 @@ public class SQlFactoryTest {
 
     private MockHttpServletRequest request;
 
+    /**
+     * Sets up.
+     */
     @Before
     public void setUp() {
 
@@ -279,6 +282,9 @@ public class SQlFactoryTest {
         "Father.naMe" -> "小丽"*/
     }
 
+    /**
+     * List to entity 3.
+     */
     @Test
     public void listToEntity3() {
 
@@ -324,6 +330,9 @@ public class SQlFactoryTest {
         "Father.naMe" -> "小丽"*/
     }
 
+    /**
+     * List to entity 4.
+     */
     @Test
     public void listToEntity4() {
 
@@ -365,6 +374,9 @@ public class SQlFactoryTest {
             "Father.naMe" -> "爸爸"*/
     }
 
+    /**
+     * List to entity 5.
+     */
     @Test
     public void listToEntity5() {
 
@@ -405,6 +417,9 @@ public class SQlFactoryTest {
             "Father.naMe" -> "爸爸"*/
     }
 
+    /**
+     * List to entity 6.
+     */
     @Test
     public void listToEntity6() {
 
@@ -448,6 +463,9 @@ public class SQlFactoryTest {
             "Father.naMe" -> "爸爸"*/
     }
 
+    /**
+     * List to entity 7.
+     */
     @Test
     public void listToEntity7() {
 
@@ -566,6 +584,9 @@ public class SQlFactoryTest {
         System.err.println("------>一千万 耗时" + (end - start) / 1000 + "秒<------");
     }
 
+    /**
+     * List to entity 0007.
+     */
     @Test
     public void listToEntity0007() {
 

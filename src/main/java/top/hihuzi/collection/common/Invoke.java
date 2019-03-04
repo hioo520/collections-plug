@@ -14,18 +14,17 @@ import java.lang.reflect.Method;
  *
  * @author hihuzi 2018/7/19 10:29
  */
-
 public class Invoke {
 
     /**
      * <p> 处理结果 装填对象
      *
+     * @param <E>    obj
      * @param e      E
      * @param config FillConfig
      * @param clazz  Class
      * @param name   String
      * @param value  String
-     * @param <E> obj
      * @author hihuzi 2019/2/25 14:54
      */
     public static <E> void processResult(E e, FillConfig config, Class clazz, String name, String value) {
@@ -42,11 +41,11 @@ public class Invoke {
     /**
      * 遍历父类 所有 获取属性
      *
+     * @param <E>    obj
      * @param e      E
      * @param name   String
      * @param value  String
      * @param config Config
-     * @param <E> obj
      * @author hihuzi 2018/6/22 9:22
      */
     public static <E> void injectionParameters(E e, String name, String value, Config config) {

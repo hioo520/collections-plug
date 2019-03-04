@@ -51,7 +51,7 @@ public class ParameterCache {
      * @param paramterName String
      * @param paramtertype Class
      * @param tableName    Class
-     * @return TypeCache
+     * @return TypeCache parameter cache
      * @author hihuzi 2018/9/24 23:45
      */
     public static ParameterCache add(Class<?> clazz, String paramterName, Class<?> paramtertype, String tableName) {
@@ -62,7 +62,7 @@ public class ParameterCache {
     /**
      * <p> 获取缓存
      *
-     * @return Map
+     * @return Map cache
      * @author hihuzi 2019/2/12 10:23
      */
     public Map<String, TypeCache> getCache() {
@@ -75,7 +75,7 @@ public class ParameterCache {
      * <p> 获取属性缓存
      *
      * @param tableName tableName
-     * @return TypeCache
+     * @return TypeCache cache
      * @author hihuzi 2019/2/12 10:23
      */
     public TypeCache getCache(String tableName) {

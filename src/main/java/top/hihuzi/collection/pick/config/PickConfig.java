@@ -9,7 +9,7 @@ import top.hihuzi.collection.utils.Constants;
  * <p>
  *
  * @author hihuzi 2018/9/29 16:43
- **/
+ */
 public class PickConfig implements Config {
 
     /**
@@ -40,8 +40,9 @@ public class PickConfig implements Config {
      * <p> this.saveStyleEnum = SaveStyleEnum.DEFAULT;
      * <p> this.returnNameEnum = ReturnNameEnum.DEFAULT;
      * <p> this.dateStyleEnum = DateStyleEnum.DEFAULT.setFormartStyle(DATE_FORMART);
-     * @param <E> e
+     *
      * @param e e
+     * @param <E> e
      * @author hihuzi 2018/9/30 8:59
      */
     public <E> PickConfig(E... e) {
@@ -65,6 +66,12 @@ public class PickConfig implements Config {
         return null != returnNameEnum ? returnNameEnum : ReturnNameEnum.DEFAULT;
     }
 
+    /**
+     * Sets return name enum.
+     *
+     * @param returnNameEnum the return name enum
+     * @return the return name enum
+     */
     public PickConfig setReturnNameEnum(ReturnNameEnum returnNameEnum) {
 
         this.returnNameEnum = null != returnNameEnum ? returnNameEnum : ReturnNameEnum.DEFAULT;
@@ -77,6 +84,12 @@ public class PickConfig implements Config {
         return null != returnStyleEnum ? returnStyleEnum : ReturnStyleEnum.DEFAULT;
     }
 
+    /**
+     * Sets return style enum.
+     *
+     * @param returnStyleEnum the return style enum
+     * @return the return style enum
+     */
     public PickConfig setReturnStyleEnum(ReturnStyleEnum returnStyleEnum) {
 
         this.returnStyleEnum = null != returnStyleEnum ? returnStyleEnum : ReturnStyleEnum.DEFAULT;
@@ -89,6 +102,12 @@ public class PickConfig implements Config {
         return saveStyleEnum != null ? saveStyleEnum : SaveStyleEnum.DEFAULT;
     }
 
+    /**
+     * Sets save style enum.
+     *
+     * @param saveStyleEnum the save style enum
+     * @return the save style enum
+     */
     public PickConfig setSaveStyleEnum(SaveStyleEnum saveStyleEnum) {
 
         this.saveStyleEnum = null != saveStyleEnum ? saveStyleEnum : SaveStyleEnum.DEFAULT;
@@ -107,6 +126,11 @@ public class PickConfig implements Config {
         return null;
     }
 
+    /**
+     * Sets date style enum.
+     *
+     * @param dateStyleEnum the date style enum
+     */
     public void setDateStyleEnum(DateStyleEnum dateStyleEnum) {
 
         this.dateStyleEnum = dateStyleEnum;

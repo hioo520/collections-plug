@@ -77,7 +77,7 @@ public class TypeCache {
      * @param clazz        Class
      * @param paramterName String
      * @param paramtertype Class
-     * @return TypeCache
+     * @return TypeCache type cache
      * @author hihuzi 2018/9/24 23:45
      */
     public static TypeCache add(Class<?> clazz, String paramterName, Class<?> paramtertype) {
@@ -176,41 +176,81 @@ public class TypeCache {
         return null;
     }
 
+    /**
+     * Gets clazz.
+     *
+     * @return the clazz
+     */
     public Class<?> getClazz() {
 
         return clazz;
     }
 
+    /**
+     * Gets method get.
+     *
+     * @return the method get
+     */
     public Method getMethodGet() {
 
         return methodGet;
     }
 
+    /**
+     * Gets method set.
+     *
+     * @return the method set
+     */
     public Method getMethodSet() {
 
         return methodSet;
     }
 
+    /**
+     * Gets paramter name.
+     *
+     * @return the paramter name
+     */
     public String getParamterName() {
 
         return paramterName;
     }
 
+    /**
+     * Gets paramter get.
+     *
+     * @return the paramter get
+     */
     public String getParamterGet() {
 
         return paramterGet;
     }
 
+    /**
+     * Gets paramter set.
+     *
+     * @return the paramter set
+     */
     public String getParamterSet() {
 
         return paramterSet;
     }
 
+    /**
+     * Gets paramtertype.
+     *
+     * @return the paramtertype
+     */
     public Class<?> getParamtertype() {
 
         return paramtertype;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     public ValueHandleCache.TypeEnum getType() {
 
         return type;

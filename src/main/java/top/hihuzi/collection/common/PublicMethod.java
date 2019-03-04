@@ -25,9 +25,9 @@ public class PublicMethod {
     /**
      * <p> 根据对象属性 驼峰转下划线 对应表
      *
-     * @param e   e
      * @param <E> e
-     * @return Map
+     * @param e   e
+     * @return Map hump to line
      * @author hihuzi 2019/2/15 11:24
      */
     public static <E> Map getHumpToLine(E e) {
@@ -50,7 +50,7 @@ public class PublicMethod {
      * @param <E>  e
      * @param list list
      * @param e    e
-     * @return Map
+     * @return Map map
      * @author hihuzi 2019/2/12 14:06
      */
     public static <E> Map<String, ParameterCache> tableNameMatchParameter(Map list, E... e) {
@@ -73,10 +73,10 @@ public class PublicMethod {
     /**
      * <p> 无线递归上级找属性(表和对象属性匹配)(带缓存)
      *
-     * @param e      e
-     * @param config config
      * @param <E>    obj
-     * @return Map
+     * @param config config
+     * @param e      e
+     * @return Map map
      * @author hihuzi 2019/2/12 14:06
      */
     public static <E> Map<String, ParameterCache> tableNameMatchParameter(SqlConfig config, E... e) {
@@ -143,7 +143,7 @@ public class PublicMethod {
      * @param type   type
      * @param config config
      * @param obj    obj
-     * @return Object
+     * @return Object object
      * @author hihuzi 2018/10/10 19:30
      */
     public static Object processingTimeType(Class<?> type, Config config, Object obj) {
@@ -170,7 +170,7 @@ public class PublicMethod {
      * @param type   type
      * @param config config
      * @param obj    obj
-     * @return Object
+     * @return Object object
      * @author hihuzi 2018/10/10 19:30
      */
     public static Object processTimeType(Class<?> type, Config config, Object obj) {
@@ -200,7 +200,7 @@ public class PublicMethod {
      *
      * @param clazz   clazz
      * @param display display
-     * @return int
+     * @return int int
      * @author hihuzi 2019/2/19 17:39
      */
     public static int achieveTimes(Class clazz, List<String> display) {

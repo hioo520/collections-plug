@@ -5,6 +5,9 @@ import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
+/**
+ * The type Son.
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Son extends Mother {

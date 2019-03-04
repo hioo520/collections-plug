@@ -29,7 +29,7 @@ abstract class AbstractFill implements FillMethodFactory {
      * @param request ServletRequest
      * @param config  config
      * @param key     String[]
-     * @return Map
+     * @return Map map
      * @author hihuzi 2018/9/24 9:36
      */
     Map fillDefault(ServletRequest request, FillConfig config, String... key) {
@@ -74,9 +74,11 @@ abstract class AbstractFill implements FillMethodFactory {
     /**
      * <p> ServletRequest--> obj
      *
-     * @param e       E
+     * @param <E>     the type parameter
      * @param request ServletRequest
-     * @return E
+     * @param e       E
+     * @param config  the config
+     * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
     <E> E requestFillEntityDefault(ServletRequest request, E e, FillConfig config) {
@@ -102,9 +104,11 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * <p> 忽略掉不在对象中的属性
      *
-     * @param map map
-     * @param e   E
-     * @return E
+     * @param <E>    the type parameter
+     * @param map    map
+     * @param e      E
+     * @param config the config
+     * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
     <E> E mapFillEntity(Map map, E e, FillConfig config) {
@@ -130,11 +134,11 @@ abstract class AbstractFill implements FillMethodFactory {
     /**
      * <p> E -- Map  针对E与map进行填充
      *
+     * @param <E>    E
      * @param e      e
      * @param map    map
      * @param config config
-     * @param <E>    E
-     * @return Map
+     * @return Map map
      * @author hihuzi 2018/6/26 14:51
      */
     public <E> Map fillMapDefault(E e, Map map, FillConfig config) {
@@ -185,11 +189,11 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * <p> !!!待优化效率!!!
      *
+     * @param <E>    E
      * @param list   list
      * @param e      e
      * @param config config
-     * @param <E>    E
-     * @return List
+     * @return List list
      * @author hihuzi 2018/6/26 14:51
      */
     public <E> List<E> listToEntityDefault(List<String> list, E e, FillConfig config) {
@@ -244,11 +248,11 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * <p> 对象属性和表 遵循驼峰或者下划线命名
      *
-     * @param list list
+     * @param <E>    e
+     * @param list   list
      * @param config config
-     * @param e e
-     * @param <E> e
-     * @return Object
+     * @param e      e
+     * @return Object object
      * @author hihuzi 2019/2/11 9:53
      */
     <E> Object listToClassDefault(List<Map> list, FillConfig config, E... e) {

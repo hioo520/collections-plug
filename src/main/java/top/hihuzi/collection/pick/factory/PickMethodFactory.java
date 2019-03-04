@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * <p> 集合提取器 方法工厂
  *
- * @author hihuzi  2018/6/27 6:50
+ * @author hihuzi 2018/6/27 6:50
  */
 public interface PickMethodFactory extends PickFactory {
 
@@ -18,10 +18,10 @@ public interface PickMethodFactory extends PickFactory {
     /**
      * <p> 从对象集合中取特定字段
      *
+     * @param <E>       e
      * @param list      list
      * @param parameter parameter
-     * @param <E>       e
-     * @return List
+     * @return List list
      * @author hihuzi 2018/7/12 8:03
      */
     <E> List<Map> pick(List<E> list, String... parameter);
@@ -33,7 +33,7 @@ public interface PickMethodFactory extends PickFactory {
      * @param list      list
      * @param config    config
      * @param parameter parameter
-     * @return List
+     * @return List list
      * @author hihuzi 2018/7/12 8:03
      */
     <E> List<Map> pick(List<E> list, PickConfig config, String... parameter);
@@ -41,10 +41,10 @@ public interface PickMethodFactory extends PickFactory {
     /**
      * <p> 从对象集合中取特定字段的value(带控制返回值)(去重)
      *
+     * @param <E>       e
      * @param list      list
      * @param parameter parameter
-     * @param <E>       e
-     * @return Set
+     * @return Set set
      * @author hihuzi 2018/4/30 15:49
      */
     <E> Set pickValue(List<E> list, String... parameter);
@@ -56,7 +56,7 @@ public interface PickMethodFactory extends PickFactory {
      * @param list      list
      * @param config    config
      * @param parameter parameter
-     * @return Set
+     * @return Set set
      * @author hihuzi 2018/4/30 15:49
      */
     <E> Set pickValue(List<E> list, PickConfig config, String... parameter);
@@ -65,9 +65,9 @@ public interface PickMethodFactory extends PickFactory {
      * <p> 单个对象取出特定字段
      *
      * @param <E> e
+     * @param e   e
      * @param key key
-     * @param e e
-     * @return Map
+     * @return Map map
      * @author hihuzi 2018/4/30 15:49
      */
     <E> Map pickValue(E e, String... key);
@@ -79,7 +79,7 @@ public interface PickMethodFactory extends PickFactory {
      * @param e      e
      * @param config config
      * @param key    key
-     * @return Map
+     * @return Map map
      * @author hihuzi 2018/4/30 15:49
      */
     <E> Map pickValue(E e, PickConfig config, String... key);
@@ -89,7 +89,7 @@ public interface PickMethodFactory extends PickFactory {
      *
      * @param map       map
      * @param parameter parameter
-     * @return Map
+     * @return Map map
      * @author hihuzi 2018/8/3 17:09
      */
     Map pickMap(Map map, String... parameter);
@@ -100,7 +100,7 @@ public interface PickMethodFactory extends PickFactory {
      * @param map       map
      * @param config    config
      * @param parameter parameter
-     * @return Map
+     * @return Map map
      * @author hihuzi 2018/8/3 17:09
      */
     Map pickMap(Map map, PickConfig config, String... parameter);
@@ -110,7 +110,7 @@ public interface PickMethodFactory extends PickFactory {
      *
      * @param list list
      * @param key  key
-     * @return List
+     * @return List list
      * @author hihuzi 2018/8/3 17:09
      */
     List<Map> pickList(List<Map> list, String... key);
@@ -121,7 +121,7 @@ public interface PickMethodFactory extends PickFactory {
      * @param list   list
      * @param config config
      * @param key    key
-     * @return Map
+     * @return Map list
      * @author hihuzi 2018/8/3 17:09
      */
     List<Map> pickList(List<Map> list, PickConfig config, String... key);

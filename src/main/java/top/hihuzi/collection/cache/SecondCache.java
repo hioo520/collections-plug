@@ -12,6 +12,12 @@ public class SecondCache {
 
     private volatile static Map<String, Map<String, ParameterCache>> cache;
 
+    /**
+     * Gets cache.
+     *
+     * @param key the key
+     * @return the cache
+     */
     public static Map<String, ParameterCache> getCache(String key) {
 
         if (cache == null) {
@@ -20,6 +26,12 @@ public class SecondCache {
         return cache.get(key);
     }
 
+    /**
+     * Add cache.
+     *
+     * @param key    the key
+     * @param pcache the pcache
+     */
     public static void addCache(String key, Map<String, ParameterCache> pcache) {
 
         Map<String, ParameterCache> isbeing = getCache(key);

@@ -15,7 +15,7 @@ public interface SqlFactory {
     /**
      * <p> sql+ 获取对象
      *
-     * @return SQLMethodFactory
+     * @return SQLMethodFactory sql method factory
      * @author hihuzi 2018/9/23 22:59
      */
     static SqlMethodFactory batch() {

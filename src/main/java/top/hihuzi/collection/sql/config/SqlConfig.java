@@ -7,8 +7,9 @@ import top.hihuzi.collection.utils.Constants;
  * <p>: 填充工具控制器
  *
  * <p> 默认时间类型是 yyyy-MM-dd
+ *
  * @author hihuzi 2018/9/30 10:08
- **/
+ */
 public class SqlConfig implements Config {
 
 
@@ -24,12 +25,12 @@ public class SqlConfig implements Config {
 
     /**
      * <p>: 默认
-     * @param <E> obj
+     *
      * @param e obj
-     * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
+     * @param <E> e
+     *         <p> saveStyleEnum=SaveStyleEnum.DEFAULT
      * @author hihuzi 2018/9/30 10:59
-     **/
-
+     */
     public <E> SqlConfig(E... e) {
 
         for (E ex : e) {
@@ -60,6 +61,11 @@ public class SqlConfig implements Config {
         return null != returnNameEnum ? returnNameEnum : ReturnNameEnum.DEFAULT;
     }
 
+    /**
+     * Sets return name enum.
+     *
+     * @param returnNameEnum the return name enum
+     */
     public void setReturnNameEnum(ReturnNameEnum returnNameEnum) {
 
         this.returnNameEnum = returnNameEnum;
@@ -72,6 +78,11 @@ public class SqlConfig implements Config {
     }
 
 
+    /**
+     * Sets date style enum.
+     *
+     * @param dateStyleEnum the date style enum
+     */
     public void setDateStyleEnum(DateStyleEnum dateStyleEnum) {
 
         this.dateStyleEnum = dateStyleEnum;
@@ -84,16 +95,31 @@ public class SqlConfig implements Config {
     }
 
 
+    /**
+     * Sets return enum.
+     *
+     * @param returnEnum the return enum
+     */
     public void setReturnEnum(ReturnEnum returnEnum) {
 
         this.returnEnum = returnEnum;
     }
 
+    /**
+     * Gets sql eeum.
+     *
+     * @return the sql eeum
+     */
     public SqlEeum getSqlEeum() {
 
         return sqlEeum;
     }
 
+    /**
+     * Sets sql eeum.
+     *
+     * @param sqlEeum the sql eeum
+     */
     public void setSqlEeum(SqlEeum sqlEeum) {
 
         this.sqlEeum = sqlEeum;

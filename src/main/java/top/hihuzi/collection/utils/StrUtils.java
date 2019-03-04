@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
  *
  * @author hihuzi 2018/7/19 8:59
  */
-
 public class StrUtils {
 
     /**
@@ -36,7 +35,7 @@ public class StrUtils {
      * 驼峰转下划线,效率比上面高
      *
      * @param str str
-     * @return String
+     * @return String string
      */
     public static String humpToLine(String str) {
 
@@ -53,7 +52,7 @@ public class StrUtils {
      * <p> 存在一个是  "" 或"  "或 null 返回 true  原名:isNullOrEmpty
      *
      * @param strs strs
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNoE(String... strs) {
@@ -74,7 +73,7 @@ public class StrUtils {
      * <p> 存在一个是  "" 或"  "或 null 返回 false
      *
      * @param strs strs
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNNoE(String... strs) {
@@ -86,7 +85,7 @@ public class StrUtils {
      * <p> 全都是  "" 或"  "或 null 返回 true 原名:isNullButEmpty
      *
      * @param strs strs
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNbE(String... strs) {
@@ -108,7 +107,7 @@ public class StrUtils {
      * <p> 存在一个是  "" 或"  "或 null 返回 true 原名:isNotNullButEmpty
      *
      * @param strs strs
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNNbE(String... strs) {
@@ -121,7 +120,7 @@ public class StrUtils {
      *
      * @param <E>         e
      * @param collections collections
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/5/8 15:36
      */
     public static <E> Boolean isNoEC(Collection<E>... collections) {
@@ -140,7 +139,7 @@ public class StrUtils {
      *
      * @param <E>         e
      * @param collections collections
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/7/7 8:37
      */
     public static <E> Boolean isNNoEC(Collection<E>... collections) {
@@ -153,7 +152,7 @@ public class StrUtils {
      *
      * @param <E> e
      * @param e   e
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/5/10 15:07
      */
     public static <E> Boolean isNoEE(E... e) {
@@ -175,7 +174,7 @@ public class StrUtils {
      *
      * @param <E> e
      * @param e   e
-     * @return Boolean
+     * @return Boolean boolean
      * @author hihuzi 2018/5/10 15:07
      */
     public static <E> Boolean isNNoEE(E... e) {
@@ -187,7 +186,7 @@ public class StrUtils {
      * <p> 获取set + name-- setName
      *
      * @param name String
-     * @return String
+     * @return String string
      * @author hihuzi 2018/9/14 10:36
      */
     public static String achieveSetFunction(String name) {
@@ -201,7 +200,7 @@ public class StrUtils {
      * <p> 获取get + name -- getName
      *
      * @param name String
-     * @return String
+     * @return String string
      * @author hihuzi 2018/9/14 10:36
      */
     public static String achieveGetFunction(String name) {
@@ -210,6 +209,13 @@ public class StrUtils {
 
     }
 
+    /**
+     * Is equals boolean.
+     *
+     * @param names the names
+     * @param name  the name
+     * @return the boolean
+     */
     public static boolean isEquals(String names, String name) {
 
         return name.toLowerCase().equals(names.replaceAll(HUMP, "").toLowerCase());
@@ -219,8 +225,8 @@ public class StrUtils {
      * <p> 拼接对象名称
      *
      * @param <E> e
-     * @param e e
-     * @return String
+     * @param e   e
+     * @return String string
      * @author hihuzi 2019/2/13 17:03
      */
     public static <E> String splicingObjectName(E... e) {
@@ -244,7 +250,7 @@ public class StrUtils {
      * @param <E>  e
      * @param mark e
      * @param e    e
-     * @return String
+     * @return String string
      * @author hihuzi 2019/2/13 17:03
      */
     public static <E> String splicingObjectName(String mark, E... e) {
@@ -267,7 +273,7 @@ public class StrUtils {
      * <p> 简化创建Map
      *
      * @param args a
-     * @return String
+     * @return String map
      * @author hihuzi 18-11-8 下午8:54
      */
     public static Map map(Object... args) {
@@ -290,7 +296,7 @@ public class StrUtils {
      * <p> 首字母大写
      *
      * @param name a
-     * @return String
+     * @return String string
      * @author hihuzi 2019/3/2 19:38
      */
     public static String capsHead(String name) {
@@ -305,7 +311,7 @@ public class StrUtils {
      * <p> 首字母小写
      *
      * @param name a
-     * @return String
+     * @return String string
      * @author hihuzi 2019/3/2 19:38
      */
     public static String lowerCase(String name) {
