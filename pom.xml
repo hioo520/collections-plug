@@ -6,8 +6,8 @@
 
     <groupId>com.github.hioo520</groupId>
     <artifactId>collections-plus</artifactId>
-    <version>1.2.1</version>
-    <packaging>jar</packaging>
+    <version>1.2.0</version>
+    <packaging>pom</packaging>
 
     <name>collections-plus</name>
     <description>a simple java api for collection tool extractor and filler. Enhanced VO class processing rich mybatis
@@ -49,21 +49,19 @@
         <developerConnection>git@github.com:hioo520/collections-plug.git</developerConnection>
         <tag>1.0</tag>
     </scm>
-
+    <!--以下包皆用于测试-->
     <developers>
         <developer>
             <name>hi@hu.zi</name>
             <email>hioo520@163.com</email>
         </developer>
     </developers>
-
-
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
-            <scope>provided</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

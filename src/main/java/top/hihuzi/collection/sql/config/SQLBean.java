@@ -4,6 +4,7 @@ package top.hihuzi.collection.sql.config;
 import top.hihuzi.collection.cache.ClassCache;
 import top.hihuzi.collection.config.CacheBean;
 import top.hihuzi.collection.exception.NoticeException;
+import top.hihuzi.collection.utils.Constants;
 import top.hihuzi.collection.utils.MD5;
 import top.hihuzi.collection.utils.StrUtils;
 
@@ -170,17 +171,18 @@ public class SQLBean implements CacheBean {
         } catch (Exception ex) {
             throw new NoticeException("待展示数据必须是String类型");
         }
-        for (String dis : displayTemp) {
+        for (String disp : displayTemp) {
+            String dis = disp.trim();
             if (!(dis.contains(".") || dis.contains(" "))) {
                 this.display.add(dis);
                 /**notice 下面处理自定义昵称1.没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
             } else if (dis.contains(".") && !dis.contains(" ")) {
-                String[] clazztableName = dis.split("\\.");
+                String[] clazztableName = dis.split(Constants.POINT_FORMAT);
                 this.display.add(clazztableName[1]);
                 deployDisplayNickMap(clazztableName[0], clazztableName[1], clazztableName[1]);
             } else if (dis.contains(".") && dis.contains(" ")) {
-                String[] clazzTableName = dis.split("\\.");
-                String[] tableName = clazzTableName[1].split("[\\s]{1,}");
+                String[] clazzTableName = dis.split(Constants.POINT_FORMAT);
+                String[] tableName = clazzTableName[1].split(Constants.BLANK);
                 this.display.add(tableName[0]);
                 deployDisplayNickMap(clazzTableName[0], tableName[0], tableName[1]);
             } else {
@@ -232,9 +234,9 @@ public class SQLBean implements CacheBean {
         for (int i = 0; i < this.clazz.size(); i++) {
             String mark = (nick != null && i <= nick.size() - 1) ? nick.get(i) : "";
             /**notice 处理没有传重复的字段**/
-                map.put(this.clazz.get(i).getName(), mark);
-                achieveClassFields(repeatTemp, repeats, this.clazz.get(i));
-                this.repeat = new ArrayList<>(repeats);
+            map.put(this.clazz.get(i).getName(), mark);
+            achieveClassFields(repeatTemp, repeats, this.clazz.get(i));
+            this.repeat = new ArrayList<>(repeats);
             /**notice 处理自定义昵称1.没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
             Map<String, String> paramNickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(this.clazz.get(i).getSimpleName());
             if (null != paramNickname) {
