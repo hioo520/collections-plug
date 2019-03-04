@@ -28,7 +28,6 @@ public abstract class AbstractSql implements SqlMethodFactory {
      */
     <E> Object listToEntityDefault(List<Map> list, SqlConfig config, E... e) {
 
-        SqlBean sqlBean = config.getSqlEeum().get();
         List<Map> lm = new ArrayList<>(list.size());
         Object newClazz = null;
         Map<String, List<E>> m = null;
@@ -124,9 +123,10 @@ public abstract class AbstractSql implements SqlMethodFactory {
      */
     String getSQLDefault(SqlBean config) {
 
-        StringBuffer sql = new StringBuffer(500);
+        StringBuffer sql = null;
         String caches = SqlCache.getCache(config.key());
         if (null == caches || "".equals(caches)) {
+            sql = new StringBuffer(500);
             int j = 0;
             for (Class clazz : config.getClazz()) {
                 Map humpToLineMap = PublicMethod.getHumpToLine(clazz);
@@ -209,6 +209,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
 
             }
         } else {
+            sql = new StringBuffer(caches.length());
             sql.append(caches);
         }
         SqlCache.addCache(config.key(), String.valueOf(sql));
