@@ -4,10 +4,11 @@ import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.utils.Constants;
 
 /**
- * tips:构造器
+ * <p>:构造器
  *
- * @notices:
- * @author: hihuzi 2018/9/29 16:43
+ * <p>
+ *
+ * @author hihuzi 2018/9/29 16:43
  **/
 public class PickConfig implements Config {
 
@@ -33,14 +34,16 @@ public class PickConfig implements Config {
 
 
     /**
-     * tips: 使用这个构造器所有值都是调用默认值
+     * <p>: 使用这个构造器所有值都是调用默认值
      *
-     * @notice: this.returnNameEnum = ReturnNameEnum.DEFAULT;
-     * @notice: this.saveStyleEnum = SaveStyleEnum.DEFAULT;
-     * @notice: this.returnNameEnum = ReturnNameEnum.DEFAULT;
-     * @notice: this.dateStyleEnum = DateStyleEnum.DEFAULT.setFormartStyle(DATE_FORMART);
-     * @author: hihuzi 2018/9/30 8:59
-     **/
+     * <p> this.returnNameEnum = ReturnNameEnum.DEFAULT;
+     * <p> this.saveStyleEnum = SaveStyleEnum.DEFAULT;
+     * <p> this.returnNameEnum = ReturnNameEnum.DEFAULT;
+     * <p> this.dateStyleEnum = DateStyleEnum.DEFAULT.setFormartStyle(DATE_FORMART);
+     * @param <E> e
+     * @param e e
+     * @author hihuzi 2018/9/30 8:59
+     */
     public <E> PickConfig(E... e) {
 
         for (E ex : e) {
@@ -56,6 +59,7 @@ public class PickConfig implements Config {
         }
     }
 
+    @Override
     public ReturnNameEnum getReturnNameEnum() {
 
         return null != returnNameEnum ? returnNameEnum : ReturnNameEnum.DEFAULT;
@@ -67,6 +71,7 @@ public class PickConfig implements Config {
         return this;
     }
 
+    @Override
     public ReturnStyleEnum getReturnStyleEnum() {
 
         return null != returnStyleEnum ? returnStyleEnum : ReturnStyleEnum.DEFAULT;
@@ -78,6 +83,7 @@ public class PickConfig implements Config {
         return this;
     }
 
+    @Override
     public SaveStyleEnum getSaveStyleEnum() {
 
         return saveStyleEnum != null ? saveStyleEnum : SaveStyleEnum.DEFAULT;
@@ -89,6 +95,7 @@ public class PickConfig implements Config {
         return this;
     }
 
+    @Override
     public DateStyleEnum getDateStyleEnum() {
 
         return null != dateStyleEnum ? dateStyleEnum : DateStyleEnum.DEFAULT.setFormartStyle(Constants.DATE_FORMART);

@@ -6,10 +6,10 @@ import top.hihuzi.collection.utils.Constants;
 import java.util.List;
 
 /**
- * tips: 填充工具 配置工具
+ * <p>: 填充工具 配置工具
  *
- * @notices: 默认时间类型是 yyyy-MM-dd
- * @author: hihuzi 2018/9/30 10:08
+ * <p> 默认时间类型是 yyyy-MM-dd
+ * @author hihuzi 2018/9/30 10:08
  **/
 public class FillConfig implements Config {
 
@@ -26,10 +26,12 @@ public class FillConfig implements Config {
     private ReturnEnum returnEnum;
 
     /**
-     * tips: 默认
+     * <p>: 默认
      *
-     * @notice: saveStyleEnum=SaveStyleEnum.DEFAULT
-     * @author: hihuzi 2018/9/30 10:59
+     * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
+     * @param e e
+     * @param <E> es
+     * @author hihuzi 2018/9/30 10:59
      **/
     public <E> FillConfig(E... e) {
 
@@ -46,6 +48,7 @@ public class FillConfig implements Config {
         }
     }
 
+    @Override
     public SaveStyleEnum getSaveStyleEnum() {
 
         return null != saveStyleEnum ? saveStyleEnum : SaveStyleEnum.DEFAULT;
@@ -73,6 +76,7 @@ public class FillConfig implements Config {
         this.sortStyleEnum = sortStyleEnum;
     }
 
+    @Override
     public DateStyleEnum getDateStyleEnum() {
 
         return null != dateStyleEnum ? dateStyleEnum : DateStyleEnum.DEFAULT.setFormartStyle(Constants.DATE_FORMART);
@@ -83,6 +87,7 @@ public class FillConfig implements Config {
         this.dateStyleEnum = dateStyleEnum;
     }
 
+    @Override
     public ReturnEnum getReturnEnum() {
 
         return null != returnEnum ? returnEnum : ReturnEnum.DEFAULT;

@@ -5,39 +5,39 @@ import top.hihuzi.collection.cache.ClassCache;
 import top.hihuzi.collection.config.CacheBean;
 import top.hihuzi.collection.exception.NoticeException;
 import top.hihuzi.collection.utils.Constants;
-import top.hihuzi.collection.utils.MD5;
+import top.hihuzi.collection.utils.Md5;
 import top.hihuzi.collection.utils.StrUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * tips sql+ 规则定制
+ * <p> sql+ 规则定制
  *
- * @author: hihuzi 2019/2/15 17:13
+ * @author hihuzi 2019/2/15 17:13
  */
-public class SQLBean implements CacheBean {
+public class SqlBean implements CacheBean {
 
 
     /**
-     * tips 唯一性 用于此条SQL 缓存(不设置存在数据紊乱(情况:出现同样检索只是SQL不同时缓存的SQL容易被覆盖))
+     * <p> 唯一性 用于此条SQL 缓存(不设置存在数据紊乱(情况:出现同样检索只是SQL不同时缓存的SQL容易被覆盖))
      *
-     * @author: hihuzi 2019/2/15 10:13
+     * @author hihuzi 2019/2/15 10:13
      */
     private String unique;
 
     /**
-     * tips 待查询的class对象
+     * <p> 待查询的class对象
      *
-     * @author: hihuzi 2019/2/15 10:13
+     * @author hihuzi 2019/2/15 10:13
      */
     private List<Class<?>> clazz;
 
     /**
-     * tips 名称的表昵称 提取表的昵称作为 属性的前缀
+     * <p> 名称的表昵称 提取表的昵称作为 属性的前缀
      *
      * @data: <类名的全称 ,类名的标识mark>
-     * @author: hihuzi 2019/2/15 10:15
+     * @author hihuzi 2019/2/15 10:15
      */
     private Map<String, String> nickname;
 
@@ -49,25 +49,27 @@ public class SQLBean implements CacheBean {
     private List<String> nick;
 
     /**
-     * tips 存在重复属性(也就是重复的列名)
+     * <p> 存在重复属性(也就是重复的列名)
      *
-     * @author: hihuzi 2019/2/15 10:15
+     * @author hihuzi 2019/2/15 10:15
      */
     private List<String> repeat;
 
     /**
-     * tips 需要检索出来的属性(也就是待显示的列名)
+     * <p> 需要检索出来的属性(也就是待显示的列名)
      *
-     * @notice: 没有配置时 是查找全部
-     * @author: hihuzi 2019/2/15 10:15
+     * <p> 没有配置时 是查找全部
+     *
+     * @author hihuzi 2019/2/15 10:15
      */
     private List<String> display;
 
     /**
-     * tips 需要检索出来的属性(自定义)
+     * <p> 需要检索出来的属性(自定义)
      *
-     * @notice: 没有配置时 是查找全部
-     * @author: hihuzi 2019/2/15 10:15
+     * <p> 没有配置时 是查找全部
+     *
+     * @author hihuzi 2019/2/15 10:15
      */
     private List<String> displayDiy;
 
@@ -86,11 +88,16 @@ public class SQLBean implements CacheBean {
     private Map<String, String> displayNickname;
 
     /**
-     * tips 名称的表昵称 (暂存区)
+     * <p> 名称的表昵称 (暂存区)
      *
-     * @author: hihuzi 2019/2/15 10:15
+     * @param unique   unique
+     * @param clazz    clazz
+     * @param nickname nickname
+     * @param repeat   repeat
+     * @param display  display
+     * @author hihuzi 2019/2/15 10:15
      */
-    public SQLBean(String unique, List<Class<?>> clazz, Map nickname, List<String> repeat, List<String> display) {
+    public SqlBean(String unique, List<Class<?>> clazz, Map nickname, List<String> repeat, List<String> display) {
 
         this.unique = unique;
         this.clazz = clazz;
@@ -99,12 +106,12 @@ public class SQLBean implements CacheBean {
         this.display = display;
     }
 
-    public SQLBean() {
+    public SqlBean() {
 
 
     }
 
-    public SQLBean addUnique(Object unique) {
+    public SqlBean addUnique(Object unique) {
 
         this.unique = String.valueOf(unique);
         return this;
@@ -115,7 +122,7 @@ public class SQLBean implements CacheBean {
         return clazz;
     }
 
-    public <E> SQLBean addClazz(E... e) {
+    public <E> SqlBean addClazz(E... e) {
 
         List<Class<?>> list = new ArrayList<>();
         for (E es : e) {
@@ -130,7 +137,7 @@ public class SQLBean implements CacheBean {
         return nickname;
     }
 
-    public <E> SQLBean addNickname(E... e) {
+    public <E> SqlBean addNickname(E... e) {
 
         nick = (List<String>) Arrays.asList(e);
         return this;
@@ -141,7 +148,7 @@ public class SQLBean implements CacheBean {
         return repeat;
     }
 
-    public <E> SQLBean addRepeat(E... e) {
+    public <E> SqlBean addRepeat(E... e) {
 
         this.repeat = (List<String>) Arrays.asList(e);
         return this;
@@ -162,7 +169,7 @@ public class SQLBean implements CacheBean {
         return displayParamAndNickname;
     }
 
-    public <E> SQLBean addDisplay(E... e) {
+    public <E> SqlBean addDisplay(E... e) {
 
         List<String> displayTemp;
         try {
@@ -193,9 +200,12 @@ public class SQLBean implements CacheBean {
     }
 
     /**
-     * tips 配置待显示属性
+     * <p> 配置待显示属性
      *
-     * @author: hihuzi 2019/3/3 9:02
+     * @param className className
+     * @param param     param
+     * @param nickName  nickName
+     * @author hihuzi 2019/3/3 9:02
      */
     private void deployDisplayNickMap(String className, String param, String nickName) {
 
@@ -214,10 +224,12 @@ public class SQLBean implements CacheBean {
         }
     }
 
-    public SQLBean build() {
+    public SqlBean build() {
 
         CacheBean oCache = ClassCache.getOCache(key());
-        if (null != oCache) return (SQLBean) oCache;
+        if (null != oCache) {
+            return (SqlBean) oCache;
+        }
         Map<String, String> map = null;
         if (1 == this.clazz.size()) {
             map = new HashMap<>(1);
@@ -249,9 +261,11 @@ public class SQLBean implements CacheBean {
     }
 
     /**
-     * tips 处理数据成 -->Map<class的匿名+属性名称,属性的昵称>
+     * <p> 处理数据成 --MAP<class的匿名+属性名称,属性的昵称>
      *
-     * @author: hihuzi 2019/3/3 9:46
+     * @param paramNickname
+     * @param mark
+     * @author hihuzi 2019/3/3 9:46
      */
     private void addMark(Map<String, String> paramNickname, String mark) {
 
@@ -264,9 +278,12 @@ public class SQLBean implements CacheBean {
     }
 
     /**
-     * tips 获取并添加属性到Set
+     * <p> 获取并添加属性到Set
      *
-     * @author: hihuzi 2019/2/28 14:58
+     * @param repeatTemp
+     * @param repeats
+     * @param clazz
+     * @author hihuzi 2019/2/28 14:58
      */
     private void achieveClassFields(Set<String> repeatTemp, Set<String> repeats, Class<?> clazz) {
 
@@ -289,7 +306,7 @@ public class SQLBean implements CacheBean {
             return this.unique.toString();
         }
         String s = String.valueOf(this.clazz) + String.valueOf(this.display) + String.valueOf(this.nick) + String.valueOf(this.repeat) + String.valueOf(this.displayNickname);
-        return MD5.StringToMd5(s);
+        return Md5.stringToMd5(s);
 
     }
 

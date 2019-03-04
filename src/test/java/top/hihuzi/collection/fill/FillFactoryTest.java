@@ -12,9 +12,9 @@ import top.hihuzi.collection.fill.factory.FillFactory;
 import java.util.*;
 
 /**
- * tips
+ * <p>
  *
- * @author:hihuzi 2018/7/23 9:21
+ * @author hihuzi 2018/7/23 9:21
  */
 public class FillFactoryTest implements Runnable {
 
@@ -42,9 +42,9 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips HttpServletRequest-->MAP
+     * <p> HttpServletRequest--MAP
      *
-     * @author:hihuzi 2018/7/23 15:05
+     * @author hihuzi 2018/7/23 15:05
      */
     @Test
     public void fill() {
@@ -55,33 +55,33 @@ public class FillFactoryTest implements Runnable {
         request.setParameter("intMin", "   ");
         request.setParameter("intMin", "   ");
         request.setParameter("doubleMin", "");
-        /**tips 填充到request---->Map*/
+        /**<p> 填充到request----MAP*/
         Map map = FillFactory.batch().fill(request);
         map.forEach((o, o2) -> System.out.print(o + "=" + o2 + " "));
         System.out.println("");
-        /**tips 舍弃掉特定字段*/
+        /**<p> 舍弃掉特定字段*/
         Map map0 = FillFactory.batch().fill(request, "stringMax");
         map0.forEach((o, o2) -> System.out.print(o + "=" + o2 + " "));
         System.out.println("");
-        /**tips 舍弃掉空值*/
+        /**<p> 舍弃掉空值*/
         Map map1 = FillFactory.batch().fill(request, new FillConfig(FillConfig.SaveStyleEnum.REMOVE_NULL_EMPTY));
         map1.forEach((o, o2) -> System.out.print(o + "=" + o2 + " "));
         System.out.println("");
-        /**tips 默认属性不舍弃空值*/
+        /**<p> 默认属性不舍弃空值*/
         Map map2 = FillFactory.batch().fill(request, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
         map2.forEach((o, o2) -> System.out.print(o + "=" + o2 + " "));
         System.out.println("");
-        /**tips 舍弃空值 并且去掉特定字段*/
+        /**<p> 舍弃空值 并且去掉特定字段*/
         Map map3 = FillFactory.batch().fill(request, new FillConfig(FillConfig.SaveStyleEnum.REMOVE_NULL_EMPTY), "stringMax");
         map3.forEach((o, o2) -> System.out.print(o + "=" + o2 + " "));
 
     }
 
     /**
-     * tips HttpServletRequest--> obj
-     * tips 对于空字符串处理
+     * <p> HttpServletRequest--> obj
+     * <p> 对于空字符串处理
      *
-     * @author:hihuzi 2018/6/14 14:50
+     * @author hihuzi 2018/6/14 14:50
      */
     @Test
     public void fill_entity_request() {
@@ -115,9 +115,9 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips HttpServletRequest--> obj
+     * <p> HttpServletRequest--> obj
      *
-     * @author:hihuzi 2018/6/14 14:50
+     * @author hihuzi 2018/6/14 14:50
      */
     @Test
     public void fill_entity_request1() {
@@ -152,10 +152,10 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips HttpServletRequest--> obj
-     * tips 针对不同格式针对的处理
+     * <p> HttpServletRequest--> obj
+     * <p> 针对不同格式针对的处理
      *
-     * @author:hihuzi 2018/6/14 14:50
+     * @author hihuzi 2018/6/14 14:50
      */
     @Test
     public void fill_entity_request2() {
@@ -176,10 +176,10 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips Map--> obj
-     * tips 针对不同格式针对的处理
+     * <p> Map--> obj
+     * <p> 针对不同格式针对的处理
      *
-     * @author:hihuzi 2018/6/14 14:50
+     * @author hihuzi 2018/6/14 14:50
      */
     @Test
     public void fill_entity_map() {
@@ -204,14 +204,14 @@ public class FillFactoryTest implements Runnable {
         map.put("doubleMin", "1.94");
         TestBean bean = FillFactory.batch().fillEntity(map, new TestBean());
         Map map1 = new HashMap(5);
-        /**tips 从对象中取出map*/
+        /**<p> 从对象中取出map*/
         Map map2 = FillFactory.batch().fillMap(bean, map1);
         System.out.println(bean.toString());
         map2.forEach((o, o2) -> System.out.print(o + " " + o2));
     }
 
     /**
-     * tips 针对不同时间格式处理不同时间配置(错误的属性直接丢掉)
+     * <p> 针对不同时间格式处理不同时间配置(错误的属性直接丢掉)
      */
     @Test
     public void fill_entity_map0() {
@@ -219,7 +219,7 @@ public class FillFactoryTest implements Runnable {
         Map map = new HashMap(20);
         map.put("stringMax", "你好师姐!!!");
         map.put("dateMax", "2012-12-12");
-        /**tips 错误的属性直接丢掉*/
+        /**<p> 错误的属性直接丢掉*/
         map.put("dat32eMax", "2012-12-12");
 
         TestBean bean = FillFactory.batch().fillEntity(map, new TestBean());
@@ -232,7 +232,7 @@ public class FillFactoryTest implements Runnable {
 
 
         Map map1 = new HashMap(5);
-        /**tips 从对象中取出map*/
+        /**<p> 从对象中取出map*/
         Map map2 = FillFactory.batch().fillMap(bean0, map1,
                 new FillConfig(FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy-MM-dd")));
         map2.forEach((o, o2) -> System.out.print(o + "-->" + o2));
@@ -240,10 +240,10 @@ public class FillFactoryTest implements Runnable {
 
 
     /**
-     * tips List<Map> --> E --> List<E>
-     * tips 针对不同格式对应处理
+     * <p> List<Map> --> E --> List<E>
+     * <p> 针对不同格式对应处理
      *
-     * @author: hihuzi 2018/6/26 14:51
+     * @author hihuzi 2018/6/26 14:51
      */
     @Test
     public void fill_entity_class() {
@@ -275,7 +275,7 @@ public class FillFactoryTest implements Runnable {
         for (TestBean testBean : bean) {
             System.out.println(testBean.toString());
         }
-        /**tips 特殊的时间格式处理*/
+        /**<p> 特殊的时间格式处理*/
 
         map.put("dateMax", "2012!12@12#12-12:12");
         list0.add(map);
@@ -294,9 +294,9 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips list<String> --> E --> list<E> 针对数据库与实体类名有区别
+     * <p> list<String> --> E --> list<E> 针对数据库与实体类名有区别
      *
-     * @author:hihuzi 2018/6/26 14:51
+     * @author hihuzi 2018/6/26 14:51
      */
 
     @Test
@@ -309,7 +309,7 @@ public class FillFactoryTest implements Runnable {
         TestBean bean = FillFactory.batch().fillEntity(map, new TestBean());
         System.out.println(bean);
         Map map1 = new HashMap(5);
-        /**tips 从对象中取出map*/
+        /**<p> 从对象中取出map*/
         map1 = FillFactory.batch().fillMap(bean, map1);
         map1.forEach((o, o2) -> System.out.print(o + "-->" + o2 + " "));
         System.out.println("");
@@ -320,12 +320,12 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips E --> Map  针对E与map进行填充
+     * <p> E --> Map  针对E与map进行填充
      *
-     * @parameter: E e
-     * @parameter: Map map
-     * @parameter: E
-     * @Author: hihuzi 2018/6/26 14:51
+     * @param E e
+     * @param Map map
+     * @param E
+     * @author hihuzi 2018/6/26 14:51
      */
 
     @Test
@@ -363,9 +363,9 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips HttpServletRequest--> obj
+     * <p> HttpServletRequest--> obj
      *
-     * @author:hihuzi 2018/6/14 14:50
+     * @author hihuzi 2018/6/14 14:50
      */
     @Test
     public void list_to_class() {
@@ -393,7 +393,7 @@ public class FillFactoryTest implements Runnable {
         map.put("i_d", "ID_ID-ID-ID");
         list.add(map);
         long start = System.currentTimeMillis();
-        for (int i = 1; i < 1000000; i++) {
+        for (int i = 1; i < 10000; i++) {
             list.add(map);
         }
 
@@ -450,11 +450,11 @@ public class FillFactoryTest implements Runnable {
     }
 
     /**
-     * tips 多线程测试
+     * <p> 多线程测试
      *
-     * @parameter:
-     * @return:
-     * @author: hihuzi 2018/10/21 3:51
+     * @param
+     * @return
+     * @author hihuzi 2018/10/21 3:51
      */
     @Test
     public void mains() {

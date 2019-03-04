@@ -8,9 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * tips 判断是否有空的 对象 实体 集合类
+ * <p> 判断是否有空的 对象 实体 集合类
  *
- * @author: hihuzi 2018/7/19 8:59
+ * @author hihuzi 2018/7/19 8:59
  */
 
 public class StrUtils {
@@ -35,8 +35,8 @@ public class StrUtils {
     /**
      * 驼峰转下划线,效率比上面高
      *
-     * @param str
-     * @return
+     * @param str str
+     * @return String
      */
     public static String humpToLine(String str) {
 
@@ -50,11 +50,11 @@ public class StrUtils {
     }
 
     /**
-     * tips 存在一个是  "" 或"  "或 null 返回 true  原名:isNullOrEmpty
+     * <p> 存在一个是  "" 或"  "或 null 返回 true  原名:isNullOrEmpty
      *
-     * @parameter: string[] strs
-     * @return: Boolean
-     * @author: hihuzi 2018/5/3 16:09
+     * @param strs strs
+     * @return Boolean
+     * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNoE(String... strs) {
 
@@ -70,12 +70,12 @@ public class StrUtils {
     }
 
     /**
-     * tips 不存在  "" 或"  "或 null 返回 true  原名:isNotNullOrEmpty
-     * tips 存在一个是  "" 或"  "或 null 返回 false
+     * <p> 不存在  "" 或"  "或 null 返回 true  原名:isNotNullOrEmpty
+     * <p> 存在一个是  "" 或"  "或 null 返回 false
      *
-     * @parameter: string[] strs
-     * @return: Boolean
-     * @author: hihuzi 2018/5/3 16:09
+     * @param strs strs
+     * @return Boolean
+     * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNNoE(String... strs) {
 
@@ -83,11 +83,11 @@ public class StrUtils {
     }
 
     /**
-     * tips 全都是  "" 或"  "或 null 返回 true 原名:isNullButEmpty
+     * <p> 全都是  "" 或"  "或 null 返回 true 原名:isNullButEmpty
      *
-     * @parameter: string[] strs
-     * @return: Boolean
-     * @author: hihuzi 2018/5/3 16:09
+     * @param strs strs
+     * @return Boolean
+     * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNbE(String... strs) {
 
@@ -105,11 +105,11 @@ public class StrUtils {
     }
 
     /**
-     * tips 存在一个是  "" 或"  "或 null 返回 true 原名:isNotNullButEmpty
+     * <p> 存在一个是  "" 或"  "或 null 返回 true 原名:isNotNullButEmpty
      *
-     * @parameter: string[] strs
-     * @return: Boolean
-     * @author: hihuzi 2018/5/3 16:09
+     * @param strs strs
+     * @return Boolean
+     * @author hihuzi 2018/5/3 16:09
      */
     public static Boolean isNNbE(String... strs) {
 
@@ -117,11 +117,12 @@ public class StrUtils {
     }
 
     /**
-     * tips 存在一个是  null 或size 为0 返回 true 原名:isNullOrEmptyCollections
+     * <p> 存在一个是  null 或size 为0 返回 true 原名:isNullOrEmptyCollections
      *
-     * @parameter: Collection<E>[] collections
-     * @return: Boolean
-     * @author: hihuzi 2018/5/8 15:36
+     * @param <E>         e
+     * @param collections collections
+     * @return Boolean
+     * @author hihuzi 2018/5/8 15:36
      */
     public static <E> Boolean isNoEC(Collection<E>... collections) {
 
@@ -134,12 +135,13 @@ public class StrUtils {
     }
 
     /**
-     * tips 全部不是  null 或size=0 返回 true  原名:isNotNullOrEmptyCollections
-     * tips 存在一个是  null 或size=0 返回 false
+     * <p> 全部不是  null 或size=0 返回 true  原名:isNotNullOrEmptyCollections
+     * <p> 存在一个是  null 或size=0 返回 false
      *
-     * @parameter: Collection<E>[] collections
-     * @return: Boolean
-     * @author: hihuzi 2018/7/7 8:37
+     * @param <E>         e
+     * @param collections collections
+     * @return Boolean
+     * @author hihuzi 2018/7/7 8:37
      */
     public static <E> Boolean isNNoEC(Collection<E>... collections) {
 
@@ -147,11 +149,12 @@ public class StrUtils {
     }
 
     /**
-     * tips t 存在一个是  null  返回 true   原名:isNullOrEmptyEntrty
+     * <p> t 存在一个是  null  返回 true   原名:isNullOrEmptyEntrty
      *
-     * @parameter: E[] e
-     * @return: Boolean
-     * @author: hihuzi 2018/5/10 15:07
+     * @param <E> e
+     * @param e   e
+     * @return Boolean
+     * @author hihuzi 2018/5/10 15:07
      */
     public static <E> Boolean isNoEE(E... e) {
 
@@ -167,12 +170,13 @@ public class StrUtils {
     }
 
     /**
-     * tips e 存在一个是  null  返回 flase  原名:isNotNullOrEmptyEntrty
+     * <p> e 存在一个是  null  返回 flase  原名:isNotNullOrEmptyEntrty
      * e 全都不是 null 返回 true
      *
-     * @parameter: E[] e
-     * @return: Boolean
-     * @author: hihuzi 2018/5/10 15:07
+     * @param <E> e
+     * @param e   e
+     * @return Boolean
+     * @author hihuzi 2018/5/10 15:07
      */
     public static <E> Boolean isNNoEE(E... e) {
 
@@ -180,11 +184,11 @@ public class StrUtils {
     }
 
     /**
-     * tips 获取set + name--> setName
+     * <p> 获取set + name-- setName
      *
-     * @parameter: String name
-     * @return: String
-     * @author: hihuzi 2018/9/14 10:36
+     * @param name String
+     * @return String
+     * @author hihuzi 2018/9/14 10:36
      */
     public static String achieveSetFunction(String name) {
 
@@ -194,11 +198,11 @@ public class StrUtils {
 
 
     /**
-     * tips 获取get + name --> getName
+     * <p> 获取get + name -- getName
      *
-     * @parameter: String name
-     * @return: String
-     * @author: hihuzi 2018/9/14 10:36
+     * @param name String
+     * @return String
+     * @author hihuzi 2018/9/14 10:36
      */
     public static String achieveGetFunction(String name) {
 
@@ -212,9 +216,12 @@ public class StrUtils {
     }
 
     /**
-     * tips 拼接对象名称
+     * <p> 拼接对象名称
      *
-     * @author: hihuzi 2019/2/13 17:03
+     * @param <E> e
+     * @param e e
+     * @return String
+     * @author hihuzi 2019/2/13 17:03
      */
     public static <E> String splicingObjectName(E... e) {
 
@@ -232,9 +239,13 @@ public class StrUtils {
     }
 
     /**
-     * tips 拼接对象名称
+     * <p> 拼接对象名称
      *
-     * @author: hihuzi 2019/2/13 17:03
+     * @param <E>  e
+     * @param mark e
+     * @param e    e
+     * @return String
+     * @author hihuzi 2019/2/13 17:03
      */
     public static <E> String splicingObjectName(String mark, E... e) {
 
@@ -253,9 +264,11 @@ public class StrUtils {
     }
 
     /**
-     * tips 简化创建Map
+     * <p> 简化创建Map
      *
-     * @author: hihuzi 18-11-8 下午8:54
+     * @param args a
+     * @return String
+     * @author hihuzi 18-11-8 下午8:54
      */
     public static Map map(Object... args) {
 
@@ -274,9 +287,11 @@ public class StrUtils {
     }
 
     /**
-     * tips 首字母大写
+     * <p> 首字母大写
      *
-     * @author: hihuzi 2019/3/2 19:38
+     * @param name a
+     * @return String
+     * @author hihuzi 2019/3/2 19:38
      */
     public static String capsHead(String name) {
 
@@ -287,9 +302,11 @@ public class StrUtils {
     }
 
     /**
-     * tips 首字母小写
+     * <p> 首字母小写
      *
-     * @author: hihuzi 2019/3/2 19:38
+     * @param name a
+     * @return String
+     * @author hihuzi 2019/3/2 19:38
      */
     public static String lowerCase(String name) {
 

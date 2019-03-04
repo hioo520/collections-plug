@@ -7,9 +7,9 @@ import top.hihuzi.collection.utils.StrUtils;
 import java.lang.reflect.Method;
 
 /**
- * tips 对象属性 缓存器
+ * <p> 对象属性 缓存器
  *
- * @author: hihuzi 2018/9/24 9:23
+ * @author hihuzi 2018/9/24 9:23
  */
 public class TypeCache {
 
@@ -51,12 +51,12 @@ public class TypeCache {
     private ValueHandleCache.TypeEnum type;
 
     /**
-     * tips 构造器实例化对象
+     * <p> 构造器实例化对象
      *
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @parameter: Class<?> paramtertype
-     * @author: hihuzi 2018/9/24 23:45
+     * @param clazz        Class
+     * @param paramterName String
+     * @param paramtertype Class
+     * @author hihuzi 2018/9/24 23:45
      */
     public TypeCache(Class<?> clazz, String paramterName, Class<?> paramtertype) {
 
@@ -72,13 +72,13 @@ public class TypeCache {
 
 
     /**
-     * tips 构造器实例化对象
+     * <p> 构造器实例化对象
      *
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @parameter: Class<?> paramtertype
-     * @return: TypeCache
-     * @author: hihuzi 2018/9/24 23:45
+     * @param clazz        Class
+     * @param paramterName String
+     * @param paramtertype Class
+     * @return TypeCache
+     * @author hihuzi 2018/9/24 23:45
      */
     public static TypeCache add(Class<?> clazz, String paramterName, Class<?> paramtertype) {
 
@@ -86,12 +86,12 @@ public class TypeCache {
     }
 
     /**
-     * tips 转化为对应的参数类型
+     * <p> 转化为对应的参数类型
      * 针对继承父类方法的解析
      *
-     * @parameter: String paramterName
-     * @return: Class<?> paramtertype
-     * @author: hihuzi 2018/9/24 19:12
+     * @param paramterName String
+     * @return Class
+     * @author hihuzi 2018/9/24 19:12
      */
     private Class<?> conversiontoparamterType(String paramterName) {
 
@@ -118,14 +118,14 @@ public class TypeCache {
     }
 
     /**
-     * tips 转化为对应的方法类型
+     * <p> 转化为对应的方法类型
      * (待优化)
      * 针对继承父类方法的解析
      *
-     * @parameter: String paramter
-     * @parameter: Class<?> paramtertype
-     * @return: Method
-     * @author: hihuzi 2018/9/24 19:12
+     * @param paramter     String
+     * @param paramtertype Class
+     * @return Method
+     * @author hihuzi 2018/9/24 19:12
      */
     private Method conversionToMethod(String paramter, Class<?> paramtertype) {
 
@@ -159,11 +159,11 @@ public class TypeCache {
     }
 
     /**
-     * tips 转化为对应的方法类型
+     * <p> 转化为对应的方法类型
      *
-     * @parameter: Class<?> paramtertype
-     * @return: ValueHandleCache.TypeEnum
-     * @author: hihuzi 2018/9/24 19:12
+     * @param paramtertype Class
+     * @return ValueHandleCache.TypeEnum
+     * @author hihuzi 2018/9/24 19:12
      */
     private ValueHandleCache.TypeEnum conversionToType(Class<?> paramtertype) {
 

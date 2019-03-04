@@ -3,9 +3,9 @@ package top.hihuzi.collection.function;
 import top.hihuzi.collection.exception.NoticeException;
 
 /**
- * tips
+ * <p>
  *
- * @author: hihuzi 2018/10/26 11:16
+ * @author hihuzi 2018/10/26 11:16
  */
 public class Person {
 

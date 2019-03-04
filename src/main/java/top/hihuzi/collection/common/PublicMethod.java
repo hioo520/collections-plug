@@ -6,8 +6,8 @@ import top.hihuzi.collection.cache.SecondCache;
 import top.hihuzi.collection.cache.TypeCache;
 import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.exception.NoticeException;
-import top.hihuzi.collection.sql.config.SQLBean;
-import top.hihuzi.collection.sql.config.SQLConfig;
+import top.hihuzi.collection.sql.config.SqlBean;
+import top.hihuzi.collection.sql.config.SqlConfig;
 import top.hihuzi.collection.utils.StrUtils;
 
 import java.lang.reflect.Field;
@@ -16,16 +16,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * tips 通用公共方法
+ * <p> 通用公共方法
  *
- * @author: hihuzi 2019/2/15 15:03
+ * @author hihuzi 2019/2/15 15:03
  */
 public class PublicMethod {
 
     /**
-     * tips 根据对象属性 驼峰转下划线 对应表
+     * <p> 根据对象属性 驼峰转下划线 对应表
      *
-     * @author: hihuzi 2019/2/15 11:24
+     * @param e   e
+     * @param <E> e
+     * @return Map
+     * @author hihuzi 2019/2/15 11:24
      */
     public static <E> Map getHumpToLine(E e) {
 
@@ -42,9 +45,13 @@ public class PublicMethod {
     }
 
     /**
-     * tips 无线递归上级找属性(表和对象属性匹配)
+     * <p> 无线递归上级找属性(表和对象属性匹配)
      *
-     * @author: hihuzi 2019/2/12 14:06
+     * @param <E>  e
+     * @param list list
+     * @param e    e
+     * @return Map
+     * @author hihuzi 2019/2/12 14:06
      */
     public static <E> Map<String, ParameterCache> tableNameMatchParameter(Map list, E... e) {
 
@@ -64,11 +71,15 @@ public class PublicMethod {
     }
 
     /**
-     * tips 无线递归上级找属性(表和对象属性匹配)(带缓存)
+     * <p> 无线递归上级找属性(表和对象属性匹配)(带缓存)
      *
-     * @author: hihuzi 2019/2/12 14:06
+     * @param e      e
+     * @param config config
+     * @param <E>    obj
+     * @return Map
+     * @author hihuzi 2019/2/12 14:06
      */
-    public static <E> Map<String, ParameterCache> tableNameMatchParameter(SQLConfig config, E... e) {
+    public static <E> Map<String, ParameterCache> tableNameMatchParameter(SqlConfig config, E... e) {
 
         String sqlKey = config.getSqlEeum().get().key();
         Map<String, ParameterCache> map = SecondCache.getCache(sqlKey);
@@ -84,24 +95,28 @@ public class PublicMethod {
     }
 
     /**
-     * tips 初级缓存
+     * <p> 初级缓存
      *
-     * @author: hihuzi 2019/2/14 13:00
+     * @param <E> e
+     * @author hihuzi 2019/2/14 13:00
      */
     private static <E> boolean isBeingCache(E... e) {
 
 
         for (E es : e) {
             Map<String, ParameterCache> pCache = ClassCache.getPCache(es.getClass());
-            if (null == pCache) return false;
+            if (null == pCache) {
+                return false;
+            }
         }
         return true;
     }
 
     /**
-     * tips 加入缓存(TypeCache)
+     * <p> 加入缓存(TypeCache)
      *
-     * @author: hihuzi 2019/2/15 11:24
+     * @param <E> e
+     * @author hihuzi 2019/2/15 11:24
      */
     private static <E> void addCache(Map list, E... e) {
 
@@ -123,14 +138,20 @@ public class PublicMethod {
     }
 
     /**
-     * tips 只针对时间类型 和字符串类型 转化
+     * <p> 只针对时间类型 和字符串类型 转化
      *
-     * @author: hihuzi 2018/10/10 19:30
+     * @param type   type
+     * @param config config
+     * @param obj    obj
+     * @return Object
+     * @author hihuzi 2018/10/10 19:30
      */
     public static Object processingTimeType(Class<?> type, Config config, Object obj) {
 
         if (ValueHandleCache.TypeEnum.DATE.getValue().equals(type.getSimpleName())) {
-            if (null == obj) return null;
+            if (null == obj) {
+                return null;
+            }
             return config.getDateStyleEnum().getFormartStyle().format(obj);
         }
         if (ValueHandleCache.TypeEnum.STRING.getValue().equals(type.getSimpleName())) {
@@ -144,14 +165,20 @@ public class PublicMethod {
     }
 
     /**
-     * tips 只针对时间类型 和字符串类型 转化
+     * <p> 只针对时间类型 和字符串类型 转化
      *
-     * @author: hihuzi 2018/10/10 19:30
+     * @param type   type
+     * @param config config
+     * @param obj    obj
+     * @return Object
+     * @author hihuzi 2018/10/10 19:30
      */
     public static Object processTimeType(Class<?> type, Config config, Object obj) {
 
         if (ValueHandleCache.TypeEnum.DATE.getValue().equals(type.getSimpleName())) {
-            if (null == obj) return null;
+            if (null == obj) {
+                return null;
+            }
             try {
                 return obj.toString().substring(0, config.getDateStyleEnum().getFormartStyle().toPattern().length());
             } catch (Exception e) {
@@ -169,9 +196,12 @@ public class PublicMethod {
     }
 
     /**
-     * tips 获取对象中和待展示的数据重复的个数
+     * <p> 获取对象中和待展示的数据重复的个数
      *
-     * @author: hihuzi 2019/2/19 17:39
+     * @param clazz   clazz
+     * @param display display
+     * @return int
+     * @author hihuzi 2019/2/19 17:39
      */
     public static int achieveTimes(Class clazz, List<String> display) {
 
@@ -188,21 +218,27 @@ public class PublicMethod {
 
 
     /**
-     * tips sql+ 处理key  处理value
+     * <p> sql+ 处理key  处理value
      *
-     * @author: hihuzi 2019/3/3 16:10
+     * @param map0      map0
+     * @param name      name
+     * @param value     value
+     * @param config    config
+     * @param typeCache typeCache
+     * @author hihuzi 2019/3/3 16:10
      */
-    public static void achieveMap(Map map0, String name, Object value, SQLConfig config, TypeCache typeCache) {
+    public static void achieveMap(Map map0, String name, Object value, SqlConfig config, TypeCache typeCache) {
 
-        SQLBean sqlBean = config.getSqlEeum().get();
+        SqlBean sqlBean = config.getSqlEeum().get();
         Map<String, String> displayNickname = sqlBean.getDisplayNickname();
         String paramterName = typeCache.getParamterName();
         /**notice 查询所有属性**/
         if (null == displayNickname) {
-            if (sqlBean.getRepeat().contains(paramterName))
+            if (sqlBean.getRepeat().contains(paramterName)) {
                 name = typeCache.getClazz().getSimpleName() + StrUtils.capsHead(paramterName);
-            else
+            } else {
                 name = paramterName;
+            }
         } else {
             if (!sqlBean.getRepeat().contains(paramterName)) {
                 name = paramterName;
@@ -216,11 +252,13 @@ public class PublicMethod {
     }
 
     /**
-     * tips 从新命名key
+     * <p> 从新命名key
      *
-     * @parameter:
-     * @return:
-     * @author: hihuzi 2018/9/28 16:03
+     * @param map    map     Map
+     * @param key    key     String
+     * @param invoke invoke  Object
+     * @param config config  Config
+     * @author hihuzi 2018/9/28 16:03
      */
     public static void achieveMap(Map map, String key, Object invoke, Config config) {
 
@@ -233,11 +271,12 @@ public class PublicMethod {
     }
 
     /**
-     * tips 从新命名key
+     * <p> 从新命名key
      *
-     * @parameter:
-     * @return:
-     * @author: hihuzi 2018/9/28 16:03
+     * @param property property  String
+     * @param config   config    Config
+     * @return String
+     * @author hihuzi 2018/9/28 16:03
      */
     private static String achieveKey(String property, Config config) {
 
@@ -253,7 +292,7 @@ public class PublicMethod {
             case CUSTOM_SUFFIX:
                 return config.getReturnNameEnum().getKey() + property;
             case CLASS_HUMP:
-            return property.substring(0, 1).toLowerCase() + property.substring(1);
+                return property.substring(0, 1).toLowerCase() + property.substring(1);
             default:
                 throw new NoticeException("命名风格未定义");
         }

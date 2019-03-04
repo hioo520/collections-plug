@@ -6,10 +6,10 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * tips:
+ * <p>:
  *
- * @notices:
- * @author: hihuzi 2018/10/17 17:25
+ * <p>
+ * @author hihuzi 2018/10/17 17:25
  **/
 @Data
 @EqualsAndHashCode(callSuper=false)

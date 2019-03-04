@@ -6,9 +6,9 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * tips 测试bean
+ * <p> 测试bean
  *
- * @author: hihuzi  2018/6/27 6:39
+ * @author hihuzi  2018/6/27 6:39
  */
 @Data
 @EqualsAndHashCode(callSuper=false)

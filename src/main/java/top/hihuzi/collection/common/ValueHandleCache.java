@@ -9,22 +9,23 @@ import java.text.ParseException;
 
 
 /**
- * tips 对对象进行注入值(高效)
+ * <p> 对对象进行注入值(高效)
  *
- * @author: hihuzi 2018/9/24 20:57
+ * @author hihuzi 2018/9/24 20:57
  */
 public class ValueHandleCache {
 
     /**
-     * tips 对对象进行注入值
+     * <p> 对对象进行注入值
      *
-     * @parameter: E e
-     * @parameter: Method method
-     * @parameter: String value
-     * @parameter: String fieldType
-     * @parameter: Config config
-     * @return:
-     * @author: hihuzi 2018/7/19 10:26
+     * @param e  e
+     * @param method  method
+     * @param value  value
+     * @param fieldType  fieldType
+     * @param config  config
+     * @param typeEnum  typeEnum
+     * @param <E>  E
+     * @author hihuzi 2018/7/19 10:26
      */
     public static <E> void invokeValue(E e, Method method, String value, String fieldType, Config config, TypeEnum typeEnum) {
 
@@ -132,12 +133,13 @@ public class ValueHandleCache {
     }
 
     /**
-     * tips 只针对时间类型转化
+     * <p> 只针对时间类型转化
      *
-     * @parameter: "Class<?>" clazz
-     * @parameter: Config config
-     * @parameter: Object obj
-     * @author: hihuzi 2018/10/10 19:30
+     * @param clazz  Class
+     * @param config Config
+     * @param obj    Object
+     * @return Object
+     * @author hihuzi 2018/10/10 19:30
      */
     public static Object processingTimeType(Class<?> clazz, Config config, Object obj) {
 
@@ -148,10 +150,11 @@ public class ValueHandleCache {
     }
 
     /**
-     * tips 数据类型转化
+     * <p> 数据类型转化
      *
-     * @notice : 0 是预留数据类型 表示没有匹配
-     * @author: hihuzi 2018/9/24 19:30
+     * <p> 0 是预留数据类型 表示没有匹配
+     *
+     * @author hihuzi 2018/9/24 19:30
      */
     public enum TypeEnum {
         /**

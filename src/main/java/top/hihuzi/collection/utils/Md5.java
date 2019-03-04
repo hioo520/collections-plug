@@ -5,12 +5,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * tips collection
+ * <p> collection
  *
- * @author: hihuzi 2019/2/15 10:57
+ * @author hihuzi 2019/2/15 10:57
  */
-public class MD5 {
-    public static String StringToMd5(String psw) {
+public class Md5 {
+
+    public static String stringToMd5(String psw) {
         {
             try {
                 MessageDigest md5 = MessageDigest.getInstance("MD5");

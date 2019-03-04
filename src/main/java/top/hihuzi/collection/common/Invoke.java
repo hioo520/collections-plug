@@ -10,17 +10,23 @@ import top.hihuzi.collection.utils.StrUtils;
 import java.lang.reflect.Method;
 
 /**
- * tips 对对象反射调用set方法配置数据
+ * <p> 对对象反射调用set方法配置数据
  *
- * @author: hihuzi 2018/7/19 10:29
+ * @author hihuzi 2018/7/19 10:29
  */
 
 public class Invoke {
 
     /**
-     * tips 处理结果 装填对象
+     * <p> 处理结果 装填对象
      *
-     * @author: hihuzi 2019/2/25 14:54
+     * @param e      E
+     * @param config FillConfig
+     * @param clazz  Class
+     * @param name   String
+     * @param value  String
+     * @param <E> obj
+     * @author hihuzi 2019/2/25 14:54
      */
     public static <E> void processResult(E e, FillConfig config, Class clazz, String name, String value) {
 
@@ -36,12 +42,12 @@ public class Invoke {
     /**
      * 遍历父类 所有 获取属性
      *
-     * @parameter: E e
-     * @parameter: String name
-     * @parameter: String value
-     * @parameter: Config config
-     * @return:
-     * @author: hihuzi 2018/6/22 9:22
+     * @param e      E
+     * @param name   String
+     * @param value  String
+     * @param config Config
+     * @param <E> obj
+     * @author hihuzi 2018/6/22 9:22
      */
     public static <E> void injectionParameters(E e, String name, String value, Config config) {
 
@@ -68,15 +74,14 @@ public class Invoke {
     }
 
     /**
-     * tips 注入值 方法
+     * <p> 注入值 方法
      *
-     * @parameter: E e
-     * @parameter: String name
-     * @parameter: String value
-     * @parameter: Class<?> paramtertype
-     * @parameter: Config config
-     * @return:
-     * @author: hihuzi 2018/7/19 10:26
+     * @param e            E
+     * @param name         String
+     * @param value        String
+     * @param paramtertype Class
+     * @param config       Config
+     * @author hihuzi 2018/7/19 10:26
      */
 
     private static <E> void putValue(E e, String name, String value, Class<?> paramtertype, Config config) {

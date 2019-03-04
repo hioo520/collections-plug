@@ -2,33 +2,33 @@ package top.hihuzi.collection.sql.core;
 
 import top.hihuzi.collection.cache.ClassCache;
 import top.hihuzi.collection.cache.ParameterCache;
-import top.hihuzi.collection.cache.SQLCache;
+import top.hihuzi.collection.cache.SqlCache;
 import top.hihuzi.collection.cache.TypeCache;
 import top.hihuzi.collection.common.PublicMethod;
 import top.hihuzi.collection.common.ValueHandleCache;
 import top.hihuzi.collection.exception.NoticeException;
-import top.hihuzi.collection.sql.config.SQLBean;
-import top.hihuzi.collection.sql.config.SQLConfig;
-import top.hihuzi.collection.sql.factory.SQLMethodFactory;
+import top.hihuzi.collection.sql.config.SqlBean;
+import top.hihuzi.collection.sql.config.SqlConfig;
+import top.hihuzi.collection.sql.factory.SqlMethodFactory;
 
 import java.util.*;
 
 /**
- * tips sql+增强工具(带缓存)
+ * <p> sql+增强工具(带缓存)
  *
- * @author: hihuzi 2019/2/14 9:02
+ * @author hihuzi 2019/2/14 9:02
  */
-public abstract class SQLServiceImpl extends SQLMethodFactory {
+public abstract class AbstractSql implements SqlMethodFactory {
 
     /**
-     * tips 数据库的元组转对象
-     *
-     * @notice: 对象属性和表 遵循驼峰或者下划线命名
-     * @author: hihuzi 2019/2/11 9:53
+     * <p> 数据库的元组转对象
+     * @param <E> obj
+     * <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
      */
-    <E> Object listToEntityDefault(List<Map> list, SQLConfig config, E... e) {
+    <E> Object listToEntityDefault(List<Map> list, SqlConfig config, E... e) {
 
-        SQLBean sqlBean = config.getSqlEeum().get();
+        SqlBean sqlBean = config.getSqlEeum().get();
         List<Map> lm = new ArrayList<>(list.size());
         Object newClazz = null;
         Map<String, List<E>> m = null;
@@ -117,15 +117,15 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
 
 
     /**
-     * tips 生成SQL 自动 添加  对象的 缓存 和 ParameterCache 和 ClassCache
+     * <p> 生成SQL 自动 添加  对象的 缓存 和 ParameterCache 和 ClassCache
      *
-     * @notice:
-     * @author: hihuzi 2019/2/18 14:07
+     * <p>
+     * @author hihuzi 2019/2/18 14:07
      */
-    String getSQLDefault(SQLBean config) {
+    String getSQLDefault(SqlBean config) {
 
         StringBuffer sql = new StringBuffer(500);
-        String caches = SQLCache.get().getCache(config.key());
+        String caches = SqlCache.getCache(config.key());
         if (null == caches || "".equals(caches)) {
             int j = 0;
             for (Class clazz : config.getClazz()) {
@@ -156,8 +156,9 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
                         } else {
                             ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
                         }
-                        if (i < size - 1)
+                        if (i < size - 1) {
                             sql.append(",");
+                        }
                     } else if (0 != config.getDisplay().size()) {
                         String nickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(param);
                         /**notice 处理自定义 输出格式(无昵称指向)**/
@@ -198,16 +199,19 @@ public abstract class SQLServiceImpl extends SQLMethodFactory {
 
                     i++;
                 }
-                if (1 == size) break;
-                if (j < config.getClazz().size() - 1)
+                if (1 == size) {
+                    break;
+                }
+                if (j < config.getClazz().size() - 1) {
                     sql.append(",");
+                }
                 j++;
 
             }
         } else {
             sql.append(caches);
         }
-        SQLCache.get().addCache(config.key(), String.valueOf(sql));
+        SqlCache.addCache(config.key(), String.valueOf(sql));
         return String.valueOf(sql);
     }
 

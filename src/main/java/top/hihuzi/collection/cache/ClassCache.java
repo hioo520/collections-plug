@@ -1,81 +1,85 @@
 package top.hihuzi.collection.cache;
 
 import top.hihuzi.collection.config.CacheBean;
-import top.hihuzi.collection.sql.config.SQLBean;
+import top.hihuzi.collection.sql.config.SqlBean;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * tips class缓存器 字典 饿汉式(内部类懒加载)线程安全行
+ * <p> class缓存器 字典 饿汉式(内部类懒加载)线程安全行
  *
- * @author: hihuzi 2018/9/23 23:37
+ * @author hihuzi 2018/9/23 23:37
  */
 public class ClassCache {
 
     /**
-     * tips 对象属性缓存器(用于对象填充)--cache
+     * <p> 对象属性缓存器(用于对象填充)--cache
      * 缓存class 全限定名 参数类型 参数
      * 第一个 String: class 全限定名
      * 第二个String: class 属性名
-     * cache--->"Map<class 全限定名称,Map<属性名称,[各个属性的方法,属性类型]>>"
+     *
+     * <p> cache---"Map (class, 全限定名称,Map (属性名称,[各个属性的方法,属性类型])) "
      */
     public volatile static Map<String, Map<String, TypeCache>> cache = null;
 
     /**
-     * tips 表-对象属性缓存器(用于非自定义SQL)--paramCache
+     * <p> 表-对象属性缓存器(用于非自定义SQL)--paramCache
      * 缓存class 全限定名 参数类型 参数
      * 第一个 String: class 全限定名
      * 第二个String: class 表名
-     * cache--->"Map<class 全限定名称,Map<表名称,[各个属性的方法,属性类型]>>"
+     * cache--->"Map(class 全限定名称,Map(表名称,(各个属性的方法,属性类型)))"
      */
     private volatile static Map<String, Map<String, ParameterCache>> paramCache = null;
 
     /**
-     * tips 对象属性-表缓存器(用于自定义多SQL)-->tableCache未来兼容非驼峰结构待用
+     * <p> 对象属性-表缓存器(用于自定义多SQL)-->tableCache未来兼容非驼峰结构待用
      * 缓存class 全限定名 参数类型 参数
      * 第一个 String: class 全限定名
      * 第二个String: class 表名
-     * cache--->"Map<class 全限定名称,Map<各个属性的方法,表名称>>"
+     * <p>  cache--->"Map(class 全限定名称,Map(各个属性的方法,表名称))"
      */
     private volatile static Map<String, TableCache> tableCache = null;
 
     /**
-     * tips SQLBean-缓存器(解决重复计算问题)--objectCache
+     * <p> SqlBean-缓存器(解决重复计算问题)--objectCache
      * 缓存class 全限定名 参数类型 参数
      * 第一个 String: class 全限定名
      * 第二个String: class 表名
-     * cache--->"Map<class 全限定名称,Map<各个属性的方法,表名称>>"
+     * <p> cache--->"Map(class 全限定名称,Map(各个属性的方法,表名称))"
      */
     private volatile static Map<String, Object> objectCache = null;
 
     /**
-     * tips 单例
+     * <p> 单例
      *
-     * @author: hihuzi 2019/2/18 9:24
+     * @author hihuzi 2019/2/18 9:24
      */
     private static ClassCache classCache = null;
 
 
     /**
-     * tips 从缓存中取出数据(TypeCache)
+     * <p> 从缓存中取出数据(TypeCache)
      *
-     * @parameter: clazz
-     * @parameter: paramterName
-     * @return: TypeCache
-     * @author: hihuzi 2018/9/24 17:32
+     * @param clazz Class
+     * @return Map
+     * @author hihuzi 2018/9/24 17:32
      */
     public static Map<String, TypeCache> getCache(Class<?> clazz) {
 
         Map<String, TypeCache> result = null;
-        if (cache == null || (result = cache.get(clazz.getName())) == null) return null;
+        if (cache == null || (result = cache.get(clazz.getName())) == null) {
+            return null;
+        }
         return result;
     }
 
     public static TypeCache getCache(Class<?> clazz, String paramterName) {
 
         Map<String, TypeCache> result = null;
-        if (cache == null || (result = cache.get(clazz.getName())) == null) return null;
+        if (cache == null || (result = cache.get(clazz.getName())) == null) {
+            return null;
+        }
         return result.get(paramterName);
     }
 
@@ -84,11 +88,15 @@ public class ClassCache {
         Class<?> clazz = null;
         if (clacc instanceof Class) {
             clazz = (Class<?>) clacc;
-            if (paramCache == null || paramCache.get(clazz.getName()) == null) return null;
+            if (paramCache == null || paramCache.get(clazz.getName()) == null) {
+                return null;
+            }
             return paramCache.get(clazz.getName());
         }
         if (clacc instanceof String) {
-            if (paramCache == null || paramCache.get(clacc) == null) return null;
+            if (paramCache == null || paramCache.get(clacc) == null) {
+                return null;
+            }
             return paramCache.get(clacc);
         }
         return null;
@@ -100,12 +108,16 @@ public class ClassCache {
         if (clacc instanceof Class) {
             clazz = (Class<?>) clacc;
             Map<String, ParameterCache> result = null;
-            if (null == paramCache || (result = paramCache.get(clazz.getName())) == null) return null;
+            if (null == paramCache || (result = paramCache.get(clazz.getName())) == null) {
+                return null;
+            }
             return paramCache.get(clazz.getName()).get(paramterName);
         }
         if (clacc instanceof String) {
             Map<String, ParameterCache> result = null;
-            if (null == paramCache || (result = paramCache.get(clacc)) == null) return null;
+            if (null == paramCache || (result = paramCache.get(clacc)) == null) {
+                return null;
+            }
             return paramCache.get(clacc).get(paramterName);
         }
         return null;
@@ -115,24 +127,28 @@ public class ClassCache {
     public static TableCache getTCache(String sqlKey) {
 
         TableCache result = null;
-        if (null == tableCache || (result = tableCache.get(sqlKey)) == null) return null;
+        if (null == tableCache || (result = tableCache.get(sqlKey)) == null) {
+            return null;
+        }
         return result;
     }
 
     public static CacheBean getOCache(String sqlKey) {
 
         CacheBean result = null;
-        if (null == objectCache || (result = (CacheBean) objectCache.get(sqlKey)) == null) return null;
+        if (null == objectCache || (result = (CacheBean) objectCache.get(sqlKey)) == null) {
+            return null;
+        }
         return result;
     }
 
     /**
-     * tips 加入缓存机制 Cache
+     * <p> 加入缓存机制 Cache
      *
-     * @notice: 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @author: hihuzi 2018/9/24 18:22
+     * @param clazz        Class
+     * @param paramterName String
+     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @author hihuzi 2018/9/24 18:22
      */
     public void add(Class<?> clazz, String paramterName) {
 
@@ -140,13 +156,13 @@ public class ClassCache {
     }
 
     /**
-     * tips 加入缓存机制 cache
+     * <p> 加入缓存机制 cache
      *
-     * @notice: 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @parameter: Class<?> paramtertype
-     * @author: hihuzi 2018/9/24 18:22
+     * @param clazz        Class
+     * @param paramterName String
+     * @param paramtertype Class
+     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @author hihuzi 2018/9/24 18:22
      */
     public void add(Class<?> clazz,
                     String paramterName,
@@ -167,12 +183,15 @@ public class ClassCache {
     }
 
     /**
-     * tips 加入缓存机制 paramCache
+     * <p> 加入缓存机制 paramCache
      *
-     * @notice: 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @author: hihuzi 2018/9/24 18:22
+     * @param clazz        Class
+     * @param paramterName String
+     * @param paramtertype Class
+     * @param tableName    String
+     * @param sqlKey       String
+     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @author hihuzi 2018/9/24 18:22
      */
     public void add(Class<?> clazz,
                     String paramterName,
@@ -208,12 +227,13 @@ public class ClassCache {
     }
 
     /**
-     * tips 加入缓存机制 TableCache
+     * <p> 加入缓存机制 TableCache
      *
-     * @notice: 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @author: hihuzi 2018/9/24 18:22
+     * @param sqlKey       String
+     * @param paramterName String
+     * @param tableName    String
+     *                     <p> 添加规则 同一个类对象 只有一个 key 可以有多个 TypeCache 瞬时态
+     * @author hihuzi 2018/9/24 18:22
      */
     public void add(String sqlKey,
                     String paramterName,
@@ -236,19 +256,19 @@ public class ClassCache {
     }
 
     /**
-     * tips 加入缓存机制 objectCache
+     * <p> 加入缓存机制 objectCache
      *
-     * @notice: 添加规则 同一个sql+ vo查询语句 只有一个 key 可以有多个
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @author: hihuzi 2018/9/24 18:22
+     * @param sqlKey String
+     * @param bean   CacheBean
+     *               <p> 添加规则 同一个sql+ vo查询语句 只有一个 key 可以有多个
+     * @author hihuzi 2018/9/24 18:22
      */
     public void add(String sqlKey,
                     CacheBean bean) {
 
-        SQLBean sqlBean = null;
-        if (bean instanceof SQLBean) {
-            sqlBean = (SQLBean) bean;
+        SqlBean sqlBean = null;
+        if (bean instanceof SqlBean) {
+            sqlBean = (SqlBean) bean;
             if (null == objectCache) {
                 objectCache = new HashMap<>(20);
                 objectCache.put(sqlKey, sqlBean);
@@ -260,14 +280,14 @@ public class ClassCache {
     }
 
     /**
-     * tips 加入缓存(cache)
+     * <p> 加入缓存(cache)
      *
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @parameter: "Map<String, TypeCache>" cacheTypeMap
-     * @parameter: Class<?> paramtertype
-     * @return:
-     * @author: hihuzi 2018/9/24 18:09
+     * @param clazz        Class
+     * @param paramterName String
+     * @param cacheTypeMap "Map<String, TypeCache>"
+     * @param paramtertype Class
+     * @return
+     * @author hihuzi 2018/9/24 18:09
      */
     private void joinTheCache(Class<?> clazz, String
             paramterName, Map<String, TypeCache> cacheTypeMap, Class<?> paramtertype) {
@@ -277,15 +297,17 @@ public class ClassCache {
     }
 
     /**
-     * tips 加入缓存(paramCache)
+     * <p> 加入缓存(paramCache)
      *
-     * @parameter: Class<?> clazz
-     * @parameter: String paramterName
-     * @parameter: "Map<String, TypeCache>" cacheTypeMap
-     * @parameter: String tableName
-     * @parameter: Class<?> paramtertype
-     * @return:
-     * @author: hihuzi 2018/9/24 18:09
+     * @param clazz        Class
+     * @param paramterName String
+     * @param paramterMap  "Map<String, TypeCache>"
+     * @param paramtertype "Map<String, TypeCache>"
+     * @param tableName    String
+     * @param sqlKey       String
+     * @param paramtertype Class
+     * @return
+     * @author hihuzi 2018/9/24 18:09
      */
     private void joinTheCache(Class<?> clazz, String paramterName, Map<String, ParameterCache> paramterMap,
                               Class<?> paramtertype, String tableName, String sqlKey) {
@@ -301,10 +323,11 @@ public class ClassCache {
 
     public static ClassCache get() {
 
-        if (null == classCache)
+        if (null == classCache) {
             return CacheClazz.CLASS_CACHE;
-        else
+        } else {
             return classCache;
+        }
     }
 
     private ClassCache() {
@@ -312,9 +335,9 @@ public class ClassCache {
     }
 
     /**
-     * tips 内部类(延时加载)
+     * <p> 内部类(延时加载)
      *
-     * @author: hihuzi 2018/9/24 17:16
+     * @author hihuzi 2018/9/24 17:16
      */
     private static class CacheClazz {
 

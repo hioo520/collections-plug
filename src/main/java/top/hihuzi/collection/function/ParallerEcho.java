@@ -2,11 +2,9 @@ package top.hihuzi.collection.function;
 
 
 /**
- * tips
+ * <p>
  *
- * @parameter:
- * @return:
- * @author: hihuzi 2018/10/26 11:15
+ * @author hihuzi 2018/10/26 11:15
  */
 @FunctionalInterface
 public interface  ParallerEcho<T, R, P> {

@@ -12,30 +12,30 @@
             userPost.setAddress("    ");
             list.add(userPost);
         }
-        // tips 默认转态
+        // <p> 默认转态
         List<Map> batch0 = PickFactory.batch().pick(list, "id", "name", "email", "address");
         batch0.forEach(map -> System.out.println(map));
-        // tips 和 默认一样 首字母大写
+        // <p> 和 默认一样 首字母大写
         List<Map> batch = PickFactory.batch().pick(list, new PickConfig(
                 PickBase.ReturnStyleEnum.LIST_MAP,
                 PickBase.ReturnNameEnum.INITIAL_CAPITAL,
                 PickBase.SaveStyleEnum.DEFAULT), "id", "name", "email", "date");
         batch.forEach(map -> System.out.println(map));
-        // tips 空值丢掉(null 或者 "" "  ") 并且全部大写
+        // <p> 空值丢掉(null 或者 "" "  ") 并且全部大写
 
         List<Map> batch3 = PickFactory.batch().pick(list, new PickConfig(
                 PickBase.ReturnStyleEnum.LIST_MAP,
                 PickBase.ReturnNameEnum.UPPER_CASE,
                 PickBase.SaveStyleEnum.REMOVE_NULL_EMPTY), "id", "name", "email", "date");
         batch3.forEach(map -> System.out.println(map));
-        // tips 空值不丢掉 并且全部小写
+        // <p> 空值不丢掉 并且全部小写
         List<Map> batch2 = PickFactory.batch().pick(list, new PickConfig(
                 PickBase.ReturnStyleEnum.LIST_MAP,
                 PickBase.ReturnNameEnum.LOWER_CASE,
                 PickBase.SaveStyleEnum.DEFAULT), "id", "name", "email", "date", "address");
         batch2.forEach(map -> System.out.println(map));
 
-        // tips 空值不丢掉 重新命名Key
+        // <p> 空值不丢掉 重新命名Key
         List<Map> batch4 = PickFactory.batch().pick(list, new PickConfig(
                 PickBase.ReturnStyleEnum.LIST_MAP,
                 PickBase.ReturnNameEnum.CUSTOM_SUFFIX.setKey("我就是我!!"),
@@ -50,9 +50,9 @@
 #####{我就是我!!id=0, 我就是我!!name=你好师姐, 我就是我!!date=Sun Sep 30 10:00:28 CST 2018, 我就是我!!email=, 我就是我!!address=    }
 ```
     /**
-        * tips 同一对象集合 返回选定字段 返回value(去重)
+        * <p> 同一对象集合 返回选定字段 返回value(去重)
         *
-        * @author: hihuzi 2018/4/30 15:49
+        * @author hihuzi 2018/4/30 15:49
         */
        @Test
        public void pickValue() throws Exception {
@@ -66,10 +66,10 @@
                userPost.setAddress("    ");
                list.add(userPost);
            }
-           // tips 默认设置
+           // <p> 默认设置
            Set batch1 = PickFactory.batch().pickValue(list, "id", "name", "email");
            System.out.println(Arrays.asList(batch1).toString());
-           // tips (去掉 NUll)
+           // <p> (去掉 NUll)
            Set batch = PickFactory.batch().pickValue(list, new PickConfig(
                    PickBase.ReturnStyleEnum.SET,
                    PickBase.ReturnNameEnum.DEFAULT,
@@ -83,9 +83,9 @@
 #####[[0, 49380, 24690, 37035, 你好师姐0, 12345, 你好师姐4, 你好师姐3, 你好师姐2, 你好师姐1]]
 ```
    /**
-        * tips 单个对象 返回选定字段
+        * <p> 单个对象 返回选定字段
         *
-        * @author: hihuzi 2018/4/30 15:49
+        * @author hihuzi 2018/4/30 15:49
         */
        @Test
        public void pickSingle() throws Exception {
@@ -95,16 +95,16 @@
            bean.setId(UUID.randomUUID().toString());
            bean.setEmail(null);
            bean.setAddress(UUID.randomUUID().toString().substring(32) + "@163.com");
-           // tips 默认 保留 空值
+           // <p> 默认 保留 空值
            Map batch0 = PickFactory.batch().pickValue(bean, "id", "name", "email", "date", "address");
            System.out.println(batch0.toString());
-           // tips 保留 空值
+           // <p> 保留 空值
            Map batch1 = PickFactory.batch().pickValue(bean, new PickConfig(
                    PickBase.ReturnStyleEnum.MAP,
                    PickBase.ReturnNameEnum.DEFAULT,
                    PickBase.SaveStyleEnum.DEFAULT), "id", "name", "email", "date", "address");
            System.out.println(batch1.toString());
-           // tips 舍弃 空值
+           // <p> 舍弃 空值
            Map batch = PickFactory.batch().pickValue(bean, new PickConfig(
                    PickBase.ReturnStyleEnum.MAP,
                    PickBase.ReturnNameEnum.DEFAULT,
@@ -119,9 +119,9 @@
 #####{date=Fri Sep 21 11:34:43 CST 2018, address=2994@163.com, name=你好师姐, id=fb5396be-2c4e-44b1-b86e-4b465c49dc7e}
 ```
 /**
-     * tips 单个对象 返回选定字段
+     * <p> 单个对象 返回选定字段
      *
-     * @author: hihuzi 2018/4/30 15:49
+     * @author hihuzi 2018/4/30 15:49
      */
     @Test
     public void pickMap() throws Exception {
@@ -131,14 +131,14 @@
         bean.put("name", "你好师姐");
         bean.put("age", "");
         bean.put("email", "54465@163.com");
-        /**tips 默认 保留 空值*/
+        /**<p> 默认 保留 空值*/
         Map batch0 = PickFactory.batch().pickMap(bean, "id", "name", "email", "age");
         System.out.println(batch0.toString());
-        /**tips 保留 空值*/
+        /**<p> 保留 空值*/
         Map batch1 = PickFactory.batch().pickMap(bean, new PickConfig(
                 PickBase.ReturnNameEnum.DEFAULT), "id", "name", "email", "age");
         System.out.println(batch1.toString());
-        /**tips 舍弃 空值*/
+        /**<p> 舍弃 空值*/
         Map batch = PickFactory.batch().pickMap(bean, new PickConfig(
                 PickBase.SaveStyleEnum.REMOVE_NULL_EMPTY), "id", "name", "email", "age");
         System.out.println(batch.toString());

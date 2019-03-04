@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * tips
+ * <p>
  *
- * @author: hihuzi 2018/10/26 11:17
+ * @author hihuzi 2018/10/26 11:17
  */
 public class FunctionTest {
 

@@ -14,21 +14,24 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * tips 带缓存机制
+ * <p> 带缓存机制
  *
- * @Author:hihuzi 2018/7/19 17:54
+ * @author hihuzi 2018/7/19 17:54
  */
-abstract class PickServiceImpl implements PickMethodFactory {
+abstract class AbstractPick implements PickMethodFactory {
 
     /**
-     * tips 同一对象集合 返回选定字段 集合返回
+     * <p> 同一对象集合 返回选定字段 集合返回
      *
-     * @parameter: List<E> list
-     * @parameter: String[] strs
-     * @parameter: PickEnum enums
-     * @return: List<Map>
-     * @author: hihuzi 2018/7/12 8:03
+     * @param list   List
+     * @param <T>    List
+     * @param config String[]
+     * @param key    PickEnum
+     * @return List
+     * @author hihuzi 2018/7/12 8:03
      */
+
+
     public <T> Collection batch(List<T> list, PickConfig config, String... key) {
 
         Class clacc = list.get(0).getClass();
@@ -131,11 +134,12 @@ abstract class PickServiceImpl implements PickMethodFactory {
     }
 
     /**
-     * tips 添加缓存
+     * <p> 添加缓存
      *
-     * @parameter:
-     * @return:
-     * @author: hihuzi  2018/10/18 11:43
+     * @param <T> e
+     * @param
+     * @return
+     * @author hihuzi  2018/10/18 11:43
      */
     private <T> Object achieveInvoke(String name, T t,
                                      Class clazz,

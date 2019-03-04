@@ -4,15 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * tips sql+缓存 (关键字段 SQLKey sql)
+ * <p> sql+缓存 (关键字段 SQLKey sql)
  *
- * @author: hihuzi 2019/2/13 16:36
+ * @author hihuzi 2019/2/13 16:36
  */
-public class SQLCache {
+public class SqlCache {
 
     private static Map<String, String> cache;
 
-    private static SQLCache sqlCache;
+    private static SqlCache sqlCache;
 
     public static String getCache(String key) {
 
@@ -38,11 +38,11 @@ public class SQLCache {
         }
     }
 
-    private SQLCache() {
+    private SqlCache() {
 
     }
 
-    public static SQLCache get() {
+    public static SqlCache get() {
 
         if (null == sqlCache) {
             sqlCache = CacheClacc.CLASS_CACHE;
@@ -51,13 +51,13 @@ public class SQLCache {
     }
 
     /**
-     * tips 内部类(延时加载)
+     * <p> 内部类(延时加载)
      *
-     * @author: hihuzi 2018/9/24 17:16
+     * @author hihuzi 2018/9/24 17:16
      */
     private static class CacheClacc {
 
-        private static final SQLCache CLASS_CACHE = new SQLCache();
+        private static final SqlCache CLASS_CACHE = new SqlCache();
 
     }
 

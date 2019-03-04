@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * tips 二段缓存
+ * <p> 二段缓存
  *
- * @author: hihuzi 2019/2/13 16:36
+ * @author hihuzi 2019/2/13 16:36
  */
 public class SecondCache {
 
-    private static Map<String, Map<String, ParameterCache>> cache;
+    private volatile static Map<String, Map<String, ParameterCache>> cache;
 
     public static Map<String, ParameterCache> getCache(String key) {
 

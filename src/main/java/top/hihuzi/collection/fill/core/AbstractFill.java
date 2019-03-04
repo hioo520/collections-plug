@@ -17,20 +17,20 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * tips ServletRequest-->MAP    是否舍弃空值 并且舍弃str特定字段
+ * <p> ServletRequest--MAP    是否舍弃空值 并且舍弃str特定字段
  *
- * @author: hihuzi 2018/9/23 16:03
+ * @author hihuzi 2018/9/23 16:03
  */
-abstract class FillServiceImpl implements FillMethodFactory {
+abstract class AbstractFill implements FillMethodFactory {
 
     /**
-     * tips 缓存
+     * <p> 缓存
      *
-     * @parameter: ServletRequest request
-     * @parameter: config config
-     * @parameter: String[] key
-     * @return: Map
-     * @author: hihuzi 2018/9/24 9:36
+     * @param request ServletRequest
+     * @param config  config
+     * @param key     String[]
+     * @return Map
+     * @author hihuzi 2018/9/24 9:36
      */
     Map fillDefault(ServletRequest request, FillConfig config, String... key) {
 
@@ -54,6 +54,12 @@ abstract class FillServiceImpl implements FillMethodFactory {
         return map;
     }
 
+    /**
+     * @param config
+     * @param map
+     * @param name
+     * @param value
+     */
     private void fillToMap(FillConfig config, Map map, String name, String value) {
 
         if (StrUtils.isNNoE(value)) {
@@ -66,12 +72,12 @@ abstract class FillServiceImpl implements FillMethodFactory {
     }
 
     /**
-     * tips ServletRequest--> obj
+     * <p> ServletRequest--> obj
      *
-     * @parameter: E
-     * @parameter: ServletRequest
-     * @return: E
-     * @author: hihuzi 2018/6/14 14:50
+     * @param e       E
+     * @param request ServletRequest
+     * @return E
+     * @author hihuzi 2018/6/14 14:50
      */
     <E> E requestFillEntityDefault(ServletRequest request, E e, FillConfig config) {
 
@@ -92,13 +98,14 @@ abstract class FillServiceImpl implements FillMethodFactory {
     }
 
     /**
-     * tips  对MAP数据装填--> 对象
+     * <p>  对MAP数据装填--> 对象
      *
-     * @notice: 忽略掉不在对象中的属性
-     * @parameter: map
-     * @parameter: E
-     * @return: E
-     * @author: hihuzi 2018/6/14 14:50
+     * <p> 忽略掉不在对象中的属性
+     *
+     * @param map map
+     * @param e   E
+     * @return E
+     * @author hihuzi 2018/6/14 14:50
      */
     <E> E mapFillEntity(Map map, E e, FillConfig config) {
 
@@ -121,9 +128,14 @@ abstract class FillServiceImpl implements FillMethodFactory {
 
 
     /**
-     * tips E --> Map  针对E与map进行填充
+     * <p> E -- Map  针对E与map进行填充
      *
-     * @author:hihuzi 2018/6/26 14:51
+     * @param e      e
+     * @param map    map
+     * @param config config
+     * @param <E>    E
+     * @return Map
+     * @author hihuzi 2018/6/26 14:51
      */
     public <E> Map fillMapDefault(E e, Map map, FillConfig config) {
 
@@ -169,13 +181,16 @@ abstract class FillServiceImpl implements FillMethodFactory {
     }
 
     /**
-     * tips  对LIST数据装填--> 对象 (针对数据库)与实体类名有区别 value -->t
+     * <p>  对LIST数据装填-- 对象 (针对数据库)与实体类名有区别 value --t
      *
-     * @notice: !!!待优化效率!!!
-     * @parameter: List<String>
-     * @parameter: E
-     * @return: List<E>
-     * @author: hihuzi 2018/6/26 14:51
+     * <p> !!!待优化效率!!!
+     *
+     * @param list   list
+     * @param e      e
+     * @param config config
+     * @param <E>    E
+     * @return List
+     * @author hihuzi 2018/6/26 14:51
      */
     public <E> List<E> listToEntityDefault(List<String> list, E e, FillConfig config) {
 
@@ -225,10 +240,16 @@ abstract class FillServiceImpl implements FillMethodFactory {
     }
 
     /**
-     * tips 数据库的元组转对象
+     * <p> 数据库的元组转对象
      *
-     * @notice: 对象属性和表 遵循驼峰或者下划线命名
-     * @author: hihuzi 2019/2/11 9:53
+     * <p> 对象属性和表 遵循驼峰或者下划线命名
+     *
+     * @param list list
+     * @param config config
+     * @param e e
+     * @param <E> e
+     * @return Object
+     * @author hihuzi 2019/2/11 9:53
      */
     <E> Object listToClassDefault(List<Map> list, FillConfig config, E... e) {
 

@@ -3,15 +3,13 @@ package top.hihuzi.collection.sql.config;
 import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.utils.Constants;
 
-import java.util.List;
-
 /**
- * tips: 填充工具控制器
+ * <p>: 填充工具控制器
  *
- * @notices: 默认时间类型是 yyyy-MM-dd
- * @author: hihuzi 2018/9/30 10:08
+ * <p> 默认时间类型是 yyyy-MM-dd
+ * @author hihuzi 2018/9/30 10:08
  **/
-public class SQLConfig implements Config {
+public class SqlConfig implements Config {
 
 
     private SaveStyleEnum saveStyleEnum;
@@ -22,16 +20,17 @@ public class SQLConfig implements Config {
 
     private ReturnEnum returnEnum;
 
-    private SQLEeum sqlEeum;
+    private SqlEeum sqlEeum;
 
     /**
-     * tips: 默认
-     *
-     * @notice: saveStyleEnum=SaveStyleEnum.DEFAULT
-     * @author: hihuzi 2018/9/30 10:59
+     * <p>: 默认
+     * @param <E> obj
+     * @param e obj
+     * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
+     * @author hihuzi 2018/9/30 10:59
      **/
 
-    public <E> SQLConfig(E... e) {
+    public <E> SqlConfig(E... e) {
 
         for (E ex : e) {
             if (ex instanceof SaveStyleEnum) {
@@ -42,18 +41,20 @@ public class SQLConfig implements Config {
                 this.dateStyleEnum = (DateStyleEnum) ex;
             } else if (ex instanceof ReturnEnum) {
                 this.returnEnum = (ReturnEnum) ex;
-            } else if (ex instanceof SQLEeum) {
-                this.sqlEeum = (SQLEeum) ex;
+            } else if (ex instanceof SqlEeum) {
+                this.sqlEeum = (SqlEeum) ex;
             }
         }
     }
 
+    @Override
     public SaveStyleEnum getSaveStyleEnum() {
 
         return null != saveStyleEnum ? saveStyleEnum : SaveStyleEnum.DEFAULT;
     }
 
 
+    @Override
     public ReturnNameEnum getReturnNameEnum() {
 
         return null != returnNameEnum ? returnNameEnum : ReturnNameEnum.DEFAULT;
@@ -64,6 +65,7 @@ public class SQLConfig implements Config {
         this.returnNameEnum = returnNameEnum;
     }
 
+    @Override
     public DateStyleEnum getDateStyleEnum() {
 
         return null != dateStyleEnum ? dateStyleEnum : DateStyleEnum.DEFAULT.setFormartStyle(Constants.DATE_FORMART);
@@ -75,6 +77,7 @@ public class SQLConfig implements Config {
         this.dateStyleEnum = dateStyleEnum;
     }
 
+    @Override
     public ReturnEnum getReturnEnum() {
 
         return null != returnEnum ? returnEnum : ReturnEnum.DEFAULT;
@@ -86,12 +89,12 @@ public class SQLConfig implements Config {
         this.returnEnum = returnEnum;
     }
 
-    public SQLEeum getSqlEeum() {
+    public SqlEeum getSqlEeum() {
 
         return sqlEeum;
     }
 
-    public void setSqlEeum(SQLEeum sqlEeum) {
+    public void setSqlEeum(SqlEeum sqlEeum) {
 
         this.sqlEeum = sqlEeum;
     }

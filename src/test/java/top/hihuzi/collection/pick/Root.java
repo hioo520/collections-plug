@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * tips
+ * <p>
  *
- * @author:hihuzi 2018/10/18 10:26
+ * @author hihuzi 2018/10/18 10:26
  */
 @Data
 public class Root {

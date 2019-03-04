@@ -1,21 +1,21 @@
 package top.hihuzi.collection.config;
 
-import top.hihuzi.collection.sql.config.SQLBean;
+import top.hihuzi.collection.sql.config.SqlBean;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * tips 规则菜单
+ * <p> 规则菜单
  *
- * @author: hihuzi 2019/2/14 9:51
+ * @author hihuzi 2019/2/14 9:51
  */
 public interface ConfigEnum {
 
     /**
-     * tips: 返回值(value)规则
+     * <p>: 返回值(value)规则
      *
-     * @author: hihuzi 2018/9/29 14:54
+     * @author hihuzi 2018/9/29 14:54
      **/
     enum SaveStyleEnum {
         /**
@@ -24,10 +24,10 @@ public interface ConfigEnum {
         DEFAULT(true),
 
         /**
-         * tips: 对 (null or "")不处理 都保存
+         * <p>: 对 (null or "")不处理 都保存
          *
-         * @notice: NULL
-         * @author: hihuzi 2018/9/29 17:21
+         * <p> NULL
+         * @author hihuzi 2018/9/29 17:21
          **/
         REMOVE_NULL_EMPTY(false);
 
@@ -39,9 +39,9 @@ public interface ConfigEnum {
         }
 
         /**
-         * tips: 判断是否存在Null empty "" "   "
-         *
-         * @author: hihuzi 2018/9/30 8:52
+         * <p>: 判断是否存在Null empty "" "   "
+         * @return Boolean
+         * @author hihuzi 2018/9/30 8:52
          **/
         public Boolean getHaving() {
 
@@ -50,21 +50,21 @@ public interface ConfigEnum {
     }
 
     /**
-     * tips: 时间规则定制
+     * <p>: 时间规则定制
      *
-     * @notice:默认 yyyy-MM-dd
-     * @author: hihuzi 2018/9/29 14:54
+     * <p>默认 yyyy-MM-dd
+     * @author hihuzi 2018/9/29 14:54
      **/
     enum DateStyleEnum {
         /**
-         * tips  默认时间风格规则
+         * <p>  默认时间风格规则
          */
         DEFAULT;
 
         private String value;
 
         /**
-         * tips 多线程并发时启用
+         * <p> 多线程并发时启用
          */
         public volatile static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>();
 
@@ -85,9 +85,9 @@ public interface ConfigEnum {
     }
 
     /**
-     * tips: 排序规则定制
+     * <p>: 排序规则定制
      *
-     * @author: hihuzi 2018/9/29 14:54
+     * @author hihuzi 2018/9/29 14:54
      **/
     enum SortStyleEnum {
         /**
@@ -105,7 +105,7 @@ public interface ConfigEnum {
         public SortStyleEnum setSort(Integer[] sort) {
 
             Integer[] res = values.get();
-            if (null == res || !(res.length == sort.length)) {
+            if (null == res || res.length != sort.length) {
                 values.set(sort);
             }
             return this;
@@ -115,10 +115,10 @@ public interface ConfigEnum {
 
 
     /**
-     * tips: 返回数据泛型类型
+     * <p>: 返回数据泛型类型
      *
-     * @notice: 通用枚举
-     * @author: hihuzi 2018/9/29 14:54
+     * <p> 通用枚举
+     * @author hihuzi 2018/9/29 14:54
      **/
     enum ReturnEnum {
         /**
@@ -126,11 +126,11 @@ public interface ConfigEnum {
          */
         DEFAULT,
         /**
-         * 返回"list<map>"
+         * 返回"list(map)"
          */
         LISR,
         /**
-         * 返回"map<e.getClass().getSimpleName(),list<E>>"
+         * 返回"map(e.getClass().getSimpleName(),list(E))"
          */
         MAP,
         /**
@@ -146,7 +146,8 @@ public interface ConfigEnum {
         public volatile static ThreadLocal<List[]> values = new ThreadLocal<List[]>();
 
         /**
-         * @author: hihuzi 2018/9/30 8:52
+         * @return List[]
+         * @author hihuzi 2018/9/30 8:52
          **/
         public List[] getList() {
 
@@ -156,7 +157,7 @@ public interface ConfigEnum {
         public ReturnEnum setList(List... list) {
 
             List[] res = values.get();
-            if (null == res || !(res.length == list.length)) {
+            if (null == res || res.length != list.length) {
                 values.set(list);
             }
             return this;
@@ -164,33 +165,33 @@ public interface ConfigEnum {
     }
 
     /**
-     * tips: 返回类型枚举
+     * <p>: 返回类型枚举
      *
-     * @author: hihuzi 2018/9/29 14:54
+     * @author hihuzi 2018/9/29 14:54
      **/
     enum ReturnStyleEnum {
         /**
-         * value=1: 返回类型:List<Map>
+         * value=1: 返回类型:List(Map)
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         DEFAULT,
         /**
-         * value=0: 返回类型:List<Map>
+         * value=0: 返回类型:List(Map)
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         LIST_MAP,
         /**
          * value=2: 返回类型:Map
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         MAP,
         /**
          * value=3: 返回类型:Set
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         SET;
 
@@ -198,10 +199,10 @@ public interface ConfigEnum {
 
 
     /**
-     * tips: 自定义返回Key
+     * <p>: 自定义返回Key
      *
-     * @notice: 通用枚举
-     * @author: hihuzi 2018/9/29 14:54
+     * <p> 通用枚举
+     * @author hihuzi 2018/9/29 14:54
      **/
     enum ReturnNameEnum {
         /**
@@ -209,37 +210,37 @@ public interface ConfigEnum {
          * <p>
          * RenameKey="XXXX":义可以的自定头缀
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         DEFAULT,
         /**
          * RenameKey="1":首字母大写
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         INITIAL_CAPITAL,
         /**
          * RenameKey="2":全小写
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         LOWER_CASE,
         /**
          * RenameKey="3":全大写
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         UPPER_CASE,
         /**
          * RenameKey="XXXX":义可以的自定头缀
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         CUSTOM_SUFFIX,
         /**
          * RenameKey=class_param(首字母小写)
          *
-         * @author: hihuzi
+         * @author hihuzi
          */
         CLASS_HUMP;
 
@@ -264,23 +265,23 @@ public interface ConfigEnum {
     }
 
     /**
-     * tips SQL+ 规则配置
+     * <p> SQL+ 规则配置
      *
-     * @author: hihuzi 2019/2/15 10:04
+     * @author hihuzi 2019/2/15 10:04
      */
-    enum SQLEeum {
+    enum SqlEeum {
         /**
-         * tips 规则定制
+         * <p> 规则定制
          *
-         * @author: hihuzi 2019/2/16 12:21
+         * @author hihuzi 2019/2/16 12:21
          */
         DEFAULT;
 
-        public volatile static ThreadLocal<SQLBean> values = new ThreadLocal<SQLBean>();
+        public volatile static ThreadLocal<SqlBean> values = new ThreadLocal<SqlBean>();
 
-        public SQLEeum set(SQLBean sqlBean) {
+        public SqlEeum set(SqlBean sqlBean) {
 
-            SQLBean res = values.get();
+            SqlBean res = values.get();
             if (null == res) {
                 values.set(sqlBean);
             } else if (res.hashCode() != sqlBean.hashCode()) {
@@ -289,7 +290,7 @@ public interface ConfigEnum {
             return this;
         }
 
-        public SQLBean get() {
+        public SqlBean get() {
 
             return values.get();
         }

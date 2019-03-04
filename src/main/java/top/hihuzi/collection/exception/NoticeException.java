@@ -1,9 +1,9 @@
 package top.hihuzi.collection.exception;
 
 /**
- * tips 异常
+ * <p> 异常
  *
- * @author: hihuzi 2019/2/19 8:41
+ * @author hihuzi 2019/2/19 8:41
  */
 public class NoticeException extends RuntimeException {
 
