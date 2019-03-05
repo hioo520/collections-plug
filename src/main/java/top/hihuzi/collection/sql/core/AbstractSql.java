@@ -209,7 +209,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
                 if (1 == size) {
                     break;
                 }
-                if (j < config.getClazz().size() - 1) {
+                if (j < config.getClazz().size() - 1 && 0 != times) {
                     sql.append(",");
                 }
                 j++;

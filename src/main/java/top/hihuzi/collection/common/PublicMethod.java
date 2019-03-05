@@ -87,7 +87,9 @@ public class PublicMethod {
             map = new HashMap(e.length);
             for (E es : e) {
                 Map<String, ParameterCache> pCache = ClassCache.getPCache(sqlKey + ((Class) es).getSimpleName());
-                map.putAll(pCache);
+                if (null != pCache) {
+                    map.putAll(pCache);
+                }
             }
             SecondCache.addCache(sqlKey, map);
         }
