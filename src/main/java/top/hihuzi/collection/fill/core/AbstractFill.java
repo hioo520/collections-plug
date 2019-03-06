@@ -260,7 +260,7 @@ abstract class AbstractFill implements FillMethodFactory {
         List<Map> lm = new ArrayList<>(list.size());
         Object newClazz = null;
         Map<String, List<E>> m;
-        Map<String, ParameterCache> tableNameMatchParameter = PublicMethod.tableNameMatchParameter(list.get(0), e);
+        PublicMethod.tableNameMatchParameter(list.get(0), e);
         switch (config.getReturnEnum()) {
             case DEFAULT:
             case LISR:
@@ -270,11 +270,7 @@ abstract class AbstractFill implements FillMethodFactory {
                         Map.Entry entry = (Map.Entry) obj;
                         String names = String.valueOf(entry.getKey());
                         String values = String.valueOf(entry.getValue());
-//                        ParameterCache parameterCache = tableNameMatchParameter.get(names);
-//                        if (null != parameterCache) {
-//                            TypeCache typeCache = parameterCache.getCache().get(names);
                         PublicMethod.achieveMap(map0, names, values, config);
-//                        }
                     }
                     lm.add(map0);
                 }

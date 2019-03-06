@@ -181,7 +181,6 @@ public abstract class AbstractSql implements SqlMethodFactory {
                             times--;
                         }
                     }
-
                     i++;
                 }
                 if (1 == size) {

@@ -84,7 +84,7 @@ abstract class AbstractPick implements PickMethodFactory {
                         }
                     }
                 }
-                definitionReturn(list, config, sets, maps, map, property, invoke);
+                definitionReturn(config, sets, maps, map, property, invoke);
             }
             if (config.getReturnStyleEnum() == ConfigEnum.ReturnStyleEnum.DEFAULT
                     || config.getReturnStyleEnum() == ConfigEnum.ReturnStyleEnum.LIST_MAP) {
@@ -104,7 +104,7 @@ abstract class AbstractPick implements PickMethodFactory {
         return null;
     }
 
-    private <T> void definitionReturn(List<T> list,
+    private void definitionReturn(
                                       PickConfig config,
                                       Set sets,
                                       Map maps,
