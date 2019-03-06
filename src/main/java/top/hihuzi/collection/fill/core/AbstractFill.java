@@ -270,11 +270,11 @@ abstract class AbstractFill implements FillMethodFactory {
                         Map.Entry entry = (Map.Entry) obj;
                         String names = String.valueOf(entry.getKey());
                         String values = String.valueOf(entry.getValue());
-                        ParameterCache parameterCache = tableNameMatchParameter.get(names);
-                        if (null != parameterCache) {
-                            TypeCache typeCache = parameterCache.getCache().get(names);
-                            map0.put(typeCache.getParamterName(), PublicMethod.processTimeType(typeCache.getParamtertype(), config, values));
-                        }
+//                        ParameterCache parameterCache = tableNameMatchParameter.get(names);
+//                        if (null != parameterCache) {
+//                            TypeCache typeCache = parameterCache.getCache().get(names);
+                        PublicMethod.achieveMap(map0, names, values, config);
+//                        }
                     }
                     lm.add(map0);
                 }

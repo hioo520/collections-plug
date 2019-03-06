@@ -23,6 +23,8 @@ public class FillConfig implements Config {
 
     private DateStyleEnum dateStyleEnum;
 
+    private ReturnNameEnum returnNameEnum;
+
 
     private ReturnEnum returnEnum;
 
@@ -31,7 +33,7 @@ public class FillConfig implements Config {
      *
      * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
      *
-     * @param e e
+     * @param e   e
      * @param <E> e
      * @author hihuzi 2018/9/30 10:59
      */
@@ -46,6 +48,8 @@ public class FillConfig implements Config {
                 this.dateStyleEnum = (DateStyleEnum) ex;
             } else if (ex instanceof ReturnEnum) {
                 this.returnEnum = (ReturnEnum) ex;
+            } else if (ex instanceof ReturnNameEnum) {
+                this.returnNameEnum = (ReturnNameEnum) ex;
             }
         }
     }
@@ -54,12 +58,6 @@ public class FillConfig implements Config {
     public SaveStyleEnum getSaveStyleEnum() {
 
         return null != saveStyleEnum ? saveStyleEnum : SaveStyleEnum.DEFAULT;
-    }
-
-    @Override
-    public ReturnNameEnum getReturnNameEnum() {
-
-        return null;
     }
 
     /**
@@ -72,6 +70,17 @@ public class FillConfig implements Config {
 
         this.saveStyleEnum = saveStyleEnum;
         return this;
+    }
+
+    @Override
+    public ReturnNameEnum getReturnNameEnum() {
+
+        return null != returnNameEnum ? returnNameEnum : ReturnNameEnum.DEFAULT;
+    }
+
+    public void setReturnNameEnum(ReturnNameEnum returnNameEnum) {
+
+        this.returnNameEnum = returnNameEnum;
     }
 
     /**

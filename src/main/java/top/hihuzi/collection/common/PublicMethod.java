@@ -11,9 +11,7 @@ import top.hihuzi.collection.sql.config.SqlConfig;
 import top.hihuzi.collection.utils.StrUtils;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p> 通用公共方法
@@ -303,5 +301,52 @@ public class PublicMethod {
         }
     }
 
+    /**
+     * <p> 获取对象中和待展示的数据重复的个数
+     *
+     * @param clazz clazz
+     * @return String[]
+     * @author hihuzi 2019/2/19 17:39
+     */
+    public static String[] fields(Class clazz) {
+
+        List<String> list = new ArrayList<String>((int) (clazz.getDeclaredFields().length * 1.5));
+        int i = 0;
+        for (; Object.class != clazz; clazz = clazz.getSuperclass()) {
+            for (Field declaredField : clazz.getDeclaredFields()) {
+                list.add(declaredField.getName());
+            }
+        }
+        String[] str = new String[list.size()];
+        return list.toArray(str);
+    }
+
+    /**
+     * tips 获取Clazz
+     *
+     * @author: hihuzi 2019/3/6 15:52
+     */
+    public static final Class getClazz(Object obj) {
+
+
+        if (obj == null) {
+            throw new NoticeException("输入为空");
+        }
+        Class clazz = null;
+        if (obj instanceof String) {
+            try {
+                clazz = Class.forName((String) obj);
+            } catch (ClassNotFoundException e) {
+                throw new NoticeException("请传入类的全限定名.");
+            }
+        } else if (obj instanceof Class) {
+            clazz = (Class) obj;
+        } else if (obj instanceof Object) {
+            clazz = obj.getClass();
+        } else {
+            throw new NoticeException("类型错误");
+        }
+        return clazz;
+    }
 
 }

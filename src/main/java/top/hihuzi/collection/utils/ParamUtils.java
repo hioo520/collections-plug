@@ -1,5 +1,7 @@
 package top.hihuzi.collection.utils;
 
+import top.hihuzi.collection.common.PublicMethod;
+
 import javax.servlet.ServletRequest;
 import java.util.*;
 
@@ -33,6 +35,25 @@ public class ParamUtils {
         }
         return parameter;
     }
+
+    /**
+     * tips 获取类的所有属性包括继承的属性
+     *
+     * @param obj the obj
+     * @return the string [ ]
+     * @author: hihuzi 2019/3/6 15:51
+     */
+    public static final String[] fields(Object obj) {
+
+
+        Class clazz = PublicMethod.getClazz(obj);
+        if (clazz != null) {
+            return PublicMethod.fields(clazz);
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * <p> ServletRequest--MAP    是否舍弃空值 并且舍弃str特定字段
