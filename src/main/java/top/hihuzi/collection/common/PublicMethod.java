@@ -323,7 +323,8 @@ public class PublicMethod {
 
     /**
      * tips 获取Clazz
-     *
+     * @param obj obj
+     * @return Class class
      * @author: hihuzi 2019/3/6 15:52
      */
     public static final Class getClazz(Object obj) {
