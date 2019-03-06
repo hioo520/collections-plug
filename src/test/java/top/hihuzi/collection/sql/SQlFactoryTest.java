@@ -608,7 +608,7 @@ public class SQlFactoryTest {
                 .addUnique("007")
                 .addClazz(new Son(), new Father())
                 .addNickname("so", "fa")
-                .addDisplay("Son.naMe name", "Son.aGe age", "Father.sEx", "hiGht", "id")
+                .addDisplay("Son.naMe name", "Son.aGe age", "Father.sEx", "Father.naMe name", "hiGht", "id")
                 .build();
         Object sql = SqlFactory.batch().getSQL(bean);
         System.out.println(sql);

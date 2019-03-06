@@ -244,7 +244,10 @@ public class PublicMethod {
         } else {
             if (!sqlBean.getRepeat().contains(paramterName)) {
                 name = paramterName;
-            } else if (sqlBean.getRepeat().contains(paramterName) && !displayNickname.containsValue(name)) {
+            } else if (displayNickname.containsKey(name)) {
+                /* notice 查看SqlBean.addMark*/
+                name = displayNickname.get(name);
+            } else {
                 name = typeCache.getClazz().getSimpleName() + StrUtils.capsHead(paramterName);
             }
         }

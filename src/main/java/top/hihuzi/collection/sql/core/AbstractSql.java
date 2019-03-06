@@ -54,6 +54,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
                         Map.Entry entry = (Map.Entry) obj;
                         String names = String.valueOf(entry.getKey());
                         Object value = entry.getValue();
+                        /**notice 查看 getSQLDefault()**/
                         ParameterCache parameterCache = tableNameMatchParameter.get(names);
                         if (null != parameterCache) {
                             TypeCache typeCache = parameterCache.getCache().get(names);
@@ -140,11 +141,9 @@ public abstract class AbstractSql implements SqlMethodFactory {
                 Iterator iterator = humpToLineMap.entrySet().iterator();
                 int i = 0, size = humpToLineMap.size();
                 int times = 0;
-                Map<String, String> displayParamAndNickname = null;
                 if (null != config.getDisplay() && 0 != config.getDisplay().size()) {
                     times = PublicMethod.achieveTimes(clazz, config.getDisplay());
                     if (null != config.getDisplayParamAndNickname()) {
-                        displayParamAndNickname = config.getDisplayParamAndNickname().get(clazz.getSimpleName());
                     }
                 }
                 while (iterator.hasNext()) {
@@ -166,42 +165,21 @@ public abstract class AbstractSql implements SqlMethodFactory {
                         if (i < size - 1) {
                             sql.append(",");
                         }
-                    } else if (0 != config.getDisplay().size()) {
-                        String nickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(param);
-                        /**notice 处理自定义 输出格式(无昵称指向)**/
-                        if (config.getDisplay().contains(param) && null == nickname) {
-                            if (null != config.getNickname() && !"".equals(mark.trim())) {
-                                sql.append(mark + ".");
-                            }
-                            sql.append(table);
-                            if (config.getRepeat() != null && config.getRepeat().contains(param)) {
-                                sql.append(" " + mark + table);
-                                ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
-                            } else {
-                                ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
-                            }
-                            if (i < size - 1 && 0 < times - 1) {
-                                sql.append(",");
-                                times--;
-                            }
-                        } else {
-                            /**notice 处理自定义 输出格式(带昵称指向)**/
-                            if (null != nickname) {
-                                if (null != config.getNickname() && !"".equals(mark.trim())) {
-                                    sql.append(mark + ".");
-                                }
-                                sql.append(table);
-                                if (config.getRepeat() != null && config.getRepeat().contains(param)) {
-                                    sql.append(" " + nickname);
-                                }
-                                ClassCache.get().add((Class<?>) clazz, param, null, nickname, config.key());
-                                if (i < size - 1 && 0 < times - 1) {
-                                    sql.append(",");
-                                    times--;
-                                }
-                            }
+                    } else if (config.getDisplay().contains(param)) {
+                        if (null != config.getNickname() && !"".equals(mark.trim())) {
+                            sql.append(mark + ".");
                         }
-
+                        sql.append(table);
+                        if (config.getRepeat() != null && config.getRepeat().contains(param)) {
+                            sql.append(" " + mark + table);
+                            ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
+                        } else {
+                            ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
+                        }
+                        if (i < size - 1 && 0 < times - 1) {
+                            sql.append(",");
+                            times--;
+                        }
                     }
 
                     i++;

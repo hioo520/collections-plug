@@ -36,13 +36,13 @@ public class SqlBean implements CacheBean {
     /**
      * <p> 名称的表昵称 提取表的昵称作为 属性的前缀
      *
-     * @data: <类名的全称 ,类名的标识mark>
+     * @data <类名的全称 ,类名的标识mark>
      * @author hihuzi 2019/2/15 10:15
      */
     private Map<String, String> nickname;
 
     /**
-     * @data: 类名的标识mark
+     * @data 类名的标识mark
      * notice 暂存(做nickname数据处理)
      **/
 
@@ -76,14 +76,14 @@ public class SqlBean implements CacheBean {
     /**
      * notice 暂存(做displayNickname数据处理)
      *
-     * @data: <类名的简称 ,< 属性名 , 昵称名>>
+     * @data <类名的简称 ,< 属性名 , 昵称名>>
      **/
     private Map<String, Map<String, String>> displayParamAndNickname;
 
     /**
      * notice 待处理数据
      *
-     * @data: <类名标志+属性名 , 昵称名>
+     * @data <类名标志+属性名 , 昵称名>
      **/
     private Map<String, String> displayNickname;
 
@@ -239,30 +239,34 @@ public class SqlBean implements CacheBean {
     public <E> SqlBean addDisplay(E... e) {
 
         List<String> displayTemp;
+        Set set = null;
+        this.display = null;
         try {
-            displayTemp = (List<String>) Arrays.asList(e);
-            this.display = new ArrayList<>(15);
+            displayTemp = new ArrayList<>(new HashSet((List<String>) Arrays.asList(e)));
+            set = new HashSet(e.length);
+            this.display = new ArrayList<>(e.length);
         } catch (Exception ex) {
             throw new NoticeException("待展示数据必须是String类型");
         }
         for (String disp : displayTemp) {
             String dis = disp.trim();
             if (!(dis.contains(".") || dis.contains(" "))) {
-                this.display.add(dis);
+                set.add(dis);
                 /**notice 下面处理自定义昵称1.没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
             } else if (dis.contains(".") && !dis.contains(" ")) {
                 String[] clazztableName = dis.split(Constants.POINT_FORMAT);
-                this.display.add(clazztableName[1]);
+                set.add(clazztableName[1]);
                 deployDisplayNickMap(clazztableName[0], clazztableName[1], clazztableName[1]);
             } else if (dis.contains(".") && dis.contains(" ")) {
                 String[] clazzTableName = dis.split(Constants.POINT_FORMAT);
                 String[] tableName = clazzTableName[1].split(Constants.BLANK);
-                this.display.add(tableName[0]);
+                set.add(tableName[0]);
                 deployDisplayNickMap(clazzTableName[0], tableName[0], tableName[1]);
             } else {
                 throw new NoticeException("未定义的规则!请重新个配置display");
             }
         }
+        display = new ArrayList<>(set);
         return this;
     }
 
@@ -329,11 +333,12 @@ public class SqlBean implements CacheBean {
         }
         this.nickname = map;
         ClassCache.get().add(key(), this);
+        this.nick = null;
         return this;
     }
 
     /**
-     * <p> 处理数据成 --MAP<class的匿名+属性名称,属性的昵称>
+     * <p> 处理数据成 --MAP<class的匿名+驼峰转下划线的,属性名称属性的昵称>
      *
      * @param paramNickname
      * @param mark
