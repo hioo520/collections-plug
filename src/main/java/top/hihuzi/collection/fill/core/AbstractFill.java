@@ -76,27 +76,38 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * @param <E>     the type parameter
      * @param request ServletRequest
-     * @param e       E
+     * @param obj     Object
      * @param config  the config
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
-    <E> E requestFillEntityDefault(ServletRequest request, E e, FillConfig config) {
+    <E> E requestFillEntityDefault(ServletRequest request, Object obj, FillConfig config) {
 
         Enumeration pars = request.getParameterNames();
-        Class clazz = e.getClass();
+        Class clazz = null;
+        if (obj instanceof Class) {
+            clazz = (Class) obj;
+            try {
+                obj = clazz.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                throw new NoticeException("创建对象失败: " + obj);
+            }
+        } else {
+            clazz = obj.getClass();
+
+        }
         while (pars.hasMoreElements()) {
             String name = pars.nextElement().toString().trim();
             String value = request.getParameter(name);
             if (StrUtils.isNNoE(value)) {
-                Invoke.processResult(e, config, clazz, name, value);
+                Invoke.processResult(obj, config, clazz, name, value);
             } else {
                 if (config.getSaveStyleEnum().getHaving()) {
-                    Invoke.processResult(e, config, clazz, name, value);
+                    Invoke.processResult(obj, config, clazz, name, value);
                 }
             }
         }
-        return e;
+        return (E) obj;
     }
 
     /**

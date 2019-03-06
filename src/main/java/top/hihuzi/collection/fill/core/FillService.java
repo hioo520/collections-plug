@@ -45,7 +45,7 @@ public class FillService extends AbstractFill {
      * <p> ServletRequest--MAP   是否舍弃空值  默认舍弃空字符
      *
      * @param request ServletRequest
-     * @param config FillConfig
+     * @param config  FillConfig
      * @return Map
      * @author hihuzi 2018/6/14 14:51
      */
@@ -72,7 +72,8 @@ public class FillService extends AbstractFill {
 
     /**
      * <p> ServletRequest-- obj
-     * @param <E>      e
+     *
+     * @param <E>     e
      * @param e       E
      * @param request ServletRequest
      * @return E
@@ -88,15 +89,15 @@ public class FillService extends AbstractFill {
      * <p> ServletRequest-- obj
      *
      * @param e       E
-     * @param <E>      e
+     * @param <E>     e
      * @param request ServletRequest
      * @return E
      * @author hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(ServletRequest request, E e, FillConfig config) {
+    public <E> E fillEntity(ServletRequest request, Object e, FillConfig config) {
 
-        return requestFillEntityDefault(request, e, config);
+        return (E) requestFillEntityDefault(request, e, config);
     }
 
     /**

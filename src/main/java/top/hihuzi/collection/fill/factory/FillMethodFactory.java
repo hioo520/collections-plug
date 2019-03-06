@@ -73,12 +73,12 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>     e
      * @param request ServletRequest
-     * @param e       E
+     * @param obj     Object
      * @param config  E
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(ServletRequest request, E e, FillConfig config);
+    <E> E fillEntity(ServletRequest request, Object obj, FillConfig config);
 
     /**
      * <p> 对MAP数据装填-- 对象
