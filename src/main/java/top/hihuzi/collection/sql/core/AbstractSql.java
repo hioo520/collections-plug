@@ -188,12 +188,16 @@ public abstract class AbstractSql implements SqlMethodFactory {
                     }
                     i++;
                 }
-                if (1 == size) {
-                    break;
+                if (null == display) {
+                    if (j < clazz0.size() - 1) {
+                        sql.append(",");
+                    }
+                } else {
+                    if (j < clazz0.size() - 1 && 0 != times) {
+                        sql.append(",");
+                    }
                 }
-                if (j < clazz0.size() - 1 && 0 != times) {
-                    sql.append(",");
-                }
+
                 j++;
 
             }

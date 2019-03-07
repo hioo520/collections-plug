@@ -192,6 +192,17 @@ public class SQlFactoryTest {
      * @author hihuzi 2018/6/14 14:50
      */
     @Test
+    public void listToEntity007() {
+
+        SqlBean bean88 = new SqlBean()
+                .addClazz(new Son(), new Mother(), new Father(), new Father())
+                .addNickname("a", "b", "c", "d")
+                .build();
+        Object sql88 = SqlFactory.batch().getSQL(bean88);
+        System.out.println(sql88);
+    }
+
+    @Test
     public void listToEntity1() {
 
         Map map = new HashMap();
