@@ -205,8 +205,12 @@ public abstract class AbstractSql implements SqlMethodFactory {
             sql = new StringBuffer(caches.length());
             sql.append(caches);
         }
-        SqlCache.addCache(config.key(), String.valueOf(sql));
-        return String.valueOf(sql);
+        String sqls = String.valueOf(sql);
+        if (sqls.endsWith(",")) {
+            sqls = sqls.substring(0, sqls.length() - 1);
+        }
+        SqlCache.addCache(config.key(), sqls);
+        return sqls;
     }
 
 }

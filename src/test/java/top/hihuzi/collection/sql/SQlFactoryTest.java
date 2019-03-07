@@ -194,12 +194,14 @@ public class SQlFactoryTest {
     @Test
     public void listToEntity007() {
 
-        SqlBean bean88 = new SqlBean()
-                .addClazz(new Son(), new Mother(), new Father(), new Father())
-                .addNickname("a", "b", "c", "d")
+        SqlBean bean33 = new SqlBean()
+//                .addUnique("007")
+                .addClazz(new Son(), new Father(), new Mother())
+                .addNickname("HH", "II", "JJ")
+                .addDisplay("naMe", "aGe", "sEx", "hiGht")
                 .build();
-        Object sql88 = SqlFactory.batch().getSQL(bean88);
-        System.out.println(sql88);
+        Object sql33 = SqlFactory.batch().getSQL(bean33);
+        System.out.println(sql33);
     }
 
     @Test

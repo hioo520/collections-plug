@@ -38,7 +38,7 @@ public class ValueHandleCache {
                 }
             }
         }
-        if (null != value && !"".equals(value)) {
+        if (null != value && !"".equals(value) && "null".equals(value)) {
             switch (typeEnum) {
                 case STRING:
                     obj = value;
