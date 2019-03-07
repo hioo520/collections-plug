@@ -76,26 +76,16 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * @param <E>     the type parameter
      * @param request ServletRequest
-     * @param obj     Object
+     * @param object  Object
      * @param config  the config
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
-    <E> E requestFillEntityDefault(ServletRequest request, Object obj, FillConfig config) {
+    <E> E requestFillEntityDefault(ServletRequest request, Object object, FillConfig config) {
 
         Enumeration pars = request.getParameterNames();
-        Class clazz = null;
-        if (obj instanceof Class) {
-            clazz = (Class) obj;
-            try {
-                obj = clazz.getDeclaredConstructor().newInstance();
-            } catch (Exception e) {
-                throw new NoticeException("创建对象失败: " + obj);
-            }
-        } else {
-            clazz = obj.getClass();
-
-        }
+        Class clazz = PublicMethod.getClazz(object);
+        E obj = PublicMethod.getObj(object, clazz);
         while (pars.hasMoreElements()) {
             String name = pars.nextElement().toString().trim();
             String value = request.getParameter(name);
@@ -107,7 +97,7 @@ abstract class AbstractFill implements FillMethodFactory {
                 }
             }
         }
-        return (E) obj;
+        return obj;
     }
 
     /**
@@ -117,28 +107,29 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * @param <E>    the type parameter
      * @param map    map
-     * @param e      E
+     * @param object E
      * @param config the config
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
-    <E> E mapFillEntity(Map map, E e, FillConfig config) {
+    <E> E mapFillEntity(Map map, Object object, FillConfig config) {
 
         Iterator iterator = map.entrySet().iterator();
-        Class clazz = e.getClass();
+        Class clazz = PublicMethod.getClazz(object);
+        E obj = PublicMethod.getObj(object, clazz);
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String name = String.valueOf(entry.getKey());
             String value = String.valueOf(entry.getValue());
             if (StrUtils.isNNoE(value)) {
-                Invoke.processResult(e, config, clazz, name, value);
+                Invoke.processResult(obj, config, clazz, name, value);
             } else {
                 if (null != config && config.getSaveStyleEnum().getHaving()) {
-                    Invoke.processResult(e, config, clazz, name, value);
+                    Invoke.processResult(obj, config, clazz, name, value);
                 }
             }
         }
-        return e;
+        return obj;
     }
 
 
@@ -202,22 +193,24 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * @param <E>    E
      * @param list   list
-     * @param e      e
+     * @param object e
      * @param config config
      * @return List list
      * @author hihuzi 2018/6/26 14:51
      */
-    public <E> List<E> listToEntityDefault(List<String> list, E e, FillConfig config) {
+    public <E> List<E> listToEntityDefault(List<String> list, Object object, FillConfig config) {
 
+        Class clacc = PublicMethod.getClazz(object);
+        E e = PublicMethod.getObj(object, clacc);
         List<E> result = new ArrayList<>(list.size());
-        List<String> field = new ArrayList<>(e.getClass().getDeclaredFields().length);
+        List<String> field = new ArrayList<>(clacc.getDeclaredFields().length);
         List<String> fieldsMap = new ArrayList<>(field.size());
-        Class clazz = e.getClass();
+        Class clazz = clacc;
         for (; clazz != Object.class; clazz = clazz.getSuperclass()) {
             Field[] fields = clazz.getDeclaredFields();
             for (Field value : fields) {
                 field.add(value.getName());
-                ClassCache.get().add(e.getClass(), value.getName(), value.getType());
+                ClassCache.get().add(clacc, value.getName(), value.getType());
             }
         }
         int i = 0;
@@ -245,9 +238,9 @@ abstract class AbstractFill implements FillMethodFactory {
         }
         Object obj = null;
         try {
-            obj = e.getClass().getDeclaredConstructor().newInstance();
+            obj = clacc.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
-            throw new NoticeException("类创建对象错误-->类名是: " + e.getClass().getSimpleName(), ex);
+            throw new NoticeException("类创建对象错误-->类名是: " + clacc.getSimpleName(), ex);
         }
         obj = mapFillEntity(map, obj, config);
         result.add((E) obj);
@@ -262,15 +255,20 @@ abstract class AbstractFill implements FillMethodFactory {
      * @param <E>    e
      * @param list   list
      * @param config config
-     * @param e      e
+     * @param object e
      * @return Object object
      * @author hihuzi 2019/2/11 9:53
      */
-    <E> Object listToClassDefault(List<Map> list, FillConfig config, E... e) {
+    <E> Object listToClassDefault(List<Map> list, FillConfig config, Object... object) {
 
         List<Map> lm = new ArrayList<>(list.size());
         Object newClazz = null;
         Map<String, List<E>> m;
+        List<Object> obj0 = Arrays.asList(object);
+        Object[] e = new Object[obj0.size()];
+        for (int i = 0; i < obj0.size(); i++) {
+            e[i] = PublicMethod.getClazz(obj0.get(i));
+        }
         PublicMethod.tableNameMatchParameter(list.get(0), e);
         switch (config.getReturnEnum()) {
             case DEFAULT:
@@ -290,8 +288,8 @@ abstract class AbstractFill implements FillMethodFactory {
                 m = new HashMap<>(e.length);
                 break;
         }
-        for (E es : e) {
-            Class<?> clazz = es.getClass();
+        for (Object es : e) {
+            Class<?> clazz = (Class<?>) es;
             for (Map map : list) {
                 try {
                     newClazz = clazz.getDeclaredConstructor().newInstance();
@@ -309,7 +307,7 @@ abstract class AbstractFill implements FillMethodFactory {
                         ValueHandleCache.invokeValue(newClazz, cache.getMethodSet(), values, null, config, cache.getType());
                     }
                 }
-                List<E> lis = m.get(newClazz.getClass().getSimpleName());
+                List<E> lis = m.get(clazz.getSimpleName());
                 if (null != lis) {
                     lis.add((E) newClazz);
                 } else {
@@ -325,8 +323,9 @@ abstract class AbstractFill implements FillMethodFactory {
             case FILL_LIST:
                 int i = 0;
                 try {
-                    for (E es : e) {
-                        config.getReturnEnum().getList()[i].addAll(m.get(es.getClass().getSimpleName()));
+                    for (Object es : e) {
+                        Class<?> clazz = (Class<?>) es;
+                        config.getReturnEnum().getList()[i].addAll(m.get(clazz.getSimpleName()));
                         i++;
                     }
                 } catch (Exception ex) {
@@ -334,7 +333,7 @@ abstract class AbstractFill implements FillMethodFactory {
                 }
                 return true;
             case FILL_CLASS:
-                return m.get(e[0].getClass().getSimpleName());
+                return m.get(((Class) e[0]).getSimpleName());
             default:
                 return null;
         }

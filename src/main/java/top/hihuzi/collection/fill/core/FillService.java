@@ -74,15 +74,15 @@ public class FillService extends AbstractFill {
      * <p> ServletRequest-- obj
      *
      * @param <E>     e
-     * @param e       E
+     * @param obj      obj
      * @param request ServletRequest
      * @return E
      * @author hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(ServletRequest request, E e) {
+    public <E> E fillEntity(ServletRequest request, Object obj) {
 
-        return requestFillEntityDefault(request, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
+        return requestFillEntityDefault(request, obj, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
     }
 
     /**
@@ -97,7 +97,7 @@ public class FillService extends AbstractFill {
     @Override
     public <E> E fillEntity(ServletRequest request, Object e, FillConfig config) {
 
-        return (E) requestFillEntityDefault(request, e, config);
+        return requestFillEntityDefault(request, e, config);
     }
 
     /**
@@ -109,7 +109,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(Map map, E e) {
+    public <E> E fillEntity(Map map, Object e) {
 
         if (null == map || 0 == map.size()) {
             return null;
@@ -126,7 +126,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2018/6/14 14:50
      */
     @Override
-    public <E> E fillEntity(Map map, E e, FillConfig config) {
+    public <E> E fillEntity(Map map, Object e, FillConfig config) {
 
         if (null == map || 0 == map.size()) {
             return null;
@@ -172,34 +172,34 @@ public class FillService extends AbstractFill {
      * <p>  对LIST数据装填-- 对象 (针对数据库)与实体类名有区别 value --t
      *
      * @param list List(String)
-     * @param e    E
+     * @param obj    E
      * @return List
      * @author hihuzi 2018/6/26 14:51
      */
     @Override
-    public <E> List<E> listToEntity(List<String> list, E e) {
+    public <E> List<E> listToEntity(List<String> list, Object obj) {
 
         if (null == list || 0 == list.size()) {
             return null;
         }
-        return listToEntityDefault(list, e, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
+        return listToEntityDefault(list, obj, new FillConfig(FillConfig.SaveStyleEnum.DEFAULT));
     }
 
     /**
      * <p>  对LIST数据装填-- 对象 (针对数据库)与实体类名有区别 value --t
      *
      * @param list List(String)
-     * @param e    E
+     * @param obj    E
      * @return List
      * @author hihuzi 2018/6/26 14:51
      */
     @Override
-    public <E> List<E> listToEntity(List<String> list, E e, FillConfig config) {
+    public <E> List<E> listToEntity(List<String> list, Object obj, FillConfig config) {
 
         if (null == list || 0 == list.size()) {
             return null;
         }
-        return listToEntityDefault(list, e, config);
+        return listToEntityDefault(list, obj, config);
     }
 
     /**
@@ -208,17 +208,17 @@ public class FillService extends AbstractFill {
      * <p> 对象属性和表 遵循驼峰或者下划线命名
      *
      * @param list List(String)
-     * @param e    E
+     * @param obj    e
      * @return Object
      * @author hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E> Object listToClass(List<Map> list, E... e) {
+    public <E> Object listToClass(List<Map> list, Object... obj) {
 
-        if (null == list || 0 == list.size() || null == e || 0 == e.length) {
+        if (null == list || 0 == list.size() || null == obj || 0 == obj.length) {
             return null;
         }
-        return listToClassDefault(list, new FillConfig(), e);
+        return listToClassDefault(list, new FillConfig(), obj);
     }
 
 
@@ -228,18 +228,18 @@ public class FillService extends AbstractFill {
      * <p> 对象属性和表 遵循驼峰或者下划线命名
      *
      * @param list   List(String)
-     * @param e      E
+     * @param obj    e
      * @param config FillConfig
      * @return Object
      * @author hihuzi 2019/2/11 9:57
      */
     @Override
-    public <E> Object listToClass(List<Map> list, FillConfig config, E... e) {
+    public <E> Object listToClass(List<Map> list, FillConfig config, Object... obj) {
 
-        if (null == list || 0 == list.size() || null == e || 0 == e.length) {
+        if (null == list || 0 == list.size() || null == obj || 0 == obj.length) {
             return null;
         }
-        return listToClassDefault(list, config, e);
+        return listToClassDefault(list, config, obj);
 
     }
 

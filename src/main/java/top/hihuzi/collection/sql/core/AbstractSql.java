@@ -143,8 +143,6 @@ public abstract class AbstractSql implements SqlMethodFactory {
                 int times = 0;
                 if (null != config.getDisplay() && 0 != config.getDisplay().size()) {
                     times = PublicMethod.achieveTimes(clazz, config.getDisplay());
-                    if (null != config.getDisplayParamAndNickname()) {
-                    }
                 }
                 while (iterator.hasNext()) {
                     Map.Entry humpToLine = (Map.Entry) iterator.next();

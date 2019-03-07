@@ -62,11 +62,11 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>     e
      * @param request ServletRequest
-     * @param e       E
+     * @param obj      obj
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(ServletRequest request, E e);
+    <E> E fillEntity(ServletRequest request, Object obj);
 
     /**
      * <p> ServletRequest-- obj
@@ -89,19 +89,19 @@ public interface FillMethodFactory extends FillFactory {
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(Map map, E e);
+    <E> E fillEntity(Map map, Object e);
 
     /**
      * <p> 对MAP数据装填-- 对象
      *
      * @param <E>    e
      * @param map    Map
-     * @param e      E
+     * @param obj      E
      * @param config E
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
-    <E> E fillEntity(Map map, E e, FillConfig config);
+    <E> E fillEntity(Map map, Object obj, FillConfig config);
 
     /**
      * <p> E -- Map  针对E的属性属性值填充到map
@@ -133,11 +133,11 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>  e
      * @param list List(String)
-     * @param e    E
+     * @param obj   E
      * @return List list
      * @author hihuzi 2018/6/26 14:51
      */
-    <E> List<E> listToEntity(List<String> list, E e);
+    <E> List<E> listToEntity(List<String> list, Object obj);
 
     /**
      * <p> E -- Map  针对E的属性属性值填充到map
@@ -146,23 +146,23 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>    e
      * @param list   list
-     * @param e      E
+     * @param obj      E
      * @param config config
      * @return List list
      * @author hihuzi 2018/6/26 14:51
      */
-    <E> List<E> listToEntity(List<String> list, E e, FillConfig config);
+    <E> List<E> listToEntity(List<String> list, Object obj, FillConfig config);
 
     /**
      * <p> 数据库的元组转对象
      *
      * @param <E>  es
      * @param list list
-     * @param e    e
+     * @param obj    e
      * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
      * @author hihuzi 2019/2/11 9:53
      */
-    <E> Object listToClass(List<Map> list, E... e);
+    <E> Object listToClass(List<Map> list, Object... obj);
 
     /**
      * <p> 数据库的元组转对象
@@ -173,10 +173,10 @@ public interface FillMethodFactory extends FillFactory {
      * @param <E>    es
      * @param list   list
      * @param config config
-     * @param e      e
+     * @param obj    e
      * @return Object object
      * @author hihuzi 2019/2/11 9:53
      */
-    <E> Object listToClass(List<Map> list, FillConfig config, E... e);
+    <E> Object listToClass(List<Map> list, FillConfig config, Object... obj);
 
 }

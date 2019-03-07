@@ -46,7 +46,7 @@ public class ParamUtils {
     public static final String[] fields(Object obj) {
 
 
-        Class clazz = PublicMethod.getClazz(obj);
+        Class clazz = PublicMethod.createClazz(obj);
         if (clazz != null) {
             return PublicMethod.fields(clazz);
         } else {

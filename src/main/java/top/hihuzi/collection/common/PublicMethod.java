@@ -60,7 +60,8 @@ public class PublicMethod {
         if (null == map || 0 == map.size()) {
             map = new HashMap<>(e.length);
             for (E es : e) {
-                Map<String, ParameterCache> pCache = ClassCache.getPCache(es.getClass());
+                Class<?> clazz = (Class<?>) es;
+                Map<String, ParameterCache> pCache = ClassCache.getPCache(clazz);
                 map.putAll(pCache);
             }
             SecondCache.addCache(StrUtils.splicingObjectName(e), map);
@@ -104,7 +105,8 @@ public class PublicMethod {
 
 
         for (E es : e) {
-            Map<String, ParameterCache> pCache = ClassCache.getPCache(es.getClass());
+            Class<?> clazz = (Class<?>) es;
+            Map<String, ParameterCache> pCache = ClassCache.getPCache(clazz);
             if (null == pCache) {
                 return false;
             }
@@ -121,18 +123,18 @@ public class PublicMethod {
     private static <E> void addCache(Map list, E... e) {
 
         for (E es : e) {
-            Class<?> clazz = es.getClass();
+            Class<?> clazz = (Class<?>) es;
             for (Object obj : list.keySet()) {
                 for (; Object.class != clazz; clazz = clazz.getSuperclass()) {
                     for (Field field : clazz.getDeclaredFields()) {
                         if (StrUtils.isEquals(String.valueOf(obj), field.getName())) {
-                            ClassCache.get().add(es.getClass(), field.getName(), field.getType());
-                            ClassCache.get().add(es.getClass(), field.getName(), field.getType(), String.valueOf(obj), null);
+                            ClassCache.get().add(clazz, field.getName(), field.getType());
+                            ClassCache.get().add(clazz, field.getName(), field.getType(), String.valueOf(obj), null);
                             break;
                         }
                     }
                 }
-                clazz = es.getClass();
+                clazz = (Class<?>) es;
             }
         }
     }
@@ -323,11 +325,12 @@ public class PublicMethod {
 
     /**
      * tips 获取Clazz
+     *
      * @param obj obj
      * @return Class class
      * @author: hihuzi 2019/3/6 15:52
      */
-    public static final Class getClazz(Object obj) {
+    public static Class createClazz(Object obj) {
 
 
         if (obj == null) {
@@ -342,12 +345,43 @@ public class PublicMethod {
             }
         } else if (obj instanceof Class) {
             clazz = (Class) obj;
-        } else if (obj instanceof Object) {
-            clazz = obj.getClass();
         } else {
-            throw new NoticeException("类型错误");
+            clazz = obj.getClass();
         }
         return clazz;
+    }
+
+    /**
+     * tips 是否需要新建对象
+     *
+     * @author hihuzi 2019/3/7 8:57
+     */
+    public static Class getClazz(Object obj) {
+
+        Class clazz = null;
+        if (obj instanceof Class) {
+            clazz = (Class) obj;
+        } else {
+            clazz = createClazz(obj);
+        }
+        return clazz;
+    }
+
+    /**
+     * tips 是否需要新建对象
+     *
+     * @author hihuzi 2019/3/7 8:57
+     */
+    public static <E> E getObj(Object object, Class clazz) {
+
+        if (object instanceof Class || object instanceof String) {
+            try {
+                object = clazz.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                throw new NoticeException("创建对象失败: " + object);
+            }
+        }
+        return (E) object;
     }
 
 }

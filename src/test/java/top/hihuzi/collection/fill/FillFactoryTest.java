@@ -18,11 +18,40 @@ import java.util.*;
  */
 public class FillFactoryTest implements Runnable {
 
-    private MockHttpServletRequest request;
-
     private static Map map;
 
     private static String tip;
+
+    private MockHttpServletRequest request;
+
+    public static void main(String[] args) {
+
+        Map map = new HashMap(1);
+        map.put("dateMax", "333-33-33");
+        FillFactoryTest test0 = new FillFactoryTest();
+        test0.setMap(map);
+        test0.setTip("yyyy-MM-dd");
+        Map maps = new HashMap(1);
+        maps.put("dateMax", "222!22@22#22-22:22");
+        FillFactoryTest test = new FillFactoryTest();
+        test0.setMap(maps);
+        test0.setTip("yyyy!MM@dd#HH-mm:ss");
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < 666; i++) {
+            Thread thread;
+            if (i % 2 == 0) {
+                thread = new Thread(test0, "" + i);
+            } else {
+                thread = new Thread(test, "" + i);
+            }
+            threads.add(thread);
+        }
+        for (Thread thread : threads) {
+
+            thread.start();
+        }
+
+    }
 
     public void setMap(Map map) {
 
@@ -84,7 +113,7 @@ public class FillFactoryTest implements Runnable {
      * @author hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_request() {
+    public void fillEntity008() {
 
         request.setParameter("booleanMax", "");
         request.setParameter("byteMax", "");
@@ -93,7 +122,7 @@ public class FillFactoryTest implements Runnable {
         request.setParameter("longMax", "");
         request.setParameter("floatMax", "");
         request.setParameter("doubleMax", "");
-        request.setParameter("stringMax", "           ");
+//        request.setParameter("stringMax", "           ");
         request.setParameter("bigdecimalMax", "");
         request.setParameter("dateMax", "");
         request.setParameter("booleanMin", "");
@@ -105,13 +134,17 @@ public class FillFactoryTest implements Runnable {
         request.setParameter("floatMin", "");
         request.setParameter("doubleMin", "");
         long start = System.currentTimeMillis();
-        TestBean map1 = null;
         for (int i = 0; i < 1000000; i++) {
-            map1 = FillFactory.batch().fillEntity(request, new TestBean());
+            FillFactory.batch().fillEntity(request, new TestBean());
         }
+        TestBean map1map1 = FillFactory.batch().fillEntity(request, "top.hihuzi.collection.fill.TestBean");
+        TestBean map1map2 = FillFactory.batch().fillEntity(request, TestBean.class);
+        TestBean testBean = new TestBean();
+        testBean.setStringMax("love 皮皮");
+        TestBean map1map3 = FillFactory.batch().fillEntity(request, testBean);
         long end = System.currentTimeMillis();
         System.err.println("------>一千万 耗时" + (end - start) / 1000 + "秒<------");
-        System.out.println(Arrays.asList(map1));
+        System.out.println(Arrays.asList(map1map1));
     }
 
     /**
@@ -120,7 +153,7 @@ public class FillFactoryTest implements Runnable {
      * @author hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_request1() {
+    public void fillEntity001() {
 
         request.setParameter("booleanMax", "true");
         request.setParameter("byteMax", "1");
@@ -129,7 +162,7 @@ public class FillFactoryTest implements Runnable {
         request.setParameter("longMax", "132542435");
         request.setParameter("floatMax", "12.9");
         request.setParameter("doubleMax", "3.55");
-        request.setParameter("stringMax", "你好师姐!!!");
+//        request.setParameter("stringMax", "你好师姐!!!");
         request.setParameter("bigdecimalMax", "9825485.61551");
         request.setParameter("dateMax", "2012-12-12");
         request.setParameter("booleanMin", "true");
@@ -145,6 +178,11 @@ public class FillFactoryTest implements Runnable {
         for (int i = 0; i < 1000000; i++) {
             map1 = FillFactory.batch().fillEntity(request, new TestBean());
         }
+        TestBean map1map1 = FillFactory.batch().fillEntity(request, "top.hihuzi.collection.fill.TestBean");
+        TestBean map1map2 = FillFactory.batch().fillEntity(request, TestBean.class);
+        TestBean testBean = new TestBean();
+        testBean.setStringMax("love 皮皮");
+        TestBean map1map3 = FillFactory.batch().fillEntity(request, testBean);
         long end = System.currentTimeMillis();
         System.err.println("------>一千万 耗时" + (end - start) / 1000 + "秒<------");
 
@@ -158,7 +196,7 @@ public class FillFactoryTest implements Runnable {
      * @author hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_request2() {
+    public void fillEntity002() {
 
         request.setParameter("stringMax", "你好师姐!!!");
         request.setParameter("dateMax", "2012-12-12");
@@ -173,6 +211,18 @@ public class FillFactoryTest implements Runnable {
         map = FillFactory.batch().fillEntity(request, new TestBean(),
                 new FillConfig(FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy-MM-dd HH:mm:ss")));
         System.out.println(Arrays.asList(map).toString());
+        TestBean map1 = FillFactory.batch().fillEntity(request, new TestBean(),
+                new FillConfig(FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy-MM-dd HH:mm:ss")));
+        System.out.println(Arrays.asList(map1).toString());
+        TestBean map2 = FillFactory.batch().fillEntity(request, TestBean.class,
+                new FillConfig(FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy-MM-dd HH:mm:ss")));
+        System.out.println(Arrays.asList(map2).toString());
+        TestBean map3 = FillFactory.batch().fillEntity(request, "top.hihuzi.collection.fill.TestBean",
+                new FillConfig(FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy-MM-dd HH:mm:ss")));
+        System.out.println(Arrays.asList(map3).toString());
+        TestBean map4 = FillFactory.batch().fillEntity(request, new TestBean(),
+                new FillConfig(FillConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy-MM-dd HH:mm:ss")));
+        System.out.println(Arrays.asList(map4).toString());
     }
 
     /**
@@ -182,7 +232,7 @@ public class FillFactoryTest implements Runnable {
      * @author hihuzi 2018/6/14 14:50
      */
     @Test
-    public void fill_entity_map() {
+    public void fillEntity003() {
 
         Map map = new HashMap(20);
         map.put("booleanMax", "true");
@@ -203,6 +253,12 @@ public class FillFactoryTest implements Runnable {
         map.put("floatMin", "0.9");
         map.put("doubleMin", "1.94");
         TestBean bean = FillFactory.batch().fillEntity(map, new TestBean());
+        TestBean bean2 = FillFactory.batch().fillEntity(map, "top.hihuzi.collection.fill.TestBean");
+        TestBean bean3 = FillFactory.batch().fillEntity(map, TestBean.class);
+        TestBean testBean = new TestBean();
+        testBean.setStringMax("love皮皮");
+        TestBean bean4 = FillFactory.batch().fillEntity(map, testBean);
+        TestBean bean6 = FillFactory.batch().fillEntity(map, testBean, new FillConfig());
         Map map1 = new HashMap(5);
         /**<p> 从对象中取出map*/
         Map map2 = FillFactory.batch().fillMap(bean, map1);
@@ -214,7 +270,7 @@ public class FillFactoryTest implements Runnable {
      * <p> 针对不同时间格式处理不同时间配置(错误的属性直接丢掉)
      */
     @Test
-    public void fill_entity_map0() {
+    public void fillEntity() {
 
         Map map = new HashMap(20);
         map.put("stringMax", "你好师姐!!!");
@@ -238,7 +294,6 @@ public class FillFactoryTest implements Runnable {
         map2.forEach((o, o2) -> System.out.print(o + "-->" + o2));
     }
 
-
     /**
      * <p> List<Map> --> E --> List<E>
      * <p> 针对不同格式对应处理
@@ -246,7 +301,7 @@ public class FillFactoryTest implements Runnable {
      * @author hihuzi 2018/6/26 14:51
      */
     @Test
-    public void fill_entity_class() {
+    public void list_To_Class() {
 
         List list = new ArrayList();
         List list0 = new ArrayList();
@@ -300,7 +355,7 @@ public class FillFactoryTest implements Runnable {
      */
 
     @Test
-    public void fill_map() {
+    public void fillEntity007() {
 
         Map map = new HashMap(20);
         map.put("stringMax", "你好师姐!!!");
@@ -322,14 +377,14 @@ public class FillFactoryTest implements Runnable {
     /**
      * <p> E --> Map  针对E与map进行填充
      *
-     * @param E e
+     * @param E   e
      * @param Map map
      * @param E
      * @author hihuzi 2018/6/26 14:51
      */
 
     @Test
-    public void list_to_entity() {
+    public void listToEntity() {
 
         List list = new ArrayList();
         list.add("true");
@@ -484,35 +539,6 @@ public class FillFactoryTest implements Runnable {
             thread.start();
         }
 
-
-    }
-
-    public static void main(String[] args) {
-
-        Map map = new HashMap(1);
-        map.put("dateMax", "333-33-33");
-        FillFactoryTest test0 = new FillFactoryTest();
-        test0.setMap(map);
-        test0.setTip("yyyy-MM-dd");
-        Map maps = new HashMap(1);
-        maps.put("dateMax", "222!22@22#22-22:22");
-        FillFactoryTest test = new FillFactoryTest();
-        test0.setMap(maps);
-        test0.setTip("yyyy!MM@dd#HH-mm:ss");
-        List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < 666; i++) {
-            Thread thread;
-            if (i % 2 == 0) {
-                thread = new Thread(test0, "" + i);
-            } else {
-                thread = new Thread(test, "" + i);
-            }
-            threads.add(thread);
-        }
-        for (Thread thread : threads) {
-
-            thread.start();
-        }
 
     }
 
