@@ -24,6 +24,11 @@ public class FillFactoryTest implements Runnable {
 
     private MockHttpServletRequest request;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
 
         Map map = new HashMap(1);
@@ -53,16 +58,29 @@ public class FillFactoryTest implements Runnable {
 
     }
 
+    /**
+     * Sets map.
+     *
+     * @param map the map
+     */
     public void setMap(Map map) {
 
         this.map = map;
     }
 
+    /**
+     * Sets tip.
+     *
+     * @param tip the tip
+     */
     public void setTip(String tip) {
 
         this.tip = tip;
     }
 
+    /**
+     * Sets up.
+     */
     @Before
     public void setUp() {
 
@@ -353,7 +371,6 @@ public class FillFactoryTest implements Runnable {
      *
      * @author hihuzi 2018/6/26 14:51
      */
-
     @Test
     public void fillEntity007() {
 
@@ -382,7 +399,6 @@ public class FillFactoryTest implements Runnable {
      * @param E
      * @author hihuzi 2018/6/26 14:51
      */
-
     @Test
     public void listToEntity() {
 

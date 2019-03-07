@@ -9,8 +9,9 @@ import java.util.Date;
  * <p>:
  *
  * <p>
+ *
  * @author hihuzi 2018/10/17 17:25
- **/
+ */
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class Base extends Root {

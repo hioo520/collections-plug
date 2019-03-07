@@ -62,7 +62,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>     e
      * @param request ServletRequest
-     * @param obj      obj
+     * @param obj     obj
      * @return E e
      * @author hihuzi 2018/6/14 14:50
      */
@@ -96,7 +96,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>    e
      * @param map    Map
-     * @param obj      E
+     * @param obj    E
      * @param config E
      * @return E e
      * @author hihuzi 2018/6/14 14:50
@@ -133,7 +133,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>  e
      * @param list List(String)
-     * @param obj   E
+     * @param obj  E
      * @return List list
      * @author hihuzi 2018/6/26 14:51
      */
@@ -146,7 +146,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>    e
      * @param list   list
-     * @param obj      E
+     * @param obj    E
      * @param config config
      * @return List list
      * @author hihuzi 2018/6/26 14:51
@@ -158,7 +158,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>  es
      * @param list list
-     * @param obj    e
+     * @param obj  e
      * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
      * @author hihuzi 2019/2/11 9:53
      */

@@ -52,6 +52,9 @@ public class PickFactoryTest implements Runnable {
         batch4.forEach(map -> System.out.println(map));
     }
 
+    /**
+     * Pick.
+     */
     @Test
     public void pick() {
 
@@ -221,11 +224,19 @@ public class PickFactoryTest implements Runnable {
 
     }
 
+    /**
+     * Sets tip.
+     *
+     * @param tip the tip
+     */
     public void setTip(String tip) {
 
         this.tip = tip;
     }
 
+    /**
+     * Mutl thread test.
+     */
     @Test
     public void mutlThreadTest() {
 
@@ -251,6 +262,11 @@ public class PickFactoryTest implements Runnable {
         }
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
 
         PickFactoryTest test0 = new PickFactoryTest();

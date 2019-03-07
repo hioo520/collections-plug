@@ -33,8 +33,7 @@ public class FillConfig implements Config {
      *
      * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
      *
-     * @param e   e
-     * @param <E> e
+     * @param e e
      * @author hihuzi 2018/9/30 10:59
      */
     public <E> FillConfig(E... e) {
@@ -78,6 +77,11 @@ public class FillConfig implements Config {
         return null != returnNameEnum ? returnNameEnum : ReturnNameEnum.DEFAULT;
     }
 
+    /**
+     * Sets return name enum.
+     *
+     * @param returnNameEnum the return name enum
+     */
     public void setReturnNameEnum(ReturnNameEnum returnNameEnum) {
 
         this.returnNameEnum = returnNameEnum;

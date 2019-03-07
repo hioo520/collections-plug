@@ -10,8 +10,14 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Public method test.
+ */
 public class PublicMethodTest {
 
+    /**
+     * Fields.
+     */
     @Test
     public void fields() {
 

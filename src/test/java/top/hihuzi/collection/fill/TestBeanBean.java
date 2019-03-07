@@ -53,10 +53,18 @@ public class TestBeanBean extends SuperClass {
 
     private Character character;
 
+    /**
+     * Instantiates a new Test bean bean.
+     */
     public TestBeanBean() {
 
     }
 
+    /**
+     * Gets boolean min.
+     *
+     * @return the boolean min
+     */
     public boolean getBooleanMin() {
 
         return booleanMin;

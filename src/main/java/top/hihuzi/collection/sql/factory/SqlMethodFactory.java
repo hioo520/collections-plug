@@ -33,7 +33,7 @@ public interface SqlMethodFactory extends SqlFactory {
      *
      * @param <E>  e
      * @param list e
-     * @param obj    e
+     * @param obj  e
      * @return Object object
      * @author hihuzi 2019/2/14 9:08
      */
@@ -47,7 +47,7 @@ public interface SqlMethodFactory extends SqlFactory {
      * @param <E>    E
      * @param list   list
      * @param config config
-     * @param obj      e
+     * @param obj    e
      * @return Object object
      * @author hihuzi 2019/2/14 9:08
      */

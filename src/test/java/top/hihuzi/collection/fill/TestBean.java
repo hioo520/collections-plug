@@ -35,10 +35,18 @@ public class TestBean {
 
     private Character character;
 
+    /**
+     * Instantiates a new Test bean.
+     */
     public TestBean() {
 
     }
 
+    /**
+     * Gets boolean min.
+     *
+     * @return the boolean min
+     */
     public boolean getBooleanMin() {
 
         return booleanMin;

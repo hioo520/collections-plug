@@ -307,7 +307,7 @@ public class PublicMethod {
      * <p> 获取对象中和待展示的数据重复的个数
      *
      * @param clazz clazz
-     * @return String[]
+     * @return String[] string [ ]
      * @author hihuzi 2019/2/19 17:39
      */
     public static String[] fields(Class clazz) {
@@ -354,6 +354,8 @@ public class PublicMethod {
     /**
      * tips 是否需要新建对象
      *
+     * @param obj the obj
+     * @return the clazz
      * @author hihuzi 2019/3/7 8:57
      */
     public static Class getClazz(Object obj) {
@@ -370,6 +372,10 @@ public class PublicMethod {
     /**
      * tips 是否需要新建对象
      *
+     * @param <E>    the type parameter
+     * @param object the object
+     * @param clazz  the clazz
+     * @return the obj
      * @author hihuzi 2019/3/7 8:57
      */
     public static <E> E getObj(Object object, Class clazz) {
