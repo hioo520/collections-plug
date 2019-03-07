@@ -483,8 +483,15 @@ public class FillFactoryTest implements Runnable {
 
 
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
+        List<TestBean> bean0 = (List<TestBean>) FillFactory.batch().listToClass(list,
+                new FillConfig(FillConfig.ReturnEnum.FILL_CLASS), TestBean.class);
         List<TestBean> bean = (List<TestBean>) FillFactory.batch().listToClass(list,
+                new FillConfig(FillConfig.ReturnEnum.FILL_CLASS), "top.hihuzi.collection.fill.TestBean");
+        List<TestBean> bean1 = (List<TestBean>) FillFactory.batch().listToClass(list,
                 new FillConfig(FillConfig.ReturnEnum.FILL_CLASS), new TestBean());
+        TestBean testBean = new TestBean();
+        List<TestBean> bean2 = (List<TestBean>) FillFactory.batch().listToClass(list,
+                new FillConfig(FillConfig.ReturnEnum.FILL_CLASS), testBean);
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
         long end = System.currentTimeMillis();
         System.err.println("------>一百万 耗时" + (end - start) / 1000 + "秒<------");

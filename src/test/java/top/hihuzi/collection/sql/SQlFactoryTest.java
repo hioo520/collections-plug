@@ -4,6 +4,9 @@ package top.hihuzi.collection.sql;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
+import top.hihuzi.collection.fill.TestBean;
+import top.hihuzi.collection.fill.config.FillConfig;
+import top.hihuzi.collection.fill.factory.FillFactory;
 import top.hihuzi.collection.sql.config.SqlBean;
 import top.hihuzi.collection.sql.config.SqlConfig;
 import top.hihuzi.collection.sql.factory.SqlFactory;
@@ -535,7 +538,9 @@ public class SQlFactoryTest {
         }
         SqlBean bean = new SqlBean()
                 .addUnique("007")
-                .addClazz(new Son(), new Father())
+//                .addClazz(new Son(), new Father())
+                .addClazz("top.hihuzi.collection.sql.Son", "top.hihuzi.collection.sql.Father")
+                .addClazz(Son.class, Father.class)
                 .addNickname("so", "fa")
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
 //                .addDisplay("naMe", "aGe", "sEx", "hiGht","id")
@@ -577,8 +582,17 @@ public class SQlFactoryTest {
 
 
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
-        List<Son> beans = (List<Son>) SqlFactory.batch().listToEntity(list,
+        List<Son> beans11 = (List<Son>) SqlFactory.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), new Son());
+        List<TestBean> bean0 = (List<TestBean>) SqlFactory.batch().listToEntity(list,
+                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), Son.class);
+        List<TestBean> bean12 = (List<TestBean>) SqlFactory.batch().listToEntity(list,
+                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), "top.hihuzi.collection.sql.Son");
+        List<TestBean> bean1 = (List<TestBean>) SqlFactory.batch().listToEntity(list,
+                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), new Son());
+        Son son = new Son();
+        List<TestBean> bean2 = (List<TestBean>) SqlFactory.batch().listToEntity(list,
+                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), son);
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
         long end = System.currentTimeMillis();
         System.err.println("------>一千万 耗时" + (end - start) / 1000 + "秒<------");

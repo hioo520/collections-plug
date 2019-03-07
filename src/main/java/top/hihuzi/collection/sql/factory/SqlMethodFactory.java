@@ -33,11 +33,11 @@ public interface SqlMethodFactory extends SqlFactory {
      *
      * @param <E>  e
      * @param list e
-     * @param e    e
+     * @param obj    e
      * @return Object object
      * @author hihuzi 2019/2/14 9:08
      */
-    public <E> Object listToEntity(List<Map> list, E... e);
+    public <E> Object listToEntity(List<Map> list, Object... obj);
 
     /**
      * <p> sql+ 增强工具(带缓存) 自动填充对象
@@ -47,11 +47,11 @@ public interface SqlMethodFactory extends SqlFactory {
      * @param <E>    E
      * @param list   list
      * @param config config
-     * @param e      e
+     * @param obj      e
      * @return Object object
      * @author hihuzi 2019/2/14 9:08
      */
-    public <E> Object listToEntity(List<Map> list, SqlConfig config, E... e);
+    public <E> Object listToEntity(List<Map> list, SqlConfig config, Object... obj);
 
     /**
      * <p> sql+ 增强工具(带缓存) 自动填充对象

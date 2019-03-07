@@ -2,6 +2,7 @@ package top.hihuzi.collection.sql.config;
 
 
 import top.hihuzi.collection.cache.ClassCache;
+import top.hihuzi.collection.common.PublicMethod;
 import top.hihuzi.collection.config.CacheBean;
 import top.hihuzi.collection.exception.NoticeException;
 import top.hihuzi.collection.utils.Constants;
@@ -147,7 +148,7 @@ public class SqlBean implements CacheBean {
 
         List<Class<?>> list = new ArrayList<>();
         for (E es : e) {
-            list.add(es.getClass());
+            list.add(PublicMethod.getClazz(es));
         }
         this.clazz = list;
         return this;

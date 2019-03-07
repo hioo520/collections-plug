@@ -26,28 +26,30 @@ public abstract class AbstractSql implements SqlMethodFactory {
      * @param <E>    obj <p> 对象属性和表 遵循驼峰或者下划线命名
      * @param list   the list
      * @param config the config
-     * @param e      the e
+     * @param e      the obj
      * @return the object
      * @author hihuzi 2019/2/11 9:53
      */
-    <E> Object listToEntityDefault(List<Map> list, SqlConfig config, E... e) {
+    <E> Object listToEntityDefault(List<Map> list, SqlConfig config, Object... e) {
 
-        List<Map> lm = new ArrayList<>(list.size());
-        Object newClazz = null;
-        Map<String, List<E>> m = null;
         if (0 == e.length) {
             e = (E[]) config.getSqlEeum().get().getClazz().toArray();
         } else {
-            Class[] ee = new Class[e.length];
-            for (int i = 0; i < e.length; i++) {
-                ee[i] = e[i].getClass();
+            List<Object> obj = Arrays.asList(e);
+            Object[] es = new Object[obj.size()];
+            for (int i = 0; i < obj.size(); i++) {
+                es[i] = PublicMethod.getClazz(obj.get(i));
             }
-            e = (E[]) ee;
+            e = es;
         }
+        List<Map> lm = null;
+        Object newClazz = null;
+        Map<String, List<E>> m = null;
         Map<String, ParameterCache> tableNameMatchParameter = PublicMethod.tableNameMatchParameter(config, e);
         switch (config.getReturnEnum()) {
             case DEFAULT:
             case LISR:
+                lm = new ArrayList<>(list.size());
                 for (Map map : list) {
                     Map map0 = new HashMap(map.size());
                     for (Object obj : map.entrySet()) {
@@ -69,7 +71,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
                 break;
         }
         String sqlKey = config.getSqlEeum().get().key();
-        for (E es : e) {
+        for (Object es : e) {
             Class<?> clazz = (Class<?>) es;
             for (Map map : list) {
                 try {
@@ -81,20 +83,20 @@ public abstract class AbstractSql implements SqlMethodFactory {
                     Map.Entry entry = (Map.Entry) obj;
                     String names = String.valueOf(entry.getKey());
                     String values = String.valueOf(entry.getValue());
-                    ParameterCache pCache = ClassCache.getPCache(sqlKey + ((Class) es).getSimpleName(), names);
+                    ParameterCache pCache = ClassCache.getPCache(sqlKey + clazz.getSimpleName(), names);
                     if (null != pCache) {
                         Map<String, TypeCache> ptCache = pCache.getCache();
                         TypeCache cache = ptCache.get(names);
                         ValueHandleCache.invokeValue(newClazz, cache.getMethodSet(), values, null, config, cache.getType());
                     }
                 }
-                List<E> lis = m.get(newClazz.getClass().getSimpleName());
+                List<E> lis = m.get(clazz.getSimpleName());
                 if (null != lis) {
                     lis.add((E) newClazz);
                 } else {
                     List<E> li = new ArrayList<>(list.size());
                     li.add((E) newClazz);
-                    m.put(newClazz.getClass().getSimpleName(), li);
+                    m.put(clazz.getSimpleName(), li);
                 }
             }
         }
@@ -104,8 +106,9 @@ public abstract class AbstractSql implements SqlMethodFactory {
             case FILL_LIST:
                 int i = 0;
                 try {
-                    for (E es : e) {
-                        config.getReturnEnum().getList()[i].addAll(m.get(((Class) es).getSimpleName()));
+                    for (Object es : e) {
+                        Class<?> clazz = (Class<?>) es;
+                        config.getReturnEnum().getList()[i].addAll(m.get(clazz.getSimpleName()));
                         i++;
                     }
                 } catch (Exception ex) {
@@ -133,28 +136,32 @@ public abstract class AbstractSql implements SqlMethodFactory {
 
         StringBuffer sql = null;
         String caches = SqlCache.getCache(config.key());
+        List<Class<?>> clazz0 = config.getClazz();
+        Map nickname = config.getNickname();
+        List<String> display = config.getDisplay();
+        List<String> repeat = config.getRepeat();
         if (null == caches || "".equals(caches)) {
             sql = new StringBuffer(500);
             int j = 0;
-            for (Class clazz : config.getClazz()) {
+            for (Class clazz : clazz0) {
                 Map humpToLineMap = PublicMethod.getHumpToLine(clazz);
                 Iterator iterator = humpToLineMap.entrySet().iterator();
                 int i = 0, size = humpToLineMap.size();
                 int times = 0;
-                if (null != config.getDisplay() && 0 != config.getDisplay().size()) {
-                    times = PublicMethod.achieveTimes(clazz, config.getDisplay());
+                if (null != display && 0 != display.size()) {
+                    times = PublicMethod.achieveTimes(clazz, display);
                 }
                 while (iterator.hasNext()) {
                     Map.Entry humpToLine = (Map.Entry) iterator.next();
                     String param = String.valueOf(humpToLine.getKey());
                     String table = String.valueOf(humpToLine.getValue());
-                    String mark = String.valueOf(config.getNickname().get(clazz.getName()));
-                    if (null == config.getDisplay()) {
-                        if (null != config.getNickname() && !"".equals(mark.trim())) {
+                    String mark = String.valueOf(nickname.get(clazz.getName()));
+                    if (null == display) {
+                        if (null != nickname && !"".equals(mark.trim())) {
                             sql.append(mark + ".");
                         }
                         sql.append(table);
-                        if (config.getRepeat() != null && config.getRepeat().contains(param)) {
+                        if (repeat != null && repeat.contains(param)) {
                             sql.append(" " + mark + table);
                             ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
                         } else {
@@ -163,12 +170,12 @@ public abstract class AbstractSql implements SqlMethodFactory {
                         if (i < size - 1) {
                             sql.append(",");
                         }
-                    } else if (config.getDisplay().contains(param)) {
-                        if (null != config.getNickname() && !"".equals(mark.trim())) {
+                    } else if (display.contains(param)) {
+                        if (null != nickname && !"".equals(mark.trim())) {
                             sql.append(mark + ".");
                         }
                         sql.append(table);
-                        if (config.getRepeat() != null && config.getRepeat().contains(param)) {
+                        if (repeat != null && repeat.contains(param)) {
                             sql.append(" " + mark + table);
                             ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
                         } else {
@@ -184,7 +191,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
                 if (1 == size) {
                     break;
                 }
-                if (j < config.getClazz().size() - 1 && 0 != times) {
+                if (j < clazz0.size() - 1 && 0 != times) {
                     sql.append(",");
                 }
                 j++;
