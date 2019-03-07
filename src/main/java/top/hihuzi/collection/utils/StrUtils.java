@@ -321,4 +321,19 @@ public class StrUtils {
         return String.valueOf(cs);
     }
 
+    /**
+     * <p> 递归处理逗号
+     *
+     * @param vlue a
+     * @return String string
+     * @author hihuzi 2019/3/2 19:38
+     */
+    public static String deleteComma(String vlue) {
+
+        if (vlue.endsWith(",")) {
+            vlue = deleteComma(vlue.substring(0, vlue.length() - 1));
+        }
+        return vlue;
+    }
+
 }

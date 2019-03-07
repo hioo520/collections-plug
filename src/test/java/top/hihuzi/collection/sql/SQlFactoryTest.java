@@ -196,9 +196,9 @@ public class SQlFactoryTest {
 
         SqlBean bean33 = new SqlBean()
 //                .addUnique("007")
-                .addClazz(new Son(), new Father(), new Mother())
+                .addClazz(new Son(), Dog.class,new Mother(), new Father())
                 .addNickname("HH", "II", "JJ")
-                .addDisplay("naMe", "aGe", "sEx", "hiGht")
+//                .addDisplay("naMe", "aGe", "sEx", "hiGht")
                 .build();
         Object sql33 = SqlFactory.batch().getSQL(bean33);
         System.out.println(sql33);
