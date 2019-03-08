@@ -155,6 +155,7 @@ public interface FillMethodFactory extends FillFactory {
 
     /**
      * <p> 数据库的元组转对象
+     * <p> 支持返回List<Map>(有两种) ,List<E>  (一个或者多个)
      *
      * @param <E>  es
      * @param list list

@@ -210,7 +210,7 @@ public class StrUtils {
     }
 
     /**
-     * Is equals boolean.
+     * <p> 处理两个字段名称存在下划线或者大小写有别  都返回为true
      *
      * @param names the names
      * @param name  the name

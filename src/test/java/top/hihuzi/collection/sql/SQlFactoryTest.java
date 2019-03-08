@@ -196,7 +196,7 @@ public class SQlFactoryTest {
 
         SqlBean bean33 = new SqlBean()
 //                .addUnique("007")
-                .addClazz(new Son(), Dog.class,new Mother(), new Father())
+                .addClazz(new Son(), Apple.class, Orange.class, Dog.class, new Mother(), new Father())
                 .addNickname("HH", "II", "JJ")
 //                .addDisplay("naMe", "aGe", "sEx", "hiGht")
                 .build();
@@ -420,7 +420,7 @@ public class SQlFactoryTest {
         Object sql = SqlFactory.batch().getSQL(bean);
 
         Map<String, List> map4 = (Map<String, List>) SqlFactory.batch().listToEntity(list,
-                new SqlConfig(SqlConfig.ReturnEnum.MAP, SqlConfig.SqlEeum.DEFAULT.set(bean)));
+                new SqlConfig(SqlConfig.ReturnEnum.MAP_CLASS, SqlConfig.SqlEeum.DEFAULT.set(bean)));
                    /* "Son.aGe" -> "24"
             "birthday" -> "2012-12"
             "Son.naMe" -> "女儿-小丽丽"
@@ -582,7 +582,7 @@ public class SQlFactoryTest {
 
         System.out.println("测试 ---< 第二种返回结果是Map<String, List>");
         Map<String, List> map4 = (Map<String, List>) SqlFactory.batch().listToEntity(list,
-                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.MAP), new Son(), new Father());
+                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.MAP_CLASS), new Son(), new Father());
         System.out.println("测试 ---< 第二种返回结果是Map<String, List>");
 
 

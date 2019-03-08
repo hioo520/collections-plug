@@ -1,6 +1,7 @@
 package top.hihuzi.collection.fill.config;
 
 import top.hihuzi.collection.config.Config;
+import top.hihuzi.collection.config.MarkCache;
 import top.hihuzi.collection.utils.Constants;
 
 import java.util.List;
@@ -12,19 +13,17 @@ import java.util.List;
  *
  * @author hihuzi 2018/9/30 10:08
  */
-public class FillConfig implements Config {
-
+public class FillConfig implements Config, MarkCache {
 
     private SaveStyleEnum saveStyleEnum;
 
-
     private SortStyleEnum sortStyleEnum;
-
 
     private DateStyleEnum dateStyleEnum;
 
     private ReturnNameEnum returnNameEnum;
 
+    private MarkCacheEnum markCacheEnum;
 
     private ReturnEnum returnEnum;
 
@@ -49,6 +48,8 @@ public class FillConfig implements Config {
                 this.returnEnum = (ReturnEnum) ex;
             } else if (ex instanceof ReturnNameEnum) {
                 this.returnNameEnum = (ReturnNameEnum) ex;
+            } else if (ex instanceof MarkCacheEnum) {
+                this.markCacheEnum = (MarkCacheEnum) ex;
             }
         }
     }
@@ -143,6 +144,16 @@ public class FillConfig implements Config {
     public ReturnStyleEnum getReturnStyleEnum() {
 
         return null;
+    }
+
+    public MarkCacheEnum getMarkCacheEnum() {
+
+        return null != markCacheEnum ? markCacheEnum : MarkCacheEnum.DEFAULT;
+    }
+
+    public void setMarkCacheEnum(MarkCacheEnum markCacheEnum) {
+
+        this.markCacheEnum = markCacheEnum;
     }
 
 }

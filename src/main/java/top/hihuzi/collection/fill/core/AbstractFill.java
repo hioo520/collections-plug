@@ -263,13 +263,14 @@ abstract class AbstractFill implements FillMethodFactory {
 
         List<Map> lm = new ArrayList<>(list.size());
         Object newClazz = null;
-        Map<String, List<E>> m;
+        Map<String, List<E>> mapClass;
         List<Object> obj0 = Arrays.asList(object);
         Object[] e = new Object[obj0.size()];
         for (int i = 0; i < obj0.size(); i++) {
             e[i] = PublicMethod.getClazz(obj0.get(i));
         }
-        PublicMethod.tableNameMatchParameter(list.get(0), e);
+        /*notice 加入缓存*/
+        PublicMethod.tableNameMatchParameter(list.get(0), config, e);
         switch (config.getReturnEnum()) {
             case DEFAULT:
             case LISR:
@@ -285,7 +286,7 @@ abstract class AbstractFill implements FillMethodFactory {
                 }
                 return lm;
             default:
-                m = new HashMap<>(e.length);
+                mapClass = new HashMap<>(e.length);
                 break;
         }
         for (Object es : e) {
@@ -307,25 +308,25 @@ abstract class AbstractFill implements FillMethodFactory {
                         ValueHandleCache.invokeValue(newClazz, cache.getMethodSet(), values, null, config, cache.getType());
                     }
                 }
-                List<E> lis = m.get(clazz.getSimpleName());
-                if (null != lis) {
-                    lis.add((E) newClazz);
+                List<E> listClass = mapClass.get(clazz.getSimpleName());
+                if (null != listClass) {
+                    listClass.add((E) newClazz);
                 } else {
-                    List<E> li = new ArrayList<>(list.size());
-                    li.add((E) newClazz);
-                    m.put(newClazz.getClass().getSimpleName(), li);
+                    List<E> listClass0 = new ArrayList<>(list.size());
+                    listClass0.add((E) newClazz);
+                    mapClass.put(newClazz.getClass().getSimpleName(), listClass0);
                 }
             }
         }
         switch (config.getReturnEnum()) {
-            case MAP:
-                return m;
+            case MAP_CLASS:
+                return mapClass;
             case FILL_LIST:
                 int i = 0;
                 try {
                     for (Object es : e) {
                         Class<?> clazz = (Class<?>) es;
-                        config.getReturnEnum().getList()[i].addAll(m.get(clazz.getSimpleName()));
+                        config.getReturnEnum().getList()[i].addAll(mapClass.get(clazz.getSimpleName()));
                         i++;
                     }
                 } catch (Exception ex) {
@@ -333,9 +334,9 @@ abstract class AbstractFill implements FillMethodFactory {
                 }
                 return true;
             case FILL_CLASS:
-                return m.get(((Class) e[0]).getSimpleName());
+                return mapClass.get(((Class) e[0]).getSimpleName());
             default:
-                return null;
+                throw new NoticeException("Sqlconfig.ReturnEnum未定义返回类型");
         }
     }
 

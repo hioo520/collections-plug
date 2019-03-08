@@ -205,7 +205,7 @@ public class FillService extends AbstractFill {
     /**
      * <p> 数据库的元组转对象(多对象时保证字段没有重复)
      *
-     * <p> 对象属性和表 遵循驼峰或者下划线命名
+     * <p> 处理对象生成的map(标准类对象字段) 否则需要设置key值
      *
      * @param list List(String)
      * @param obj    e
@@ -225,7 +225,7 @@ public class FillService extends AbstractFill {
     /**
      * <p> 数据库的元组转对象(多对象时保证字段没有重复)
      *
-     * <p> 对象属性和表 遵循驼峰或者下划线命名
+     * <p> 处理对象生成的map(标准类对象字段) 否则需要设置key值
      *
      * @param list   List(String)
      * @param obj    e

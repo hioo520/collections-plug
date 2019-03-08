@@ -6,6 +6,7 @@ import top.hihuzi.collection.cache.SecondCache;
 import top.hihuzi.collection.cache.TypeCache;
 import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.exception.NoticeException;
+import top.hihuzi.collection.fill.config.FillConfig;
 import top.hihuzi.collection.sql.config.SqlBean;
 import top.hihuzi.collection.sql.config.SqlConfig;
 import top.hihuzi.collection.utils.StrUtils;
@@ -44,6 +45,7 @@ public class PublicMethod {
 
     /**
      * <p> 无线递归上级找属性(表和对象属性匹配)
+     * <p> 不存在的list加入到缓存
      *
      * @param <E>  e
      * @param list list
@@ -51,22 +53,45 @@ public class PublicMethod {
      * @return Map map
      * @author hihuzi 2019/2/12 14:06
      */
-    public static <E> Map<String, ParameterCache> tableNameMatchParameter(Map list, E... e) {
+    public static <E> Map<String, ParameterCache> tableNameMatchParameter(Map list, FillConfig config, E... e) {
 
         if (!isBeingCache(e)) {
-            addCache(list, e);
+            addCache(list, config, e);
         }
+        /**notice 二段缓存**/
+
         Map<String, ParameterCache> map = SecondCache.getCache(StrUtils.splicingObjectName(e));
         if (null == map || 0 == map.size()) {
+            String mark = config.getMarkCacheEnum().get();
             map = new HashMap<>(e.length);
             for (E es : e) {
                 Class<?> clazz = (Class<?>) es;
-                Map<String, ParameterCache> pCache = ClassCache.getPCache(clazz);
+                /**notice 缓存取值 存在mark 取 mark+class.getSimple 否则  取class.getName**/
+                Map<String, ParameterCache> pCache = ClassCache.getPCache(mark != null ? (mark + clazz.getSimpleName()) : clazz);
                 map.putAll(pCache);
             }
             SecondCache.addCache(StrUtils.splicingObjectName(e), map);
         }
         return map;
+    }
+
+    /**
+     * <p> 初级缓存
+     *
+     * @param <E> e
+     * @author hihuzi 2019/2/14 13:00
+     */
+    private static <E> boolean isBeingCache(E... e) {
+
+
+        for (E es : e) {
+            Class<?> clazz = (Class<?>) es;
+            Map<String, ParameterCache> pCache = ClassCache.getPCache(clazz);
+            if (null == pCache) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -96,32 +121,14 @@ public class PublicMethod {
     }
 
     /**
-     * <p> 初级缓存
-     *
-     * @param <E> e
-     * @author hihuzi 2019/2/14 13:00
-     */
-    private static <E> boolean isBeingCache(E... e) {
-
-
-        for (E es : e) {
-            Class<?> clazz = (Class<?>) es;
-            Map<String, ParameterCache> pCache = ClassCache.getPCache(clazz);
-            if (null == pCache) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * <p> 加入缓存(TypeCache)
      *
      * @param <E> e
      * @author hihuzi 2019/2/15 11:24
      */
-    private static <E> void addCache(Map list, E... e) {
+    private static <E> void addCache(Map list, FillConfig config, E... e) {
 
+        String mark = config.getMarkCacheEnum().get();
         for (E es : e) {
             Class<?> clazz = (Class<?>) es;
             for (Object obj : list.keySet()) {
@@ -129,7 +136,7 @@ public class PublicMethod {
                     for (Field field : clazz.getDeclaredFields()) {
                         if (StrUtils.isEquals(String.valueOf(obj), field.getName())) {
                             ClassCache.get().add(clazz, field.getName(), field.getType());
-                            ClassCache.get().add(clazz, field.getName(), field.getType(), String.valueOf(obj), null);
+                            ClassCache.get().add(clazz, field.getName(), field.getType(), String.valueOf(obj), mark);
                             break;
                         }
                     }

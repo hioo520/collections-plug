@@ -161,7 +161,7 @@ public interface ConfigEnum {
         /**
          * 返回"map(e.getClass().getSimpleName(),list(E))"
          */
-        MAP,
+        MAP_CLASS,
         /**
          * 返回 根据传入的list进行填充
          */

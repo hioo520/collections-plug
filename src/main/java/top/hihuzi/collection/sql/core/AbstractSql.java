@@ -102,7 +102,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
             }
         }
         switch (config.getReturnEnum()) {
-            case MAP:
+            case MAP_CLASS:
                 return m;
             case FILL_LIST:
                 int i = 0;
