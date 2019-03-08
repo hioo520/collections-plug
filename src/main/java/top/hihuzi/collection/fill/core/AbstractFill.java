@@ -13,6 +13,7 @@ import top.hihuzi.collection.utils.StrUtils;
 
 import javax.servlet.ServletRequest;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -91,10 +92,10 @@ abstract class AbstractFill implements FillMethodFactory {
             String name = pars.nextElement().toString().trim();
             String value = request.getParameter(name);
             if (StrUtils.isNNoE(value)) {
-                Invoke.processResult(obj, config, clazz, name, value);
+                Invoke.processResult(obj, config, name, value);
             } else {
                 if (config.getSaveStyleEnum().getHaving()) {
-                    Invoke.processResult(obj, config, clazz, name, value);
+                    Invoke.processResult(obj, config, name, value);
                 }
             }
         }
@@ -124,10 +125,10 @@ abstract class AbstractFill implements FillMethodFactory {
             String name = String.valueOf(entry.getKey());
             String value = String.valueOf(entry.getValue());
             if (StrUtils.isNNoE(value)) {
-                Invoke.processResult(obj, config, clazz, name, value);
+                Invoke.processResult(obj, config, name, value);
             } else {
                 if (null != config && config.getSaveStyleEnum().getHaving()) {
-                    Invoke.processResult(obj, config, clazz, name, value);
+                    Invoke.processResult(obj, config, name, value);
                 }
             }
         }
@@ -349,5 +350,56 @@ abstract class AbstractFill implements FillMethodFactory {
         }
     }
 
+    /**
+     * <p> 相同对象进行填充
+     *
+     * @param <E>    es
+     * @param list   list
+     * @param object e
+     * @return List <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
+     */
+    public <E> List<E> fillClassDefault(List<Object> list, FillConfig config, Object object, String... param) {
 
+        List list0 = new ArrayList(list.size());
+        Class clazz = PublicMethod.getClazz(list.get(0).getClass());
+        Class clacc = PublicMethod.getClazz(object);
+        List<String> params = Arrays.asList(param);
+        int length = param.length;
+        PublicMethod.addCache(clazz, clacc);
+        for (Object entity : list) {
+            E obj = PublicMethod.getObj(clacc, clacc);
+            if (length == 0) {
+                for (Field field : clazz.getDeclaredFields()) {
+                    classFillClass(config, clazz, clacc, entity, field.getName(), obj);
+                }
+            } else {
+                for (String name : params) {
+                    classFillClass(config, clazz, clacc, entity, name, obj);
+                }
+            }
+            list0.add(obj);
+
+        }
+        return list0;
+    }
+
+    private <E> void classFillClass(FillConfig config, Class clazz, Class clacc, Object entity, String name, E obj) {
+
+        TypeCache typeCache = ClassCache.getCache(clazz, name);
+        if (null != typeCache) {
+            try {
+                Method methodGet = typeCache.getMethodGet();
+                methodGet.setAccessible(true);
+                Object value = methodGet.invoke(entity);
+                value = PublicMethod.changeChar(config, value);
+                TypeCache cache = ClassCache.getCache(clacc, name);
+                if (null != cache) {
+                    ValueHandleCache.invokeValue(obj, cache.getMethodSet(), String.valueOf(value), null, config, cache.getType());
+                }
+            } catch (Exception e) {
+                throw new NoticeException("类获取对象错误!!" + e);
+            }
+        }
+    }
 }

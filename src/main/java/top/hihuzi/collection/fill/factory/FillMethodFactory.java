@@ -180,4 +180,57 @@ public interface FillMethodFactory extends FillFactory {
      */
     <E> Object listToClass(List<Map> list, FillConfig config, Object... obj);
 
+    /**
+     * <p> 相同对象进行填充
+     *
+     * @param <E>   es
+     * @param list  list
+     * @param obj   e
+     * @param param e
+     * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
+     */
+    <E> List<E> fillClass(List<Object> list, Object obj, String... param);
+
+    /**
+     * <p> 相同对象进行填充
+     *
+     * <p>返回风格"Map(String, List(E))"
+     * <p> 对象属性和表 遵循驼峰或者下划线命名
+     *
+     * @param <E>    es
+     * @param list   list
+     * @param config config
+     * @param obj    e
+     * @return Object object
+     * @author hihuzi 2019/2/11 9:53
+     */
+    <E> List<E> fillClass(List<Object> list, Object obj, FillConfig config, String... param);
+
+    /**
+     * <p> 相同对象进行填充
+     *
+     * @param <E> es
+     * @param e   e
+     * @param obj e
+     * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
+     */
+    <E> E fillClass(Object e, Object obj, String... param);
+
+    /**
+     * <p> 相同对象进行填充
+     *
+     * <p>返回风格"Map(String, List(E))"
+     * <p> 对象属性和表 遵循驼峰或者下划线命名
+     *
+     * @param <E>    es
+     * @param e      e
+     * @param config config
+     * @param obj    e
+     * @return Object object
+     * @author hihuzi 2019/2/11 9:53
+     */
+    <E> E fillClass(Object e, Object obj, FillConfig config, String... param);
+
 }

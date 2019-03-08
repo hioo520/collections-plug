@@ -22,15 +22,14 @@ public class Invoke {
      * @param <E>    obj
      * @param e      E
      * @param config FillConfig
-     * @param clazz  Class
      * @param name   String
      * @param value  String
      * @author hihuzi 2019/2/25 14:54
      */
-    public static <E> void processResult(E e, FillConfig config, Class clazz, String name, String value) {
+    public static <E> void processResult(E e, FillConfig config, String name, String value) {
 
 
-        TypeCache cache = ClassCache.getCache(clazz, name);
+        TypeCache cache = ClassCache.getCache(e.getClass(), name);
         if (null != cache) {
             ValueHandleCache.invokeValue(e, cache.getMethodSet(), value, null, config, cache.getType());
         } else {

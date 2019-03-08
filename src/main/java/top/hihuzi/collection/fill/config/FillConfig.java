@@ -2,9 +2,8 @@ package top.hihuzi.collection.fill.config;
 
 import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.config.MarkCache;
+import top.hihuzi.collection.config.ReturnValue;
 import top.hihuzi.collection.utils.Constants;
-
-import java.util.List;
 
 /**
  * <p>: 填充工具 配置工具
@@ -13,7 +12,7 @@ import java.util.List;
  *
  * @author hihuzi 2018/9/30 10:08
  */
-public class FillConfig implements Config, MarkCache {
+public class FillConfig implements Config, MarkCache, ReturnValue {
 
     private SaveStyleEnum saveStyleEnum;
 
@@ -26,6 +25,8 @@ public class FillConfig implements Config, MarkCache {
     private MarkCacheEnum markCacheEnum;
 
     private ReturnEnum returnEnum;
+
+    private ReturnValueEnum returnValueEnum;
 
     /**
      * <p>: 默认
@@ -50,6 +51,8 @@ public class FillConfig implements Config, MarkCache {
                 this.returnNameEnum = (ReturnNameEnum) ex;
             } else if (ex instanceof MarkCacheEnum) {
                 this.markCacheEnum = (MarkCacheEnum) ex;
+            } else if (ex instanceof ReturnValueEnum) {
+                this.returnValueEnum = (ReturnValueEnum) ex;
             }
         }
     }
@@ -154,6 +157,16 @@ public class FillConfig implements Config, MarkCache {
     public void setMarkCacheEnum(MarkCacheEnum markCacheEnum) {
 
         this.markCacheEnum = markCacheEnum;
+    }
+
+    public ReturnValueEnum getReturnValueEnum() {
+
+        return null != returnValueEnum ? returnValueEnum : ReturnValueEnum.DEFAULT;
+    }
+
+    public void setReturnValueEnum(ReturnValueEnum returnValueEnum) {
+
+        this.returnValueEnum = returnValueEnum;
     }
 
 }

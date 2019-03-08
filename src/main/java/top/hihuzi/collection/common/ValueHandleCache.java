@@ -51,6 +51,7 @@ public class ValueHandleCache {
                     }
                     break;
                 case CHAR:
+                case CHARACTER:
                     obj = value.toCharArray()[0];
                     break;
                 case BYTE:
@@ -118,6 +119,7 @@ public class ValueHandleCache {
                 case FLOAT:
                 case DOUBLE:
                 case INTEGER:
+                case CHARACTER:
                 case BIGDECIMAL:
                     obj = null;
                     break;
@@ -228,7 +230,12 @@ public class ValueHandleCache {
         /**
          * 数据类型
          */
-        DOUBLE_MIN("double");
+        DOUBLE_MIN("double"),
+
+        /**
+         * 数据类型
+         */
+        CHARACTER("Character");
 
         private String value;
 

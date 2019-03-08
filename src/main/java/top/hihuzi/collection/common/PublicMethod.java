@@ -47,9 +47,10 @@ public class PublicMethod {
      * <p> 无线递归上级找属性(表和对象属性匹配)
      * <p> 不存在的list加入到缓存
      *
-     * @param <E>  e
-     * @param list list
-     * @param e    e
+     * @param <E>    e
+     * @param list   list
+     * @param config the config
+     * @param e      e
      * @return Map map
      * @author hihuzi 2019/2/12 14:06
      */
@@ -76,7 +77,7 @@ public class PublicMethod {
     }
 
     /**
-     * <p> 初级缓存
+     * <p> 缓存判断
      *
      * @param <E> e
      * @author hihuzi 2019/2/14 13:00
@@ -88,6 +89,48 @@ public class PublicMethod {
             Class<?> clazz = (Class<?>) es;
             Map<String, ParameterCache> pCache = ClassCache.getPCache(clazz);
             if (null == pCache) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * <p> 加入缓存(存在就不填不存在就遍历加入)
+     *
+     * @param <E> e
+     * @param e   the e
+     * @author hihuzi 2019/2/15 11:24
+     */
+    public static <E> void addCache(E... e) {
+
+        if (isBeing(e)) {
+            return;
+        }
+        for (E es : e) {
+            Class<?> clazz = (Class<?>) es;
+            for (; Object.class != clazz; clazz = clazz.getSuperclass()) {
+                for (Field field : clazz.getDeclaredFields()) {
+                    ClassCache.get().add(clazz, field.getName(), field.getType());
+                }
+            }
+        }
+
+    }
+
+    /**
+     * <p> 缓存判断
+     *
+     * @param <E> e
+     * @author hihuzi 2019/2/14 13:00
+     */
+    private static <E> boolean isBeing(E... e) {
+
+
+        for (E es : e) {
+            Class<?> clazz = (Class<?>) es;
+            Map<String, TypeCache> cache = ClassCache.getCache(clazz);
+            if (null == cache) {
                 return false;
             }
         }
@@ -145,6 +188,7 @@ public class PublicMethod {
             }
         }
     }
+
 
     /**
      * <p> 只针对时间类型 和字符串类型 转化
@@ -317,17 +361,22 @@ public class PublicMethod {
      * @return String[] string [ ]
      * @author hihuzi 2019/2/19 17:39
      */
-    public static String[] fields(Class clazz) {
+    public static List<String> fields(Class clazz, String... param) {
 
-        List<String> list = new ArrayList<String>((int) (clazz.getDeclaredFields().length * 1.5));
+        List<String> strings = Arrays.asList(param);
+        int size = strings.size();
+        List<String> list = new ArrayList<String>(clazz.getDeclaredFields().length);
         int i = 0;
         for (; Object.class != clazz; clazz = clazz.getSuperclass()) {
             for (Field declaredField : clazz.getDeclaredFields()) {
-                list.add(declaredField.getName());
+                if (!strings.contains(declaredField.getName())) {
+                    list.add(declaredField.getName());
+                } else if (size == 0) {
+                    list.add(declaredField.getName());
+                }
             }
         }
-        String[] str = new String[list.size()];
-        return list.toArray(str);
+        return list;
     }
 
     /**
@@ -395,6 +444,23 @@ public class PublicMethod {
             }
         }
         return (E) object;
+    }
+
+    /**
+     * tips 空值转换""
+     *
+     * @param config the type parameter
+     * @param obj    the object
+     * @author: hihuzi 2019/3/8 15:46
+     */
+    public static String changeChar(FillConfig config, Object obj) {
+
+        if (null == obj) {
+            if (config.getReturnValueEnum().get()) {
+                return "";
+            }
+        }
+        return String.valueOf(obj);
     }
 
 }

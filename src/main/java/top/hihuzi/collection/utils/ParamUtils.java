@@ -37,23 +37,24 @@ public class ParamUtils {
     }
 
     /**
-     * tips 获取类的所有属性包括继承的属性
+     * tips 获取类的所有属性包括继承的属性(排除 param)
      *
      * @param obj the obj
      * @return the string [ ]
      * @author hihuzi 2019/3/6 15:51
      */
-    public static final String[] fields(Object obj) {
+    public static final String[] fields(Object obj, String... param) {
 
 
         Class clazz = PublicMethod.createClazz(obj);
         if (clazz != null) {
-            return PublicMethod.fields(clazz);
+            List<String> fields = PublicMethod.fields(clazz, param);
+            String[] str = new String[fields.size()];
+            return fields.toArray(str);
         } else {
             return null;
         }
     }
-
 
     /**
      * <p> ServletRequest--MAP    是否舍弃空值 并且舍弃str特定字段

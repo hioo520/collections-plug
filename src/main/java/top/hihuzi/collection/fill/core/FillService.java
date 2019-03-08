@@ -3,6 +3,7 @@ package top.hihuzi.collection.fill.core;
 import top.hihuzi.collection.fill.config.FillConfig;
 
 import javax.servlet.ServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ public class FillService extends AbstractFill {
      * <p> ServletRequest-- obj
      *
      * @param <E>     e
-     * @param obj      obj
+     * @param obj     obj
      * @param request ServletRequest
      * @return E
      * @author hihuzi 2018/6/14 14:50
@@ -172,7 +173,7 @@ public class FillService extends AbstractFill {
      * <p>  对LIST数据装填-- 对象 (针对数据库)与实体类名有区别 value --t
      *
      * @param list List(String)
-     * @param obj    E
+     * @param obj  E
      * @return List
      * @author hihuzi 2018/6/26 14:51
      */
@@ -189,7 +190,7 @@ public class FillService extends AbstractFill {
      * <p>  对LIST数据装填-- 对象 (针对数据库)与实体类名有区别 value --t
      *
      * @param list List(String)
-     * @param obj    E
+     * @param obj  E
      * @return List
      * @author hihuzi 2018/6/26 14:51
      */
@@ -208,7 +209,7 @@ public class FillService extends AbstractFill {
      * <p> 处理对象生成的map(标准类对象字段) 否则需要设置key值
      *
      * @param list List(String)
-     * @param obj    e
+     * @param obj  e
      * @return Object
      * @author hihuzi 2019/2/11 9:53
      */
@@ -241,6 +242,82 @@ public class FillService extends AbstractFill {
         }
         return listToClassDefault(list, config, obj);
 
+    }
+
+    /**
+     * <p> 相同对象进行填充
+     *
+     * @param <E>  es
+     * @param list list
+     * @param obj  e
+     * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
+     */
+    @Override
+    public <E> List<E> fillClass(List<Object> list, Object obj, String... param) {
+
+        if (null == list || 0 == list.size() || null == obj) {
+            return null;
+        }
+        return fillClassDefault(list, new FillConfig(), obj, param);
+    }
+
+    /**
+     * <p> 相同对象进行填充
+     *
+     * @param <E>  es
+     * @param list list
+     * @param obj  e
+     * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
+     */
+    @Override
+    public <E> List<E> fillClass(List<Object> list, Object obj, FillConfig config, String... param) {
+
+        if (null == list || 0 == list.size() || null == obj) {
+            return null;
+        }
+        return fillClassDefault(list, config, obj, param);
+    }
+
+    /**
+     * <p> 相同对象进行填充
+     *
+     * @param <E> es
+     * @param e   e
+     * @param obj e
+     * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
+     */
+    @Override
+    public <E> E fillClass(Object e, Object obj, String... param) {
+
+        if (null == e || null == obj) {
+            return null;
+        }
+        return (E) fillClassDefault(new ArrayList() {{
+            add(e);
+        }}, new FillConfig(), obj, param).get(0);
+    }
+
+    /**
+     * <p> 相同对象进行填充
+     *
+     * @param <E> es
+     * @param e   e
+     * @param obj e
+     * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
+     * @author hihuzi 2019/2/11 9:53
+     */
+    @Override
+    public <E> E fillClass(Object e, Object obj, FillConfig config, String... param) {
+
+        if (null == e || null == obj) {
+            return null;
+        }
+        return (E) fillClassDefault(new ArrayList() {{
+            add(e);
+        }}, config, obj, param).get(0);
     }
 
 }

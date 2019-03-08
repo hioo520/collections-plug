@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import top.hihuzi.collection.cache.ClassCache;
 import top.hihuzi.collection.cache.TypeCache;
+import top.hihuzi.collection.config.ConfigEnum;
 import top.hihuzi.collection.fill.config.FillConfig;
 import top.hihuzi.collection.fill.factory.FillFactory;
 
@@ -551,6 +552,43 @@ public class FillFactoryTest implements Runnable {
         List<Map> map2 = (List<Map>) FillFactory.batch().listToClass(list, new FillConfig(FillConfig.MarkCacheEnum.DEFAULT.set("love皮皮")),
                 new TestBean(), new TestBeanBean());
         System.out.println(Arrays.toString(map1.toArray()));
+    }
+
+    @Test
+    public void fillClass() {
+
+        List list = new ArrayList();
+        TestBean testBean = new TestBean();
+//        testBean.setStringMax("");
+        testBean.setIntMin(888888);
+        testBean.setCharacter('W');
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 10; i++) {
+            list.add(testBean);
+        }
+
+        System.out.println("测试 ---> 第一种返回结果是List<Map>");
+        List<PigBean> map1 = FillFactory.batch().fillClass(list, new PigBean());
+        List<PigBean> map10 = FillFactory.batch().fillClass(list, new PigBean(), "stringMax", "intMin", "character");
+        PigBean pigBean11 = FillFactory.batch().fillClass(testBean, new PigBean());
+        PigBean pigBean110 = FillFactory.batch().fillClass(testBean, new PigBean(), "stringMax", "intMin");
+
+
+        List<PigBean> map22 = FillFactory.batch().fillClass(list, PigBean.class, "stringMax", "intMin", "character");
+        List<PigBean> map2 = FillFactory.batch().fillClass(list, PigBean.class);
+        PigBean pigBean = FillFactory.batch().fillClass(testBean, PigBean.class);
+        PigBean pigBean00 = FillFactory.batch().fillClass(testBean, PigBean.class, "stringMax", "intMin");
+
+
+        List<PigBean> map3 = FillFactory.batch().fillClass(list, "top.hihuzi.collection.fill.PigBean", "stringMax", "intMin");
+        List<PigBean> map30 = FillFactory.batch().fillClass(list, "top.hihuzi.collection.fill.PigBean");
+        PigBean pigBean330 = FillFactory.batch().fillClass(testBean, "top.hihuzi.collection.fill.PigBean", "stringMax", "intMin");
+        PigBean pigBean3300 = FillFactory.batch().fillClass(testBean, "top.hihuzi.collection.fill.PigBean");
+
+
+        List<PigBean> mapyy2 = FillFactory.batch().fillClass(list, PigBean.class, new FillConfig(FillConfig.ReturnValueEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
+        PigBean pigBdfsdfeansdf = FillFactory.batch().fillClass(testBean, PigBean.class, new FillConfig(FillConfig.ReturnValueEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
+        PigBean pigBdfsdfean = FillFactory.batch().fillClass(testBean, PigBean.class, new FillConfig(), "stringMax", "intMin");
     }
 
     @Override
