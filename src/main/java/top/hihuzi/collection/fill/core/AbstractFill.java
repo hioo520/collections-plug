@@ -355,7 +355,9 @@ abstract class AbstractFill implements FillMethodFactory {
      *
      * @param <E>    es
      * @param list   list
+     * @param config the config
      * @param object e
+     * @param param  the param
      * @return List <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
      * @author hihuzi 2019/2/11 9:53
      */

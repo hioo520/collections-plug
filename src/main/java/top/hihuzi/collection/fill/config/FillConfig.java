@@ -34,6 +34,7 @@ public class FillConfig implements Config, MarkCache, ReturnValue {
      * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
      *
      * @param e e
+     * @param <E> e
      * @author hihuzi 2018/9/30 10:59
      */
     public <E> FillConfig(E... e) {
@@ -149,21 +150,41 @@ public class FillConfig implements Config, MarkCache, ReturnValue {
         return null;
     }
 
+    /**
+     * Gets mark cache enum.
+     *
+     * @return the mark cache enum
+     */
     public MarkCacheEnum getMarkCacheEnum() {
 
         return null != markCacheEnum ? markCacheEnum : MarkCacheEnum.DEFAULT;
     }
 
+    /**
+     * Sets mark cache enum.
+     *
+     * @param markCacheEnum the mark cache enum
+     */
     public void setMarkCacheEnum(MarkCacheEnum markCacheEnum) {
 
         this.markCacheEnum = markCacheEnum;
     }
 
+    /**
+     * Gets return value enum.
+     *
+     * @return the return value enum
+     */
     public ReturnValueEnum getReturnValueEnum() {
 
         return null != returnValueEnum ? returnValueEnum : ReturnValueEnum.DEFAULT;
     }
 
+    /**
+     * Sets return value enum.
+     *
+     * @param returnValueEnum the return value enum
+     */
     public void setReturnValueEnum(ReturnValueEnum returnValueEnum) {
 
         this.returnValueEnum = returnValueEnum;

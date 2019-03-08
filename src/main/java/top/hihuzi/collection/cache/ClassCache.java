@@ -215,6 +215,7 @@ public class ClassCache {
     /**
      * <p> 加入缓存机制 paramCache
      * <p> 加入缓存机制 如果是通用类的属性就用全限定名  存在定义的cache key  以定义为主
+     *
      * @param clazz        Class
      * @param paramterName String
      * @param paramtertype Class

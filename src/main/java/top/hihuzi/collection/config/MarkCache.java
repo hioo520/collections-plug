@@ -18,6 +18,9 @@ public interface MarkCache {
          */
         DEFAULT(null);
 
+        /**
+         * The constant marks.
+         */
         public volatile static ThreadLocal<String> marks = new ThreadLocal<String>();
 
         MarkCacheEnum(String mark) {

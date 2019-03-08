@@ -358,6 +358,7 @@ public class PublicMethod {
      * <p> 获取对象中和待展示的数据重复的个数
      *
      * @param clazz clazz
+     * @param param the param
      * @return String[] string [ ]
      * @author hihuzi 2019/2/19 17:39
      */
@@ -451,7 +452,8 @@ public class PublicMethod {
      *
      * @param config the type parameter
      * @param obj    the object
-     * @author: hihuzi 2019/3/8 15:46
+     * @return the string
+     * @author hihuzi 2019/3/8 15:46
      */
     public static String changeChar(FillConfig config, Object obj) {
 

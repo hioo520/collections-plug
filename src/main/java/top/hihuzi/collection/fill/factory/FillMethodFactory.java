@@ -155,7 +155,7 @@ public interface FillMethodFactory extends FillFactory {
 
     /**
      * <p> 数据库的元组转对象
-     * <p> 支持返回List<Map>(有两种) ,List<E>  (一个或者多个)
+     * <p> 支持返回ListMap(有两种) ,ListE (一个或者多个)
      *
      * @param <E>  es
      * @param list list
@@ -200,8 +200,9 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>    es
      * @param list   list
-     * @param config config
      * @param obj    e
+     * @param config config
+     * @param param  the param
      * @return Object object
      * @author hihuzi 2019/2/11 9:53
      */
@@ -210,9 +211,10 @@ public interface FillMethodFactory extends FillFactory {
     /**
      * <p> 相同对象进行填充
      *
-     * @param <E> es
-     * @param e   e
-     * @param obj e
+     * @param <E>   es
+     * @param e     e
+     * @param obj   e
+     * @param param the param
      * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
      * @author hihuzi 2019/2/11 9:53
      */
@@ -226,8 +228,9 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>    es
      * @param e      e
-     * @param config config
      * @param obj    e
+     * @param config config
+     * @param param  the param
      * @return Object object
      * @author hihuzi 2019/2/11 9:53
      */
