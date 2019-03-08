@@ -546,6 +546,7 @@ public class FillFactoryTest implements Runnable {
         System.out.println("测试 ---> 第一种返回结果是List<Map>");
         List<Map> map1 = (List<Map>) FillFactory.batch().listToClass(list,
                 new TestBean(), new TestBeanBean());
+        System.out.println("23423432");
         /* 配置类缓存标志位*/
         List<Map> map2 = (List<Map>) FillFactory.batch().listToClass(list, new FillConfig(FillConfig.MarkCacheEnum.DEFAULT.set("love皮皮")),
                 new TestBean(), new TestBeanBean());

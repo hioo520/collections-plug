@@ -49,6 +49,7 @@ abstract class AbstractPick implements PickMethodFactory {
                 }
                 lists.add(map0);
             }
+            config.remove();
             return lists;
         }
         Set sets = new HashSet<>(list.size() * key.length);
@@ -92,25 +93,28 @@ abstract class AbstractPick implements PickMethodFactory {
             }
         }
         if (0 != sets.size()) {
+            config.remove();
             return sets;
         }
         if (0 != lists.size()) {
+            config.remove();
             return lists;
         }
         if (0 != maps.size()) {
             lists.add(maps);
+            config.remove();
             return lists;
         }
-        return null;
+        throw new NoticeException("未定义类型");
     }
 
     private void definitionReturn(
-                                      PickConfig config,
-                                      Set sets,
-                                      Map maps,
-                                      Map map,
-                                      String property,
-                                      Object invoke) {
+            PickConfig config,
+            Set sets,
+            Map maps,
+            Map map,
+            String property,
+            Object invoke) {
 
         switch (config.getReturnStyleEnum()) {
             case DEFAULT:

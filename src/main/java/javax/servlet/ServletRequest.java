@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * The interface Servlet request.
  *
- * @author: hihuzi 2019/3/4 17:28
+ * @author hihuzi 2019/3/4 17:28
  */
 public interface ServletRequest {
 

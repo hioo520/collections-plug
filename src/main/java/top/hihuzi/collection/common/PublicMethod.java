@@ -335,7 +335,7 @@ public class PublicMethod {
      *
      * @param obj obj
      * @return Class class
-     * @author: hihuzi 2019/3/6 15:52
+     * @author hihuzi 2019/3/6 15:52
      */
     public static Class createClazz(Object obj) {
 

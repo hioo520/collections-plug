@@ -41,7 +41,7 @@ public class ParamUtils {
      *
      * @param obj the obj
      * @return the string [ ]
-     * @author: hihuzi 2019/3/6 15:51
+     * @author hihuzi 2019/3/6 15:51
      */
     public static final String[] fields(Object obj) {
 

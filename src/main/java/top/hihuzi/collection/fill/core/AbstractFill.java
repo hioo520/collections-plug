@@ -51,6 +51,7 @@ abstract class AbstractFill implements FillMethodFactory {
                 fillToMap(config, map, name, value);
             }
         }
+        config.remove();
         return map;
     }
 
@@ -97,6 +98,7 @@ abstract class AbstractFill implements FillMethodFactory {
                 }
             }
         }
+        config.remove();
         return obj;
     }
 
@@ -129,6 +131,7 @@ abstract class AbstractFill implements FillMethodFactory {
                 }
             }
         }
+        config.remove();
         return obj;
     }
 
@@ -183,6 +186,7 @@ abstract class AbstractFill implements FillMethodFactory {
                 }
             }
         }
+        config.remove();
         return map;
     }
 
@@ -244,6 +248,7 @@ abstract class AbstractFill implements FillMethodFactory {
         }
         obj = mapFillEntity(map, obj, config);
         result.add((E) obj);
+        config.remove();
         return result;
     }
 
@@ -284,6 +289,7 @@ abstract class AbstractFill implements FillMethodFactory {
                     }
                     lm.add(map0);
                 }
+                config.remove();
                 return lm;
             default:
                 mapClass = new HashMap<>(e.length);
@@ -320,6 +326,7 @@ abstract class AbstractFill implements FillMethodFactory {
         }
         switch (config.getReturnEnum()) {
             case MAP_CLASS:
+                config.remove();
                 return mapClass;
             case FILL_LIST:
                 int i = 0;
@@ -332,8 +339,10 @@ abstract class AbstractFill implements FillMethodFactory {
                 } catch (Exception ex) {
                     throw new NoticeException("从新配置list顺序有误", ex);
                 }
+                config.remove();
                 return true;
             case FILL_CLASS:
+                config.remove();
                 return mapClass.get(((Class) e[0]).getSimpleName());
             default:
                 throw new NoticeException("Sqlconfig.ReturnEnum未定义返回类型");

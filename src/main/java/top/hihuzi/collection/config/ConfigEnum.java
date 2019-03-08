@@ -13,6 +13,19 @@ import java.util.List;
 public interface ConfigEnum {
 
     /**
+     * <p>清理线程 防止栈溢出(无论是弱引用 强引用 软引用)Remove.
+     */
+    default void remove() {
+
+        MarkCache.MarkCacheEnum.remove();
+        SqlEeum.remove();
+        ReturnNameEnum.remove();
+        ReturnEnum.remove();
+        SortStyleEnum.remove();
+        DateStyleEnum.remove();
+    }
+
+    /**
      * <p>: 返回值(value)规则
      *
      * @author hihuzi 2018/9/29 14:54
@@ -64,12 +77,22 @@ public interface ConfigEnum {
          */
         DEFAULT;
 
-        private String value;
-
         /**
          * <p> 多线程并发时启用
          */
         public volatile static ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>();
+
+        private String value;
+
+        /**
+         * 清理线程 防止栈溢出(无论是弱引用 强引用 软引用)
+         *
+         * @author hihuzi 2019/3/8 10:40
+         */
+        public static void remove() {
+
+            dateFormat.remove();
+        }
 
         /**
          * Gets formart style.
@@ -98,6 +121,7 @@ public interface ConfigEnum {
 
     }
 
+
     /**
      * <p>: 排序规则定制
      *
@@ -113,6 +137,16 @@ public interface ConfigEnum {
          * The constant values.
          */
         public volatile static ThreadLocal<Integer[]> values = new ThreadLocal<Integer[]>();
+
+        /**
+         * 清理线程 防止栈溢出(无论是弱引用 强引用 软引用)
+         *
+         * @author hihuzi 2019/3/8 10:40
+         */
+        public static void remove() {
+
+            values.remove();
+        }
 
         /**
          * Get sort integer [ ].
@@ -138,9 +172,7 @@ public interface ConfigEnum {
             }
             return this;
         }
-
     }
-
 
     /**
      * <p>: 返回数据泛型类型
@@ -178,6 +210,16 @@ public interface ConfigEnum {
         public volatile static ThreadLocal<List[]> values = new ThreadLocal<List[]>();
 
         /**
+         * 清理线程 防止栈溢出(无论是弱引用 强引用 软引用)
+         *
+         * @author hihuzi 2019/3/8 10:40
+         */
+        public static void remove() {
+
+            values.remove();
+        }
+
+        /**
          * Get list list [ ].
          *
          * @return List[] list [ ]
@@ -203,6 +245,7 @@ public interface ConfigEnum {
             return this;
         }
     }
+
 
     /**
      * <p>: 返回类型枚举
@@ -236,7 +279,6 @@ public interface ConfigEnum {
         SET;
 
     }
-
 
     /**
      * <p>: 自定义返回Key
@@ -292,6 +334,15 @@ public interface ConfigEnum {
 
         private String value;
 
+        /**
+         * 清理线程 防止栈溢出(无论是弱引用 强引用 软引用)
+         *
+         * @author hihuzi 2019/3/8 10:40
+         */
+        public static void remove() {
+
+            values.remove();
+        }
 
         /**
          * Gets key.
@@ -338,6 +389,16 @@ public interface ConfigEnum {
         public volatile static ThreadLocal<SqlBean> values = new ThreadLocal<SqlBean>();
 
         /**
+         * <p>清理线程 防止栈溢出(无论是弱引用 强引用 软引用)
+         *
+         * @author hihuzi 2019/3/8 10:40
+         */
+        public static void remove() {
+
+            values.remove();
+        }
+
+        /**
          * Set sql eeum.
          *
          * @param sqlBean the sql bean
@@ -363,7 +424,7 @@ public interface ConfigEnum {
 
             return values.get();
         }
-    }
 
+    }
 
 }

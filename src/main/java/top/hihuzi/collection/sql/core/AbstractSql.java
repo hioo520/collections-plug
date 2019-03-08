@@ -66,6 +66,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
                     }
                     lm.add(map0);
                 }
+                config.remove();
                 return lm;
             default:
                 m = new HashMap<>(e.length);
@@ -103,6 +104,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
         }
         switch (config.getReturnEnum()) {
             case MAP_CLASS:
+                config.remove();
                 return m;
             case FILL_LIST:
                 int i = 0;
@@ -115,11 +117,13 @@ public abstract class AbstractSql implements SqlMethodFactory {
                 } catch (Exception ex) {
                     throw new NoticeException("配置顺序有误", ex);
                 }
+                config.remove();
                 return true;
             case FILL_CLASS:
+                config.remove();
                 return m.get(((Class) e[0]).getSimpleName());
             default:
-                return null;
+                throw new NoticeException("未定义输出类型");
         }
     }
 

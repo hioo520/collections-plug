@@ -16,9 +16,13 @@ public interface MarkCache {
         /**
          * 所有都保存
          */
-        DEFAULT;
+        DEFAULT(null);
 
-        private String mark;
+        public volatile static ThreadLocal<String> marks = new ThreadLocal<String>();
+
+        MarkCacheEnum(String mark) {
+
+        }
 
         /**
          * <p>: 获取标志位
@@ -29,7 +33,17 @@ public interface MarkCache {
          */
         public String get() {
 
-            return mark;
+            return marks.get();
+        }
+
+        /**
+         * 清理线程 防止栈溢出
+         *
+         * @author hihuzi 2019/3/8 10:40
+         */
+        public static void remove() {
+
+            marks.remove();
         }
 
         /**
@@ -37,12 +51,14 @@ public interface MarkCache {
          *
          * @param mark the mark
          * @return the mark cache enum
-         * @author: hihuzi 2019/3/8 9:47
+         * @author hihuzi 2019/3/8 9:47
          */
         public MarkCacheEnum set(String mark) {
 
-
-            this.mark = mark;
+            String mark0 = marks.get();
+            if (null == mark0 || !mark0.equals(mark)) {
+                marks.set(mark);
+            }
             return this;
         }
 
