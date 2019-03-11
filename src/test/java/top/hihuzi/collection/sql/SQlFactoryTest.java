@@ -646,5 +646,4 @@ public class SQlFactoryTest {
         System.out.println(beans);
 
     }
-
 }

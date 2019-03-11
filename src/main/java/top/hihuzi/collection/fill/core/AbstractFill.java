@@ -361,7 +361,7 @@ abstract class AbstractFill implements FillMethodFactory {
      * @return List <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
      * @author hihuzi 2019/2/11 9:53
      */
-    public <E> List<E> fillClassDefault(List<Object> list, FillConfig config, Object object, String... param) {
+    public <E,T> List<E> fillClassDefault(List<T> list, FillConfig config, Object object, String... param) {
 
         List list0 = new ArrayList(list.size());
         Class clazz = PublicMethod.getClazz(list.get(0).getClass());

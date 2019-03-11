@@ -9,6 +9,7 @@ import top.hihuzi.collection.cache.TypeCache;
 import top.hihuzi.collection.config.ConfigEnum;
 import top.hihuzi.collection.fill.config.FillConfig;
 import top.hihuzi.collection.fill.factory.FillFactory;
+import top.hihuzi.collection.utils.ParamUtils;
 
 import java.util.*;
 
@@ -514,6 +515,9 @@ public class FillFactoryTest implements Runnable {
         System.err.println("------>一百万 耗时" + (end - start) / 1000 + "秒<------");
     }
 
+    /**
+     * List to class.
+     */
     @Test
     public void listToClass() {
 
@@ -554,6 +558,9 @@ public class FillFactoryTest implements Runnable {
         System.out.println(Arrays.toString(map1.toArray()));
     }
 
+    /**
+     * Fill class.
+     */
     @Test
     public void fillClass() {
 
@@ -589,6 +596,24 @@ public class FillFactoryTest implements Runnable {
         List<PigBean> mapyy2 = FillFactory.batch().fillClass(list, PigBean.class, new FillConfig(FillConfig.ReturnValueEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
         PigBean pigBdfsdfeansdf = FillFactory.batch().fillClass(testBean, PigBean.class, new FillConfig(FillConfig.ReturnValueEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
         PigBean pigBdfsdfean = FillFactory.batch().fillClass(testBean, PigBean.class, new FillConfig(), "stringMax", "intMin");
+    }
+
+    /**
+     * Fill class 008.
+     */
+    @Test
+    public void fillClass008() {
+
+        List list = new ArrayList();
+        Store store = new Store();
+        store.setCaptain("大利润");
+        store.setClerk("达利园个");
+        for (int i = 0; i < 10; i++) {
+            list.add(store);
+        }
+        List<StoreExcel> pickMap0 = FillFactory.batch().fillClass(list,Store.class , ParamUtils.fields(StoreExcel.class));
+        System.out.println(pickMap0.toArray().toString());
+
     }
 
     @Override

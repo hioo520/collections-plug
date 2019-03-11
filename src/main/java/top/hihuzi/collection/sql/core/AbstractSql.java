@@ -10,6 +10,7 @@ import top.hihuzi.collection.exception.NoticeException;
 import top.hihuzi.collection.sql.config.SqlBean;
 import top.hihuzi.collection.sql.config.SqlConfig;
 import top.hihuzi.collection.sql.factory.SqlMethodFactory;
+import top.hihuzi.collection.utils.Constants;
 import top.hihuzi.collection.utils.StrUtils;
 
 import java.util.*;
@@ -211,8 +212,8 @@ public abstract class AbstractSql implements SqlMethodFactory {
             sql.append(caches);
         }
         String sqls = String.valueOf(sql);
-        if (sqls.contains(",,")) {
-            sqls = sqls.replaceAll("[,]{2,}", ",");
+        if (sqls.contains(Constants.DOUB_COMMA)) {
+            sqls = sqls.replaceAll(Constants.MORE_THEN_COMMA, ",");
         }
         sqls = StrUtils.deleteComma(sqls);
         SqlCache.addCache(config.key(), sqls);

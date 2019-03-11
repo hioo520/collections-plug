@@ -254,7 +254,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E> List<E> fillClass(List<Object> list, Object obj, String... param) {
+    public <E,T> List<E> fillClass(List<T> list, Object obj, String... param) {
 
         if (null == list || 0 == list.size() || null == obj) {
             return null;
@@ -272,7 +272,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E> List<E> fillClass(List<Object> list, Object obj, FillConfig config, String... param) {
+    public <E,T> List<E> fillClass(List<T> list, Object obj, FillConfig config, String... param) {
 
         if (null == list || 0 == list.size() || null == obj) {
             return null;
@@ -290,7 +290,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E> E fillClass(Object e, Object obj, String... param) {
+    public <E,T> E fillClass(T e, Object obj, String... param) {
 
         if (null == e || null == obj) {
             return null;
@@ -310,7 +310,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E> E fillClass(Object e, Object obj, FillConfig config, String... param) {
+    public <E,T> E fillClass(T e, Object obj, FillConfig config, String... param) {
 
         if (null == e || null == obj) {
             return null;
