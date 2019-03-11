@@ -61,14 +61,14 @@ public class FillService extends AbstractFill {
      *
      * @param request ServletRequest
      * @param config  FillConfig
-     * @param key     String[]
+     * @param remove     String[]
      * @return Map
      * @author hihuzi 2018/6/14 14:51
      */
     @Override
-    public Map fill(ServletRequest request, FillConfig config, String... key) {
+    public Map fill(ServletRequest request, FillConfig config, String... remove) {
 
-        return fillDefault(request, config, key);
+        return fillDefault(request, config, remove);
     }
 
     /**

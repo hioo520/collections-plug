@@ -40,16 +40,16 @@ public class ParamUtils {
      * tips 获取类的所有属性包括继承的属性(排除 param)
      *
      * @param obj   the obj
-     * @param param the param
+     * @param remove the param 除了 remove 其余属性对象
      * @return the string [ ]
      * @author hihuzi 2019/3/6 15:51
      */
-    public static final String[] fields(Object obj, String... param) {
+    public static final String[] fields(Object obj, String... remove) {
 
 
         Class clazz = PublicMethod.createClazz(obj);
         if (clazz != null) {
-            List<String> fields = PublicMethod.fields(clazz, param);
+            List<String> fields = PublicMethod.fields(clazz, remove);
             String[] str = new String[fields.size()];
             return fields.toArray(str);
         } else {

@@ -51,11 +51,11 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param request ServletRequest
      * @param config  FillConfig
-     * @param key     String[]
+     * @param remove     String[]  舍弃
      * @return Map map
      * @author hihuzi 2018/7/23 15:05
      */
-    Map fill(ServletRequest request, FillConfig config, String... key);
+    Map fill(ServletRequest request, FillConfig config, String... remove);
 
     /**
      * <p> ServletRequest-- obj
