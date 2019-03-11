@@ -25,13 +25,13 @@ public class Constants {
     public static final String BLANK = "[\\s]{1,}";
 
 
-/**
+    /**
      * <p> 双逗号
      */
     public static final String DOUB_COMMA = ",,";
 
 
-/**
+    /**
      * <p> 正则匹配 空白([\s]+
      */
     public static final String MORE_THEN_COMMA = "[,]{2,}";

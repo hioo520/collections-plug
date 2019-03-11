@@ -39,7 +39,7 @@ public class ParamUtils {
     /**
      * tips 获取类的所有属性包括继承的属性(排除 param)
      *
-     * @param obj   the obj
+     * @param obj    the obj
      * @param remove the param 除了 remove 其余属性对象
      * @return the string [ ]
      * @author hihuzi 2019/3/6 15:51

@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * tips 基本entity结构
  *
- * @author: hihuzi  2018/6/15 16:45
+ * @author: hihuzi 2018/6/15 16:45
  */
 @Data
 @Accessors(chain = true)

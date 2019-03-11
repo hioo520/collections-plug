@@ -5,6 +5,9 @@ import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
+/**
+ * The type Store excel.
+ */
 @Data
 @Accessors(chain = true)
 public class StoreExcel {

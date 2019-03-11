@@ -51,7 +51,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param request ServletRequest
      * @param config  FillConfig
-     * @param remove     String[]  舍弃
+     * @param remove  String[]  舍弃
      * @return Map map
      * @author hihuzi 2018/7/23 15:05
      */
@@ -184,6 +184,7 @@ public interface FillMethodFactory extends FillFactory {
      * <p> 相同对象进行填充
      *
      * @param <E>   es
+     * @param <T>   the type parameter
      * @param list  list
      * @param obj   e
      * @param param e
@@ -199,6 +200,7 @@ public interface FillMethodFactory extends FillFactory {
      * <p> 对象属性和表 遵循驼峰或者下划线命名
      *
      * @param <E>    es
+     * @param <T>    the type parameter
      * @param list   list
      * @param obj    e
      * @param config config
@@ -212,6 +214,7 @@ public interface FillMethodFactory extends FillFactory {
      * <p> 相同对象进行填充
      *
      * @param <E>   es
+     * @param <T>   the type parameter
      * @param e     e
      * @param obj   e
      * @param param the param
@@ -227,6 +230,7 @@ public interface FillMethodFactory extends FillFactory {
      * <p> 对象属性和表 遵循驼峰或者下划线命名
      *
      * @param <E>    es
+     * @param <T>    the type parameter
      * @param e      e
      * @param obj    e
      * @param config config
