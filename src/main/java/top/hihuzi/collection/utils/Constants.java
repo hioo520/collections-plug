@@ -30,6 +30,12 @@ public class Constants {
      */
     public static final String DOUB_COMMA = ",,";
 
+    /**
+     * <p> 逗号
+     */
+    public static final String FIR_COMMA = ",";
+    public static final String NULL = "null";
+
 
     /**
      * <p> 正则匹配 空白([\s]+

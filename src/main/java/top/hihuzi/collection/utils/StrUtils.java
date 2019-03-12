@@ -330,7 +330,7 @@ public class StrUtils {
      */
     public static String deleteComma(String vlue) {
 
-        if (vlue.endsWith(",")) {
+        if (vlue.endsWith(Constants.FIR_COMMA)) {
             vlue = deleteComma(vlue.substring(0, vlue.length() - 1));
         }
         return vlue;
