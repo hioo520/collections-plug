@@ -458,7 +458,7 @@ public class PublicMethod {
     public static String changeChar(FillConfig config, Object obj) {
 
         if (null == obj) {
-            if (config.getReturnValueEnum().get()) {
+            if (config.getNullCharEnum().get()) {
                 return "";
             }
         }

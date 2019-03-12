@@ -147,13 +147,12 @@ public abstract class AbstractSql implements SqlMethodFactory {
         List<String> display = config.getDisplay();
         List<String> repeat = config.getRepeat();
         if (null == caches || "".equals(caches)) {
-            sql = new StringBuffer(500);
+            sql = new StringBuffer(Constants.SQL_INIT);
             int j = 0;
             for (Class clazz : clazz0) {
                 Map humpToLineMap = PublicMethod.getHumpToLine(clazz);
                 Iterator iterator = humpToLineMap.entrySet().iterator();
-                int i = 0, size = humpToLineMap.size();
-                int times = 0;
+                int i = 0,times = 0, size = humpToLineMap.size();
                 if (null != display && 0 != display.size()) {
                     times = PublicMethod.achieveTimes(clazz, display);
                 }

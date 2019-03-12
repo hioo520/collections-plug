@@ -37,4 +37,10 @@ public class Constants {
     public static final String MORE_THEN_COMMA = "[,]{2,}";
 
 
+    /**
+     * <p> 自定义sql长度
+     */
+    public static final int SQL_INIT = 500;
+
+
 }

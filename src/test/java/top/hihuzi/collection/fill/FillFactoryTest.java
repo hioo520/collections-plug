@@ -593,8 +593,8 @@ public class FillFactoryTest implements Runnable {
         PigBean pigBean3300 = FillFactory.batch().fillClass(testBean, "top.hihuzi.collection.fill.PigBean");
 
 
-        List<PigBean> mapyy2 = FillFactory.batch().fillClass(list, PigBean.class, new FillConfig(FillConfig.ReturnValueEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
-        PigBean pigBdfsdfeansdf = FillFactory.batch().fillClass(testBean, PigBean.class, new FillConfig(FillConfig.ReturnValueEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
+        List<PigBean> mapyy2 = FillFactory.batch().fillClass(list, PigBean.class, new FillConfig(FillConfig.NullCharEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
+        PigBean pigBdfsdfeansdf = FillFactory.batch().fillClass(testBean, PigBean.class, new FillConfig(FillConfig.NullCharEnum.NULL_TO_CHAR), "stringMax", "intMin", "character");
         PigBean pigBdfsdfean = FillFactory.batch().fillClass(testBean, PigBean.class, new FillConfig(), "stringMax", "intMin");
     }
 

@@ -1,30 +1,30 @@
 package top.hihuzi.collection.config;
 
 /**
- * <p> 缓存标志位
+ * <p> 空串处理
  *
  * @author hihuzi 2019/2/14 9:51
  */
-public interface ReturnValue {
+public interface NullChar {
 
     /**
-     * <p>: 缓存标志位
+     * <p>: 空字符串
      *
      * @author hihuzi 2018/9/29 14:54
      */
-    enum ReturnValueEnum {
+    enum NullCharEnum {
         /**
-         * 所有都保存
+         * 空字符串 所有都保存
          */
         DEFAULT(false),
         /**
-         * null 转 空字符串
+         * null 空字符串 去掉
          */
         NULL_TO_CHAR(true);
 
         private Boolean isChang;
 
-        ReturnValueEnum(Boolean isChang) {
+        NullCharEnum(Boolean isChang) {
 
             this.isChang = isChang;
         }

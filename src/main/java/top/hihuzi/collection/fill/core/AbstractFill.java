@@ -387,6 +387,16 @@ abstract class AbstractFill implements FillMethodFactory {
         return list0;
     }
 
+    /**
+     *
+     * @param config config
+     * @param clazz clazz
+     * @param clacc clacc
+     * @param entity entity
+     * @param name name
+     * @param obj obj
+     * @param <E> E
+     */
     private <E> void classFillClass(FillConfig config, Class clazz, Class clacc, Object entity, String name, E obj) {
 
         TypeCache typeCache = ClassCache.getCache(clazz, name);

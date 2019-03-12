@@ -2,7 +2,7 @@ package top.hihuzi.collection.fill.config;
 
 import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.config.MarkCache;
-import top.hihuzi.collection.config.ReturnValue;
+import top.hihuzi.collection.config.NullChar;
 import top.hihuzi.collection.utils.Constants;
 
 /**
@@ -12,7 +12,7 @@ import top.hihuzi.collection.utils.Constants;
  *
  * @author hihuzi 2018/9/30 10:08
  */
-public class FillConfig implements Config, MarkCache, ReturnValue {
+public class FillConfig implements Config, MarkCache, NullChar {
 
     private SaveStyleEnum saveStyleEnum;
 
@@ -26,7 +26,7 @@ public class FillConfig implements Config, MarkCache, ReturnValue {
 
     private ReturnEnum returnEnum;
 
-    private ReturnValueEnum returnValueEnum;
+    private NullCharEnum nullCharEnum;
 
     /**
      * <p>: 默认
@@ -52,8 +52,8 @@ public class FillConfig implements Config, MarkCache, ReturnValue {
                 this.returnNameEnum = (ReturnNameEnum) ex;
             } else if (ex instanceof MarkCacheEnum) {
                 this.markCacheEnum = (MarkCacheEnum) ex;
-            } else if (ex instanceof ReturnValueEnum) {
-                this.returnValueEnum = (ReturnValueEnum) ex;
+            } else if (ex instanceof NullCharEnum) {
+                this.nullCharEnum = (NullCharEnum) ex;
             }
         }
     }
@@ -175,19 +175,19 @@ public class FillConfig implements Config, MarkCache, ReturnValue {
      *
      * @return the return value enum
      */
-    public ReturnValueEnum getReturnValueEnum() {
+    public NullCharEnum getNullCharEnum() {
 
-        return null != returnValueEnum ? returnValueEnum : ReturnValueEnum.DEFAULT;
+        return null != nullCharEnum ? nullCharEnum : NullCharEnum.DEFAULT;
     }
 
     /**
      * Sets return value enum.
      *
-     * @param returnValueEnum the return value enum
+     * @param nullCharEnum the return value enum
      */
-    public void setReturnValueEnum(ReturnValueEnum returnValueEnum) {
+    public void setNullCharEnum(NullCharEnum nullCharEnum) {
 
-        this.returnValueEnum = returnValueEnum;
+        this.nullCharEnum = nullCharEnum;
     }
 
 }
