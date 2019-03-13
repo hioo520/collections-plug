@@ -2,6 +2,7 @@ package top.hihuzi.collection.common;
 
 import top.hihuzi.collection.config.Config;
 import top.hihuzi.collection.exception.NoticeException;
+import top.hihuzi.collection.utils.Constants;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -38,7 +39,7 @@ public class ValueHandleCache {
                 }
             }
         }
-        if (null != value && !"".equals(value) && !"null".equals(value)) {
+        if (null != value && !"".equals(value) && !Constants.NULL.equals(value)) {
             switch (typeEnum) {
                 case STRING:
                     obj = value;
