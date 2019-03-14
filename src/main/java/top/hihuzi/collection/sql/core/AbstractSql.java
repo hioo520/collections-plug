@@ -146,6 +146,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
         Map nickname = config.getNickname();
         List<String> display = config.getDisplay();
         List<String> repeat = config.getRepeat();
+        Map<String, String> displayNickname = config.getDisplayNickname();
         if (null == caches || "".equals(caches)) {
             sql = new StringBuffer(Constants.SQL_INIT);
             int j = 0;
@@ -176,6 +177,10 @@ public abstract class AbstractSql implements SqlMethodFactory {
                             sql.append(",");
                         }
                     } else if (display.contains(param)) {
+                        if (displayNickname != null && !displayNickname.containsKey(mark + table)) {
+                            times--;
+                            break;
+                        }
                         if (null != nickname && !"".equals(mark.trim())) {
                             sql.append(mark + ".");
                         }
@@ -214,7 +219,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
         if (sqls.contains(Constants.DOUB_COMMA)) {
             sqls = sqls.replaceAll(Constants.MORE_THEN_COMMA, ",");
         }
-        sqls = StrUtils.deleteComma(sqls);
+        sqls = StrUtils.deleteComma(",,,,," + sqls);
         SqlCache.addCache(config.key(), sqls);
         return sqls;
     }

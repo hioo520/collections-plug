@@ -72,7 +72,7 @@ public class SqlBean implements CacheBean {
      *
      * @author hihuzi 2019/2/15 10:15
      */
-    private List<String> displayDiy;
+    private Set<String> displayDiy;
 
     /**
      * notice 暂存(做displayNickname数据处理)
@@ -84,7 +84,7 @@ public class SqlBean implements CacheBean {
     /**
      * notice 待处理数据
      *
-     * @data <类名标志+属性名 , 昵称名>
+     * @data <类名标志+属性名(驼峰) , 昵称名>
      **/
     private Map<String, String> displayNickname;
 
@@ -134,7 +134,7 @@ public class SqlBean implements CacheBean {
      */
     public List<Class<?>> getClazz() {
 
-        return clazz;
+        return this.clazz;
     }
 
     /**
@@ -161,7 +161,7 @@ public class SqlBean implements CacheBean {
      */
     public Map getNickname() {
 
-        return nickname;
+        return this.nickname;
     }
 
     /**
@@ -184,7 +184,7 @@ public class SqlBean implements CacheBean {
      */
     public List<String> getRepeat() {
 
-        return repeat;
+        return this.repeat;
     }
 
     /**
@@ -207,7 +207,7 @@ public class SqlBean implements CacheBean {
      */
     public List<String> getDisplay() {
 
-        return display;
+        return this.display;
     }
 
     /**
@@ -217,7 +217,7 @@ public class SqlBean implements CacheBean {
      */
     public Map<String, String> getDisplayNickname() {
 
-        return displayNickname;
+        return this.displayNickname;
     }
 
     /**
@@ -227,7 +227,7 @@ public class SqlBean implements CacheBean {
      */
     public Map<String, Map<String, String>> getDisplayParamAndNickname() {
 
-        return displayParamAndNickname;
+        return this.displayParamAndNickname;
     }
 
     /**
@@ -251,9 +251,16 @@ public class SqlBean implements CacheBean {
         }
         for (String disp : displayTemp) {
             String dis = disp.trim();
-            if (!(dis.contains(".") || dis.contains(" "))) {
+            if (!(dis.contains(".") || dis.contains(" ") || dis.contains("*"))) {
                 set.add(dis);
                 /**notice 下面处理自定义昵称1.没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
+            } else if ((dis.contains(".") && dis.contains("*")) || dis.contains("*")) {
+                /**notice 暂时不处理**/
+                String[] clazztableName = dis.split(Constants.POINT_FORMAT);
+                if (this.displayDiy == null) {
+                    this.displayDiy = new HashSet<>(10);
+                }
+                this.displayDiy.add(clazztableName[0].replaceAll("\\*", ""));
             } else if (dis.contains(".") && !dis.contains(" ")) {
                 String[] clazztableName = dis.split(Constants.POINT_FORMAT);
                 set.add(clazztableName[1]);
@@ -267,7 +274,7 @@ public class SqlBean implements CacheBean {
                 throw new NoticeException("未定义的规则!请重新个配置display");
             }
         }
-        display = new ArrayList<>(set);
+        this.display = new ArrayList<>(set);
         return this;
     }
 
@@ -297,7 +304,7 @@ public class SqlBean implements CacheBean {
     }
 
     /**
-     * Build sql bean.
+     * Build sql method.
      *
      * @return the sql bean
      */
@@ -308,12 +315,6 @@ public class SqlBean implements CacheBean {
             return (SqlBean) oCache;
         }
         Map<String, String> map = null;
-        if (1 == this.clazz.size()) {
-            map = new HashMap<>(1);
-            map.put(this.clazz.get(0).getName(), nick != null ? nick.get(0) : "");
-            this.nickname = map;
-            return this;
-        }
         if (null == this.clazz || this.clazz.size() == 0) {
             throw new NoticeException("addClass不可为空");
         }
@@ -321,21 +322,57 @@ public class SqlBean implements CacheBean {
         Set<String> repeats = new HashSet<>(this.clazz.size());
         map = new HashMap<>(this.clazz.size());
         for (int i = 0; i < this.clazz.size(); i++) {
+            Class<?> clazz = this.clazz.get(i);
+            /**notice 处理带有*号昵称**/
+            processAsteriskNickname(clazz);
             String mark = (nick != null && i <= nick.size() - 1) ? nick.get(i) : "";
+            /**notice 处理类名和昵称关联**/
+            map.put(clazz.getName(), mark);
             /**notice 处理没有传重复的字段**/
-            map.put(this.clazz.get(i).getName(), mark);
-            achieveClassFields(repeatTemp, repeats, this.clazz.get(i));
-            this.repeat = new ArrayList<>(repeats);
+            achieveClassFields(repeatTemp, repeats, clazz);
             /**notice 处理自定义昵称1.没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
-            Map<String, String> paramNickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(this.clazz.get(i).getSimpleName());
-            if (null != paramNickname) {
-                addMark(paramNickname, mark);
+            processDisplayNickname(clazz, mark);
+        }
+        this.repeat = new ArrayList<>(repeats);
+        this.nickname = map;
+        this.displayDiy = null;
+        this.nick = null;
+        ClassCache.get().add(key(), this);
+        return this;
+    }
+
+    /**
+     * <p> 保存处理display昵称
+     *
+     * @author hihuzi 2019/3/14 10:38
+     */
+    private void processDisplayNickname(Class<?> clazz, String mark) {
+
+        Map<String, String> paramNickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(clazz.getSimpleName());
+        if (null != paramNickname) {
+            addMark(paramNickname, mark);
+        }
+    }
+
+    /**
+     * <p> 处理带有*号昵称
+     *
+     * @author hihuzi 2019/3/14 10:22
+     */
+    private void processAsteriskNickname(Class<?> clazz) {
+
+        if (null != this.displayDiy) {
+            if (this.displayDiy.contains(clazz.getSimpleName())) {
+                List<String> fields = PublicMethod.fields(clazz);
+                fields.forEach(s -> {
+                    deployDisplayNickMap(clazz.getSimpleName(), s, s);
+                });
+                Set set = new HashSet(this.display);
+                set.addAll(fields);
+                this.display = new ArrayList<>(this.display.size() * 2);
+                this.display.addAll(set);
             }
         }
-        this.nickname = map;
-        ClassCache.get().add(key(), this);
-        this.nick = null;
-        return this;
     }
 
     /**
@@ -347,11 +384,11 @@ public class SqlBean implements CacheBean {
      */
     private void addMark(Map<String, String> paramNickname, String mark) {
 
-        if (null == this.displayNickname || 0 == displayNickname.size()) {
-            displayNickname = new HashMap<>(this.clazz.size() * 5);
+        if (null == this.displayNickname || 0 == this.displayNickname.size()) {
+            this.displayNickname = new HashMap<>(this.clazz.size() * 5);
         }
         for (String param : paramNickname.keySet()) {
-            displayNickname.put(mark + StrUtils.humpToLine(param), paramNickname.get(param));
+            this.displayNickname.put(mark + StrUtils.humpToLine(param), paramNickname.get(param));
         }
     }
 
