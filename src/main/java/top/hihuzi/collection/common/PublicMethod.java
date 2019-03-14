@@ -379,6 +379,34 @@ public class PublicMethod {
         }
         return list;
     }
+
+    /**
+     * <p> 获取对象中和待展示的数据重复的个数
+     *
+     * @param clazz clazz
+     * @param param the param
+     * @return String[] string [ ]
+     * <p> data class.param
+     * @author hihuzi 2019/2/19 17:39
+     */
+    public static List<String> classfields(Class clazz, String... param) {
+
+        String mark = clazz.getSimpleName() + ".";
+        List<String> strings = Arrays.asList(param);
+        int size = strings.size();
+        List<String> list = new ArrayList<String>(clazz.getDeclaredFields().length);
+        int i = 0;
+        for (; Object.class != clazz; clazz = clazz.getSuperclass()) {
+            for (Field declaredField : clazz.getDeclaredFields()) {
+                if (!strings.contains(declaredField.getName())) {
+                    list.add(mark + declaredField.getName());
+                } else if (size == 0) {
+                    list.add(declaredField.getName());
+                }
+            }
+        }
+        return list;
+    }
     /**
      * tips 获取Clazz
      *

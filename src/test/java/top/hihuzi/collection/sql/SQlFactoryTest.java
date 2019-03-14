@@ -681,4 +681,66 @@ public class SQlFactoryTest {
 
     }
 
+ /**
+     * 支持 *号  表示选择对象下面所有属性(查询全部属性)
+     * <p> Person.*  等价于 Person*  表示对象下面说有的属性
+     */
+    @Test
+    public void listToEntity0009() {
+
+        Map map = new HashMap();
+        map.put("gname", "好人_平安");
+        map.put("gsex", "男");
+        map.put("ghight", "1.25");
+        map.put("pname", "常人_和桑");
+        map.put("psex", "女");
+        map.put("phight", "2.36");
+        for (int i = 0; i < 2; i++) {
+            list.add(map);
+        }
+        SqlBean bean = new SqlBean()
+                .addUnique("007")
+                .addClazz(new GoodPerson(), new Person())
+                .addNickname("g", "p")
+                .addDisplay("Person*", "Person.*")
+                .build();
+        Object sql = SqlFactory.batch().getSQL(bean);
+        System.out.println(sql);
+        List<Map> beans = (List<Map>) SqlFactory.batch().listToEntity(list,
+                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR));
+        System.out.println(beans);
+
+    }
+
+/**
+     * 支持 *号  表示选择对象下面所有属性(查询全部属性)
+     * <p> Person.*  等价于 Person*  表示对象下面说有的属性
+     */
+    @Test
+    public void listToEntity0010() {
+
+        Map map = new HashMap();
+        map.put("gname", "好人_平安");
+        map.put("gsex", "男");
+        map.put("ghight", "1.25");
+        map.put("pname", "常人_和桑");
+        map.put("psex", "女");
+        map.put("phight", "2.36");
+        for (int i = 0; i < 2; i++) {
+            list.add(map);
+        }
+        SqlBean bean = new SqlBean()
+                .addUnique("007")
+                .addClazz(new GoodPerson(), new Person())
+                .addNickname("g", "p")
+                .addDisplay("GoodPerson.age", "GoodPerson.age aaa")
+                .build();
+        Object sql = SqlFactory.batch().getSQL(bean);
+        System.out.println(sql);
+        List<Map> beans = (List<Map>) SqlFactory.batch().listToEntity(list,
+                new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR));
+        System.out.println(beans);
+
+    }
+
 }

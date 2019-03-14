@@ -92,4 +92,25 @@ public class ParamUtils {
         return map;
     }
 
+    /**
+     * tips 获取类的所有属性包括继承的属性(排除 param)
+     *
+     * @param obj    the obj
+     * @param remove the param 除了 remove 其余属性对象
+     * @return the string [ ]
+     * <p> data class.param
+     * @author hihuzi 2019/3/6 15:51
+     */
+    public static final List<String> classModfields(Object obj, String... remove) {
+
+
+        Class clazz = PublicMethod.createClazz(obj);
+        if (clazz != null) {
+            return PublicMethod.classfields(clazz, remove);
+        } else {
+            return null;
+        }
+    }
+
+
 }
