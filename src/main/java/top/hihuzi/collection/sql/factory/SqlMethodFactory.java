@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p> sql+ 增强工具(带缓存) 自动填充对象
+ * <p> sql+ 增强工具(带缓存) 自动填充对象 配置参考测试类也可以看 readme.md
  *
  * @author hihuzi 2019/2/14 8:59
  */
@@ -54,7 +54,7 @@ public interface SqlMethodFactory extends SqlFactory {
     public <E> Object listToEntity(List<Map> list, SqlConfig config, Object... obj);
 
     /**
-     * <p> sql+ 增强工具(带缓存) 自动填充对象
+     * <p> sql+ 增强工具(带缓存) 自动填充对象 配置参考测试类也可以看 readme.md
      *
      * <p> 返回值  List(Map) "Map(String,List(E) list(E)
      *

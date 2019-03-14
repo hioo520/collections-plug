@@ -671,7 +671,7 @@ public class SQlFactoryTest {
                 .addUnique("007")
                 .addClazz(new GoodPerson(), new Person())
                 .addNickname("g", "p")
-                .addDisplay("Person.*", "GoodPerson.name")
+                .addDisplay("Person.*", "hobby")
                 .build();
         Object sql = SqlFactory.batch().getSQL(bean);
         System.out.println(sql);

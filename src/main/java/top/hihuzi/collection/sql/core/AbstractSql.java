@@ -140,48 +140,50 @@ public abstract class AbstractSql implements SqlMethodFactory {
      */
     String getSQLDefault(SqlBean config) {
 
-        StringBuffer sql = null;
         String caches = SqlCache.getCache(config.key());
+        StringBuffer sql = null;
+        if (null != caches) {
+            sql = new StringBuffer(caches.length());
+            sql.append(caches);
+        }
         List<Class<?>> clazz0 = config.getClazz();
         Map nickname = config.getNickname();
         List<String> display = config.getDisplay();
         List<String> repeat = config.getRepeat();
         Map<String, String> displayNickname = config.getDisplayNickname();
-        if (null == caches || "".equals(caches)) {
-            sql = new StringBuffer(Constants.SQL_INIT);
-            int j = 0;
-            for (Class clazz : clazz0) {
-                Map humpToLineMap = PublicMethod.getHumpToLine(clazz);
-                Iterator iterator = humpToLineMap.entrySet().iterator();
-                int i = 0,times = 0, size = humpToLineMap.size();
-                if (null != display && 0 != display.size()) {
-                    times = PublicMethod.achieveTimes(clazz, display);
-                }
-                while (iterator.hasNext()) {
-                    Map.Entry humpToLine = (Map.Entry) iterator.next();
-                    String param = String.valueOf(humpToLine.getKey());
-                    String table = String.valueOf(humpToLine.getValue());
-                    String mark = String.valueOf(nickname.get(clazz.getName()));
-                    if (null == display) {
-                        if (null != nickname && !"".equals(mark.trim())) {
-                            sql.append(mark + ".");
-                        }
-                        sql.append(table);
-                        if (repeat != null && repeat.contains(param)) {
-                            sql.append(" " + mark + table);
-                            ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
-                        } else {
-                            ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
-                        }
-                        if (i < size - 1) {
-                            sql.append(",");
-                        }
-                    } else if (display.contains(param)) {
-                        if (displayNickname != null && !displayNickname.containsKey(mark + table)) {
-                            times--;
-                            break;
-                        }
-                        if (null != nickname && !"".equals(mark.trim())) {
+        sql = new StringBuffer(Constants.SQL_INIT);
+        int j = 0;
+        for (Class clazz : clazz0) {
+            Map humpToLineMap = PublicMethod.getHumpToLine(clazz);
+            Iterator iterator = humpToLineMap.entrySet().iterator();
+            int i = 0, times = 0, size = humpToLineMap.size();
+            if (null != display && 0 != display.size()) {
+                times = PublicMethod.achieveTimes(clazz, display);
+            }
+            while (iterator.hasNext()) {
+                Map.Entry humpToLine = (Map.Entry) iterator.next();
+                String param = String.valueOf(humpToLine.getKey());
+                String table = String.valueOf(humpToLine.getValue());
+                String mark = String.valueOf(nickname.get(clazz.getName()));
+                if (null == display) {
+                    if (null != nickname && !"".equals(mark.trim())) {
+                        sql.append(mark + ".");
+                    }
+                    sql.append(table);
+                    if (repeat != null && repeat.contains(param)) {
+                        sql.append(" " + mark + table);
+                        ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
+                    } else {
+                        ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
+                    }
+                    if (i < size - 1) {
+                        sql.append(",");
+                    }
+                } else if (display.contains(param)) {
+                    if (null != displayNickname && !displayNickname.containsKey(mark + table) && null != repeat && repeat.contains(param)) {
+                        times--;
+                    } else {
+                        if (!"".equals(mark.trim())) {
                             sql.append(mark + ".");
                         }
                         sql.append(table);
@@ -196,24 +198,21 @@ public abstract class AbstractSql implements SqlMethodFactory {
                             times--;
                         }
                     }
-                    i++;
                 }
-                if (null == display) {
-                    if (j < clazz0.size() - 1) {
-                        sql.append(",");
-                    }
-                } else {
-                    if (j < clazz0.size() - 1 && 0 != times) {
-                        sql.append(",");
-                    }
-                }
-
-                j++;
-
+                i++;
             }
-        } else {
-            sql = new StringBuffer(caches.length());
-            sql.append(caches);
+            if (null == display) {
+                if (j < clazz0.size() - 1) {
+                    sql.append(",");
+                }
+            } else {
+                if (j < clazz0.size() - 1 && 0 != times) {
+                    sql.append(",");
+                }
+            }
+
+            j++;
+
         }
         String sqls = String.valueOf(sql);
         if (sqls.contains(Constants.DOUB_COMMA)) {

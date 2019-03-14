@@ -13,4 +13,6 @@ public class GoodPerson {
 
     private String hight;
 
+    private String hobby;
+
 }
