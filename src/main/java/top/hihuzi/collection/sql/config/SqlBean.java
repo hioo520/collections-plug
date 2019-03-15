@@ -82,7 +82,7 @@ public class SqlBean implements CacheBean {
     private Map<String, Map<String, String>> displayParamAndNickname;
 
     /**
-     * notice 待处理数据
+     * notice 自定义待展示数据昵称和列名对应
      *
      * @data <类名标志+属性名(驼峰) , 昵称名>
      **/
@@ -323,34 +323,39 @@ public class SqlBean implements CacheBean {
         map = new HashMap<>(this.clazz.size());
         for (int i = 0; i < this.clazz.size(); i++) {
             Class<?> clazz = this.clazz.get(i);
-            /**notice 处理带有*号昵称**/
-            processAsteriskNickname(clazz);
             String mark = (nick != null && i <= nick.size() - 1) ? nick.get(i) : "";
-            /**notice 处理类名和昵称关联**/
+            /**notice 处理类名和昵称关联 处理成 数据形式 类的全限定名,类名昵称 **/
             map.put(clazz.getName(), mark);
+            /**notice 处理带有*号昵称 eg. 类名.* or 类名* **/
+            processAsteriskNickname(clazz);
             /**notice 处理没有传重复的字段**/
             achieveClassFields(repeatTemp, repeats, clazz);
-            /**notice 处理自定义昵称1.没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
-            processDisplayNickname(clazz, mark);
         }
         this.repeat = new ArrayList<>(repeats);
         this.nickname = map;
+        /**notice (必须在上面个之后进行处理) 处理自定义昵称 没有昵称是也就是没有 eg.1.Class.param nickname 2.class.param**/
+        processDisplayNickname();
         this.displayDiy = null;
         this.nick = null;
+        repeatTemp = null;
         ClassCache.get().add(key(), this);
         return this;
     }
 
     /**
-     * <p> 保存处理display昵称
+     * <p> 根据class的是否相同处理sql的查询出来的key
      *
      * @author hihuzi 2019/3/14 10:38
      */
-    private void processDisplayNickname(Class<?> clazz, String mark) {
+    private void processDisplayNickname() {
 
-        Map<String, String> paramNickname = displayParamAndNickname == null ? null : displayParamAndNickname.get(clazz.getSimpleName());
-        if (null != paramNickname) {
-            addMark(paramNickname, mark);
+        for (Class<?> clazz : this.clazz) {
+            Map<String, String> paramNickname = this.displayParamAndNickname == null
+                    ? null
+                    : this.displayParamAndNickname.get(clazz.getSimpleName());
+            if (null != paramNickname) {
+                addMark(paramNickname, this.nickname.get(clazz.getName()));
+            }
         }
     }
 
@@ -377,6 +382,7 @@ public class SqlBean implements CacheBean {
 
     /**
      * <p> 处理数据成 --MAP<class的匿名+驼峰转下划线的,属性名称属性的昵称>
+     * <P> 主要处理 某个对象的下面的自定义昵称为它添加表名称的昵称  用来匹配SQL查询出来的key
      *
      * @param paramNickname
      * @param mark
@@ -388,7 +394,11 @@ public class SqlBean implements CacheBean {
             this.displayNickname = new HashMap<>(this.clazz.size() * 5);
         }
         for (String param : paramNickname.keySet()) {
-            this.displayNickname.put(mark + StrUtils.humpToLine(param), paramNickname.get(param));
+            if (this.repeat.contains(param)) {
+                this.displayNickname.put(mark + StrUtils.humpToLine(param), paramNickname.get(param));
+            } else {
+                this.displayNickname.put(StrUtils.humpToLine(param), paramNickname.get(param));
+            }
         }
     }
 

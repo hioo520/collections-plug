@@ -284,17 +284,18 @@ public class PublicMethod {
 
         SqlBean sqlBean = config.getSqlEeum().get();
         Map<String, String> displayNickname = sqlBean.getDisplayNickname();
+        List<String> repeat = sqlBean.getRepeat();
         String paramterName = typeCache.getParamterName();
         /**notice 查询所有属性**/
         if (null == displayNickname) {
-            if (sqlBean.getRepeat().contains(paramterName)) {
+            if (repeat.contains(paramterName)) {
                 name = typeCache.getClazz().getSimpleName() + StrUtils.capsHead(paramterName);
             } else {
                 name = paramterName;
             }
         } else {
-            if (!sqlBean.getRepeat().contains(paramterName)) {
-                name = paramterName;
+            if (!repeat.contains(paramterName)) {
+                name = displayNickname.get(name) == null ? paramterName : displayNickname.get(name);
             } else if (displayNickname.containsKey(name)) {
                 /* notice 查看SqlBean.addMark*/
                 name = displayNickname.get(name);
