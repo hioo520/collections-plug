@@ -374,6 +374,7 @@ abstract class AbstractFill implements FillMethodFactory {
             E obj = PublicMethod.getObj(clacc, clacc);
             if (length == 0) {
                 for (Field field : clazz.getDeclaredFields()) {
+                    field.setAccessible(true);
                     classFillClass(config, clazz, clacc, entity, field.getName(), obj);
                 }
             } else {
