@@ -218,7 +218,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
         if (sqls.contains(Constants.DOUB_COMMA)) {
             sqls = sqls.replaceAll(Constants.MORE_THEN_COMMA, ",");
         }
-        sqls = StrUtils.deleteComma(",,,,," + sqls);
+        sqls = StrUtils.deleteComma(sqls);
         SqlCache.addCache(config.key(), sqls);
         return sqls;
     }

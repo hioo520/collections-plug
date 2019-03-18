@@ -96,7 +96,7 @@ public class PublicMethod {
     }
 
     /**
-     * <p> 加入缓存(存在就不填不存在就遍历加入)
+     * <p> 加入缓存(存在就不填不存在就遍历加入  通用添加缓存)
      *
      * @param <E> e
      * @param e   the e
@@ -408,6 +408,7 @@ public class PublicMethod {
         }
         return list;
     }
+
     /**
      * tips 获取Clazz
      *
@@ -488,6 +489,9 @@ public class PublicMethod {
         if (null == obj) {
             if (config.getNullCharEnum().get()) {
                 return "";
+            }
+            if (!config.getSaveStyleEnum().getHaving()) {
+                return null;
             }
         }
         return String.valueOf(obj);
