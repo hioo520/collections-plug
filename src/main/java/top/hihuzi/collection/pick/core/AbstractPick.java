@@ -105,7 +105,7 @@ abstract class AbstractPick implements PickMethodFactory {
             config.remove();
             return lists;
         }
-        throw new NoticeException("未定义类型");
+        return null;
     }
 
     private void definitionReturn(
@@ -140,12 +140,18 @@ abstract class AbstractPick implements PickMethodFactory {
     /**
      * <p> 添加缓存
      *
-     * @param <T> e
-     * @param
-     * @return
+     * @param name     name
+     * @param t        t
+     * @param clazz    clazz
+     * @param method   method
+     * @param invoke   invoke
+     * @param property property
+     * @param <T>      e
+     * @return Object
      * @author hihuzi  2018/10/18 11:43
      */
-    private <T> Object achieveInvoke(String name, T t,
+    private <T> Object achieveInvoke(String name,
+                                     T t,
                                      Class clazz,
                                      Method method,
                                      Object invoke,
