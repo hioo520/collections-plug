@@ -185,7 +185,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>   es
      * @param <T>   the type parameter
-     * @param list  list
+     * @param list  必须是对象集合 不能是List(T extend Collection)
      * @param obj   e
      * @param param e
      * @return Object <p>返回风格"Map(String, List(E))" <p> 对象属性和表 遵循驼峰或者下划线命名
@@ -201,7 +201,7 @@ public interface FillMethodFactory extends FillFactory {
      *
      * @param <E>    es
      * @param <T>    the type parameter
-     * @param list   list
+     * @param list   必须是对象集合 不能是List(T extend Collection)
      * @param obj    e
      * @param config config
      * @param param  the param
