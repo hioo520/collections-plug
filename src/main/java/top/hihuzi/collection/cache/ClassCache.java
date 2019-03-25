@@ -55,7 +55,7 @@ public class ClassCache {
      *
      * @author hihuzi 2019/2/18 9:24
      */
-    private static ClassCache classCache = null;
+    private volatile static ClassCache classCache = null;
 
 
     /**

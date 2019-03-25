@@ -10,9 +10,10 @@ import java.util.Map;
  */
 public class SqlCache {
 
-    private static Map<String, String> cache;
+    private volatile  static Map<String, String> cache;
 
-    private static SqlCache sqlCache;
+    private  static SqlCache sqlCache;
+
 
     /**
      * Gets cache.
