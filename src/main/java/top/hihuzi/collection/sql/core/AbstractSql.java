@@ -167,34 +167,34 @@ public abstract class AbstractSql implements SqlMethodFactory {
                 String mark = String.valueOf(nickname.get(clazz.getName()));
                 if (null == display) {
                     if (null != nickname && !"".equals(mark.trim())) {
-                        sql.append(mark + ".");
+                        sql.append(mark + Constants.POINT);
                     }
                     sql.append(table);
                     if (repeat != null && repeat.contains(param)) {
-                        sql.append(" " + mark + table);
+                        sql.append(Constants.BLANK_SPACE + mark + table);
                         ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
                     } else {
                         ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
                     }
                     if (i < size - 1) {
-                        sql.append(",");
+                        sql.append(Constants.COMMA);
                     }
                 } else if (display.contains(param)) {
                     if (null != displayNickname && !displayNickname.containsKey(mark + table) && null != repeat && repeat.contains(param)) {
                         times--;
                     } else {
                         if (!"".equals(mark.trim())) {
-                            sql.append(mark + ".");
+                            sql.append(mark + Constants.POINT);
                         }
                         sql.append(table);
                         if (repeat != null && repeat.contains(param)) {
-                            sql.append(" " + mark + table);
+                            sql.append(Constants.BLANK_SPACE + mark + table);
                             ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
                         } else {
                             ClassCache.get().add((Class<?>) clazz, param, null, table, config.key());
                         }
                         if (i < size - 1 && 0 < times - 1) {
-                            sql.append(",");
+                            sql.append(Constants.COMMA);
                             times--;
                         }
                     }
@@ -203,11 +203,11 @@ public abstract class AbstractSql implements SqlMethodFactory {
             }
             if (null == display) {
                 if (j < clazz0.size() - 1) {
-                    sql.append(",");
+                    sql.append(Constants.COMMA);
                 }
             } else {
                 if (j < clazz0.size() - 1 && 0 != times) {
-                    sql.append(",");
+                    sql.append(Constants.COMMA);
                 }
             }
 
@@ -216,7 +216,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
         }
         String sqls = String.valueOf(sql);
         if (sqls.contains(Constants.DOUB_COMMA)) {
-            sqls = sqls.replaceAll(Constants.MORE_THEN_COMMA, ",");
+            sqls = sqls.replaceAll(Constants.MORE_THEN_COMMA, Constants.COMMA);
         }
         sqls = StrUtils.deleteComma(sqls);
         SqlCache.addCache(config.key(), sqls);

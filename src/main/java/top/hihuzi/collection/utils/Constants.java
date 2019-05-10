@@ -33,7 +33,9 @@ public class Constants {
     /**
      * <p> 逗号
      */
-    public static final String FIR_COMMA = ",";
+    public static final String COMMA = ",";
+    public static final String BLANK_SPACE = " ";
+    public static final String POINT = ".";
 
     public static final String NULL = "null";
 

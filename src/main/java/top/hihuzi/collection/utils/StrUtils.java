@@ -330,10 +330,10 @@ public class StrUtils {
      */
     public static String deleteComma(String vlue) {
 
-        if (vlue.endsWith(Constants.FIR_COMMA)) {
+        if (vlue.endsWith(Constants.COMMA)) {
             vlue = deleteComma(vlue.substring(0, vlue.length() - 1));
         }
-        if (vlue.startsWith(Constants.FIR_COMMA)) {
+        if (vlue.startsWith(Constants.COMMA)) {
             vlue = deleteComma(vlue.substring(1));
         }
         return vlue;
