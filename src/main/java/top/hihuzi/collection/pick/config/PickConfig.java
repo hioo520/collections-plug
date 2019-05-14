@@ -1,6 +1,7 @@
 package top.hihuzi.collection.pick.config;
 
 import top.hihuzi.collection.config.Config;
+import top.hihuzi.collection.config.ConfigRemove;
 import top.hihuzi.collection.utils.Constants;
 
 /**
@@ -10,7 +11,7 @@ import top.hihuzi.collection.utils.Constants;
  *
  * @author hihuzi 2018/9/29 16:43
  */
-public class PickConfig implements Config {
+public class PickConfig extends ConfigRemove implements Config {
 
     /**
      * 返回名自定义

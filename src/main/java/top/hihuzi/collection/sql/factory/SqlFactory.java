@@ -13,15 +13,21 @@ public interface SqlFactory {
 
 
     /**
-     * <p> sql+ 获取对象
+     * <p> sql+ 获取对象 jdk8 支持
      *
      * @return SQLMethodFactory sql method factory
      * @author hihuzi 2018/9/23 22:59
      */
-    static SqlMethodFactory batch() {
+//    static SqlMethodFactory batch() {
+//
+//        return new SqlService();
+//    }
 
-        return new SqlService();
-    }
-
+    /**
+     * tips jdk 1.7 支持
+     *
+     * @author hihuzi 2019/5/14 9:58
+     */
+    SqlMethodFactory batch();
 
 }

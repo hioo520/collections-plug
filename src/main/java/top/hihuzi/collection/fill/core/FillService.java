@@ -1,6 +1,7 @@
 package top.hihuzi.collection.fill.core;
 
 import top.hihuzi.collection.fill.config.FillConfig;
+import top.hihuzi.collection.fill.factory.FillMethodFactory;
 
 import javax.servlet.ServletRequest;
 import java.util.ArrayList;
@@ -290,7 +291,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E,T> E fillClass(T e, Object obj, String... param) {
+    public <E,T> E fillClass(final T e, Object obj, String... param) {
 
         if (null == e || null == obj) {
             return null;
@@ -310,7 +311,7 @@ public class FillService extends AbstractFill {
      * @author hihuzi 2019/2/11 9:53
      */
     @Override
-    public <E,T> E fillClass(T e, Object obj, FillConfig config, String... param) {
+    public <E,T> E fillClass(final T e, Object obj, FillConfig config, String... param) {
 
         if (null == e || null == obj) {
             return null;
@@ -318,6 +319,12 @@ public class FillService extends AbstractFill {
         return (E) fillClassDefault(new ArrayList() {{
             add(e);
         }}, config, obj, param).get(0);
+    }
+
+    @Override
+    public FillMethodFactory batch() {
+
+         return new FillService();
     }
 
 }

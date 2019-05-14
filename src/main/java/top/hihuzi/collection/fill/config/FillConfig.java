@@ -1,6 +1,7 @@
 package top.hihuzi.collection.fill.config;
 
 import top.hihuzi.collection.config.Config;
+import top.hihuzi.collection.config.ConfigRemove;
 import top.hihuzi.collection.config.MarkCache;
 import top.hihuzi.collection.config.NullChar;
 import top.hihuzi.collection.utils.Constants;
@@ -12,7 +13,7 @@ import top.hihuzi.collection.utils.Constants;
  *
  * @author hihuzi 2018/9/30 10:08
  */
-public class FillConfig implements Config, MarkCache, NullChar {
+public class FillConfig extends ConfigRemove implements Config, MarkCache, NullChar {
 
     private SaveStyleEnum saveStyleEnum;
 

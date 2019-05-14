@@ -10,6 +10,7 @@ import top.hihuzi.collection.fill.factory.FillFactory;
 import top.hihuzi.collection.sql.config.SqlBean;
 import top.hihuzi.collection.sql.config.SqlConfig;
 import top.hihuzi.collection.sql.factory.SqlFactory;
+import top.hihuzi.collection.sql.factory.SqlTool;
 
 import java.util.*;
 
@@ -55,21 +56,21 @@ public class SQlFactoryTest {
         SqlBean bean = new SqlBean()
                 .addClazz(new Son())
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql);
 
         SqlBean bean0 = new SqlBean()
                 .addClazz(new Son())
                 .addNickname("Aa")
                 .build();
-        Object sql0 = SqlFactory.batch().getSQL(bean0);
+        Object sql0 = SqlTool.batch().getSQL(bean0);
         System.out.println(sql0);
 
         SqlBean bean00 = new SqlBean()
                 .addClazz(new Son())
                 .addNickname("AA", "CC")
                 .build();
-        Object sql00 = SqlFactory.batch().getSQL(bean00);
+        Object sql00 = SqlTool.batch().getSQL(bean00);
         System.out.println(sql00);
 
         SqlBean bean1 = new SqlBean()
@@ -78,7 +79,7 @@ public class SQlFactoryTest {
                 .addNickname("BB")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql1 = SqlFactory.batch().getSQL(bean1);
+        Object sql1 = SqlTool.batch().getSQL(bean1);
         System.out.println(sql1);
         SqlBean bean2 = new SqlBean()
 //                .addUnique("007")
@@ -86,7 +87,7 @@ public class SQlFactoryTest {
                 .addNickname("CC")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht")
                 .build();
-        Object sql2 = SqlFactory.batch().getSQL(bean2);
+        Object sql2 = SqlTool.batch().getSQL(bean2);
         System.out.println(sql2);
         SqlBean bean22 = new SqlBean()
 //                .addUnique("007")
@@ -94,7 +95,7 @@ public class SQlFactoryTest {
                 .addNickname("DD", "CC")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql22 = SqlFactory.batch().getSQL(bean22);
+        Object sql22 = SqlTool.batch().getSQL(bean22);
         System.out.println(sql22);
         SqlBean bean222 = new SqlBean()
 //                .addUnique("007")
@@ -102,7 +103,7 @@ public class SQlFactoryTest {
                 .addNickname("EE", "FF")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql222 = SqlFactory.batch().getSQL(bean222);
+        Object sql222 = SqlTool.batch().getSQL(bean222);
         System.out.println(sql222);
         SqlBean bean2222 = new SqlBean()
 //                .addUnique("007")
@@ -110,7 +111,7 @@ public class SQlFactoryTest {
                 .addNickname("EE", "FF", "GG")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql2222 = SqlFactory.batch().getSQL(bean2222);
+        Object sql2222 = SqlTool.batch().getSQL(bean2222);
         System.out.println(sql2222);
         SqlBean bean22222 = new SqlBean()
 //                .addUnique("007")
@@ -118,7 +119,7 @@ public class SQlFactoryTest {
                 .addNickname("EE", "FF", "GG")
                 .addDisplay("aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql22222 = SqlFactory.batch().getSQL(bean22222);
+        Object sql22222 = SqlTool.batch().getSQL(bean22222);
         System.out.println(sql22222);
         SqlBean bean33 = new SqlBean()
 //                .addUnique("007")
@@ -126,7 +127,7 @@ public class SQlFactoryTest {
                 .addNickname("HH", "II", "JJ")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht")
                 .build();
-        Object sql33 = SqlFactory.batch().getSQL(bean33);
+        Object sql33 = SqlTool.batch().getSQL(bean33);
         System.out.println(sql33);
         SqlBean bean44 = new SqlBean()
 //                .addUnique("007")
@@ -134,32 +135,32 @@ public class SQlFactoryTest {
                 .addNickname("KK", "LL", "MM")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql44 = SqlFactory.batch().getSQL(bean44);
+        Object sql44 = SqlTool.batch().getSQL(bean44);
         System.out.println(sql44);
         SqlBean bean55 = new SqlBean()
 //                .addUnique("007")
                 .addClazz(new Son(), new Father(), new Mother())
                 .addNickname("NN", "OO", "PP")
                 .build();
-        Object sql55 = SqlFactory.batch().getSQL(bean55);
+        Object sql55 = SqlTool.batch().getSQL(bean55);
         System.out.println(sql55);
         SqlBean bean66 = new SqlBean()
 //                .addUnique("007")
                 .addClazz(new Son(), new Father(), new Mother())
                 .addNickname("QQ")
                 .build();
-        Object sql66 = SqlFactory.batch().getSQL(bean66);
+        Object sql66 = SqlTool.batch().getSQL(bean66);
         System.out.println(sql66);
         SqlBean bean77 = new SqlBean()
 //                .addUnique("007")
                 .addClazz(new Son(), new Father(), new Mother())
                 .build();
-        Object sql77 = SqlFactory.batch().getSQL(bean77);
+        Object sql77 = SqlTool.batch().getSQL(bean77);
         System.out.println(sql77);
         SqlBean bean88 = new SqlBean()
                 .addClazz(new Son(), new Father(), new Mother())
                 .build();
-        Object sql88 = SqlFactory.batch().getSQL(bean88);
+        Object sql88 = SqlTool.batch().getSQL(bean88);
         System.out.println(sql88);
         /*na_me,hi_ght,id,a_ge,s_ex
         Aa.na_me,Aa.hi_ght,Aa.id,Aa.a_ge,Aa.s_ex
@@ -182,7 +183,7 @@ public class SQlFactoryTest {
                 .addNickname("son", "father", "mother")
                 .addDisplay("Son.naMe son儿子的名字", "Father.aGe     爸爸的年龄", "sEx", "hiGht", "id")
                 .build();
-        Object sql99 = SqlFactory.batch().getSQL(bean99);
+        Object sql99 = SqlTool.batch().getSQL(bean99);
         System.out.println(sql99);
     }
 
@@ -200,7 +201,7 @@ public class SQlFactoryTest {
                 .addNickname("HH", "II", "JJ")
 //                .addDisplay("naMe", "aGe", "sEx", "hiGht")
                 .build();
-        Object sql33 = SqlFactory.batch().getSQL(bean33);
+        Object sql33 = SqlTool.batch().getSQL(bean33);
         System.out.println(sql33);
     }
 
@@ -237,11 +238,11 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
 
         SqlConfig config = new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean));
 
-        List<Map> map0 = (List<Map>) SqlFactory.batch().listToEntity(list, config);
+        List<Map> map0 = (List<Map>) SqlTool.batch().listToEntity(list, config);
         System.out.println(Arrays.asList(map0).toArray().toString());
        /* "Son.aGe" -> "24"
         "Son.naMe" -> "小明"
@@ -282,12 +283,12 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
 
         SqlConfig config = new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean));
         config.setReturnEnum(SqlConfig.ReturnEnum.LISR);
 
-        List<Map> map2 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> map2 = (List<Map>) SqlTool.batch().listToEntity(list,
                 config);
         System.out.println(Arrays.asList(map2).toArray().toString());
        /* "Son.aGe" -> "24"
@@ -329,13 +330,13 @@ public class SQlFactoryTest {
 //                .addDisplay( "sEx", "hiGht", "id")
                 .addDisplay("sEx", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql);
         SqlConfig config = new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean));
         config.setReturnEnum(SqlConfig.ReturnEnum.DEFAULT);
         config.setDateStyleEnum(SqlConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy MM"));
 
-        List<Map> map2 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> map2 = (List<Map>) SqlTool.batch().listToEntity(list,
                 config);
         System.out.println(Arrays.asList(map2).toArray().toString());
        /* "Son.aGe" -> "24"
@@ -376,9 +377,9 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
 
-        List<Map> map2 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> map2 = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy MM")));
         System.out.println(Arrays.asList(map2).toArray().toString());
                    /* "Son.aGe" -> "24"
@@ -420,9 +421,9 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
 
-        Map<String, List> map4 = (Map<String, List>) SqlFactory.batch().listToEntity(list,
+        Map<String, List> map4 = (Map<String, List>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.ReturnEnum.MAP_CLASS, SqlConfig.SqlEeum.DEFAULT.set(bean)));
                    /* "Son.aGe" -> "24"
             "birthday" -> "2012-12"
@@ -463,11 +464,11 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
 
         List<Son> Son = new ArrayList<>();
         List<Father> Father = new ArrayList<>();
-        SqlFactory.batch().listToEntity(list,
+        SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.ReturnEnum.FILL_LIST.setList(Son, Father), SqlConfig.SqlEeum.DEFAULT.set(bean)));
 
                    /* "Son.aGe" -> "24"
@@ -509,12 +510,12 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
                 .addDisplay("naMe", "aGe", "sEx", "hiGht", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
 
-        List<Son> beans = (List<Son>) SqlFactory.batch().listToEntity(list,
+        List<Son> beans = (List<Son>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS));
 
-        List<Father> beans00 = (List<Father>) SqlFactory.batch().listToEntity(list,
+        List<Father> beans00 = (List<Father>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), new Father());
 
 
@@ -561,21 +562,21 @@ public class SQlFactoryTest {
                 .addRepeat("naMe", "aGe", "sEx", "hiGht")
 //                .addDisplay("naMe", "aGe", "sEx", "hiGht","id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql.toString());
 
-        List<Map> map0 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> map0 = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean)), new Son(), new Father());
 
         SqlConfig config = new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean));
 
         long start = System.currentTimeMillis();
         System.out.println("测试 ---> 第一种返回结果是List<Map>");
-        List<Map> map1 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> map1 = (List<Map>) SqlTool.batch().listToEntity(list,
                 config);
-        List<Map> map2 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> map2 = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR), new Son(), new Father());
-        List<Map> map3 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> map3 = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.ReturnEnum.DEFAULT,
                         SqlConfig.DateStyleEnum.DEFAULT.setFormartStyle("yyyy"),
                         SqlConfig.SqlEeum.DEFAULT.set(bean)),
@@ -584,7 +585,7 @@ public class SQlFactoryTest {
 
 
         System.out.println("测试 ---< 第二种返回结果是Map<String, List>");
-        Map<String, List> map4 = (Map<String, List>) SqlFactory.batch().listToEntity(list,
+        Map<String, List> map4 = (Map<String, List>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.MAP_CLASS), new Son(), new Father());
         System.out.println("测试 ---< 第二种返回结果是Map<String, List>");
 
@@ -592,22 +593,22 @@ public class SQlFactoryTest {
         System.out.println("测试 ---< 第三种返回结果是Map<String, List>");
         List<Son> testBeans = new ArrayList<>();
         List<Father> testBeanBean = new ArrayList<>();
-        SqlFactory.batch().listToEntity(list,
+        SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_LIST.setList(testBeans, testBeanBean)), new Son(), new Father());
         System.out.println("测试 ---< 第三种返回结果是Map<String, List>");
 
 
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
-        List<Son> beans11 = (List<Son>) SqlFactory.batch().listToEntity(list,
+        List<Son> beans11 = (List<Son>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), new Son());
-        List<Son> bean0 = (List<Son>) SqlFactory.batch().listToEntity(list,
+        List<Son> bean0 = (List<Son>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), Son.class);
-        List<Son> bean12 = (List<Son>) SqlFactory.batch().listToEntity(list,
+        List<Son> bean12 = (List<Son>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), "top.hihuzi.collection.sql.Son");
-        List<Son> bean1 = (List<Son>) SqlFactory.batch().listToEntity(list,
+        List<Son> bean1 = (List<Son>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), new Son());
         Son son = new Son();
-        List<Son> bean2 = (List<Son>) SqlFactory.batch().listToEntity(list,
+        List<Son> bean2 = (List<Son>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.FILL_CLASS), son);
         System.out.println("测试 ---< 第四种返回结果是Map<String, List>");
         long end = System.currentTimeMillis();
@@ -640,11 +641,11 @@ public class SQlFactoryTest {
                 .addNickname("so", "fa")
                 .addDisplay("Son.naMe name", "Son.aGe age", "Father.sEx", "Father.naMe name", "hiGht", "id")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql);
-        List<Map> beans = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> beans = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR));
-        List<Map> beans1 = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> beans1 = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR, SqlConfig.ReturnNameEnum.CLASS_HUMP));
         System.out.println(beans);
 
@@ -673,9 +674,9 @@ public class SQlFactoryTest {
                 .addNickname("g", "p")
                 .addDisplay("Person.*", "hobby")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql);
-        List<Map> beans = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> beans = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR));
         System.out.println(beans);
 
@@ -704,9 +705,9 @@ public class SQlFactoryTest {
                 .addNickname("g", "p")
                 .addDisplay("Person*", "Person.*")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql);
-        List<Map> beans = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> beans = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR));
         System.out.println(beans);
 
@@ -735,9 +736,9 @@ public class SQlFactoryTest {
                 .addNickname("g", "p")
                 .addDisplay("GoodPerson.age", "GoodPerson.age aaa")
                 .build();
-        Object sql = SqlFactory.batch().getSQL(bean);
+        Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql);
-        List<Map> beans = (List<Map>) SqlFactory.batch().listToEntity(list,
+        List<Map> beans = (List<Map>) SqlTool.batch().listToEntity(list,
                 new SqlConfig(SqlConfig.SqlEeum.DEFAULT.set(bean), SqlConfig.ReturnEnum.LISR));
         System.out.println(beans);
 

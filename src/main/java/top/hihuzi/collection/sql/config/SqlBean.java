@@ -369,9 +369,9 @@ public class SqlBean implements CacheBean {
         if (null != this.displayDiy) {
             if (this.displayDiy.contains(clazz.getSimpleName())) {
                 List<String> fields = PublicMethod.fields(clazz);
-                fields.forEach(s -> {
+                for (String s : fields) {
                     deployDisplayNickMap(clazz.getSimpleName(), s, s);
-                });
+                }
                 Set set = new HashSet(this.display);
                 set.addAll(fields);
                 this.display = new ArrayList<>(this.display.size() * 2);

@@ -1,6 +1,7 @@
 package top.hihuzi.collection.pick.core;
 
 import top.hihuzi.collection.pick.config.PickConfig;
+import top.hihuzi.collection.pick.factory.PickMethodFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +146,7 @@ public class PickService extends AbstractPick {
      * @author hihuzi 2018/8/3 17:09
      */
     @Override
-    public Map pickMap(Map map, String... parameter) {
+    public Map pickMap(final Map map, String... parameter) {
 
         if (null == map || 0 == map.size()) {
             return null;
@@ -168,7 +169,7 @@ public class PickService extends AbstractPick {
      * @author hihuzi 2018/8/3 17:09
      */
     @Override
-    public Map pickMap(Map map, PickConfig config, String... parameter) {
+    public Map pickMap(final Map map, PickConfig config, String... parameter) {
 
         if (null == map || 0 == map.size()) {
             return null;
@@ -216,5 +217,11 @@ public class PickService extends AbstractPick {
         return (List<Map>) batch(list, config, key);
     }
 
+
+    @Override
+    public PickMethodFactory batch() {
+
+        return new PickService();
+    }
 
 }

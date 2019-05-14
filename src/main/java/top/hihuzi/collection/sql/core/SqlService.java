@@ -2,6 +2,7 @@ package top.hihuzi.collection.sql.core;
 
 import top.hihuzi.collection.sql.config.SqlBean;
 import top.hihuzi.collection.sql.config.SqlConfig;
+import top.hihuzi.collection.sql.factory.SqlMethodFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,12 @@ public class SqlService extends AbstractSql {
     public <E> Object getSQL(SqlBean config) {
 
         return getSQLDefault(config);
+    }
+
+    @Override
+    public SqlMethodFactory batch() {
+
+        return new SqlService();
     }
 
 }

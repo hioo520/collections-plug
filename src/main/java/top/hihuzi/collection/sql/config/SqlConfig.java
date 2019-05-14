@@ -1,6 +1,7 @@
 package top.hihuzi.collection.sql.config;
 
 import top.hihuzi.collection.config.Config;
+import top.hihuzi.collection.config.ConfigRemove;
 import top.hihuzi.collection.utils.Constants;
 
 /**
@@ -10,7 +11,7 @@ import top.hihuzi.collection.utils.Constants;
  *
  * @author hihuzi 2018/9/30 10:08
  */
-public class SqlConfig implements Config {
+public class SqlConfig extends ConfigRemove implements  Config {
 
 
     private SaveStyleEnum saveStyleEnum;

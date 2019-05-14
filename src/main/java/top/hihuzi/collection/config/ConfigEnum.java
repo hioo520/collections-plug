@@ -15,15 +15,15 @@ public interface ConfigEnum {
     /**
      * <p>清理线程 防止栈溢出(无论是弱引用 强引用 软引用)Remove.
      */
-    default void remove() {
-
-        MarkCache.MarkCacheEnum.remove();
-        SqlEeum.remove();
-        ReturnNameEnum.remove();
-        ReturnEnum.remove();
-        SortStyleEnum.remove();
-        DateStyleEnum.remove();
-    }
+//    default void remove() {
+//
+//        MarkCache.MarkCacheEnum.remove();
+//        SqlEeum.remove();
+//        ReturnNameEnum.remove();
+//        ReturnEnum.remove();
+//        SortStyleEnum.remove();
+//        DateStyleEnum.remove();
+//    }
 
     /**
      * <p>: 返回值(value)规则

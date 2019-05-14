@@ -11,14 +11,20 @@ import top.hihuzi.collection.pick.core.PickService;
 public interface PickFactory {
 
     /**
-     * <p> 工具
+     * <p> 工具 jdk8 支持
      *
      * @return PickMethodFactory pick method factory
      * @author hihuzi 2018/9/23 22:59
      */
-    static PickMethodFactory batch() {
-
-        return new PickService();
-    }
-
+//    static PickMethodFactory batch() {
+//
+//        return new PickService();
+//    }
+    /**
+     * <p> 工具 jdk7 支持
+     *
+     * @return PickMethodFactory pick method factory
+     * @author hihuzi 2018/9/23 22:59
+     */
+    PickMethodFactory batch();
 }
