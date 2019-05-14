@@ -25,7 +25,7 @@ public interface SqlFactory {
 
     /**
      * tips jdk 1.7 支持
-     *
+     * @return SQLMethodFactory sql method factory
      * @author hihuzi 2019/5/14 9:58
      */
     SqlMethodFactory batch();
