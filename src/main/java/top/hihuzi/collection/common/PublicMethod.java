@@ -386,8 +386,7 @@ public class PublicMethod {
      *
      * @param clazz clazz
      * @param param the param
-     * @return String[] string [ ]
-     * <p> data class.param
+     * @return String[] string [ ] <p> data class.param
      * @author hihuzi 2019/2/19 17:39
      */
     public static List<String> classfields(Class clazz, String... param) {

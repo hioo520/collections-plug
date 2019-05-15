@@ -1,7 +1,5 @@
 package top.hihuzi.collection.sql.factory;
 
-import top.hihuzi.collection.sql.core.SqlService;
-
 /**
  * <p> sql+ 增强工具(带缓存) 自动填充对象
  *
@@ -25,6 +23,7 @@ public interface SqlFactory {
 
     /**
      * tips jdk 1.7 支持
+     *
      * @return SQLMethodFactory sql method factory
      * @author hihuzi 2019/5/14 9:58
      */

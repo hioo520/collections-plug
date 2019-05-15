@@ -34,9 +34,20 @@ public class Constants {
      * <p> 逗号
      */
     public static final String COMMA = ",";
+
+    /**
+     * The constant BLANK_SPACE.
+     */
     public static final String BLANK_SPACE = " ";
+
+    /**
+     * The constant POINT.
+     */
     public static final String POINT = ".";
 
+    /**
+     * The constant NULL.
+     */
     public static final String NULL = "null";
 
 

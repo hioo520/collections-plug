@@ -97,8 +97,7 @@ public class ParamUtils {
      *
      * @param obj    the obj
      * @param remove the param 除了 remove 其余属性对象
-     * @return the string [ ]
-     * <p> data class.param
+     * @return the string [ ] <p> data class.param
      * @author hihuzi 2019/3/6 15:51
      */
     public static final List<String> classModfields(Object obj, String... remove) {

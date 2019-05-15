@@ -28,7 +28,6 @@ public class SqlConfig extends ConfigRemove implements  Config {
      * <p>: 默认
      *
      * @param e obj
-     * @param <E> obj
      * @author hihuzi 2018/9/30 10:59
      */
     public <E> SqlConfig(E... e) {

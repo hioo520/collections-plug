@@ -2,6 +2,9 @@ package top.hihuzi.collection.sql;
 
 import lombok.Data;
 
+/**
+ * The type Good person.
+ */
 @Data
 public class GoodPerson {
 

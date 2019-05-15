@@ -682,7 +682,7 @@ public class SQlFactoryTest {
 
     }
 
- /**
+    /**
      * 支持 *号  表示选择对象下面所有属性(查询全部属性)
      * <p> Person.*  等价于 Person*  表示对象下面说有的属性
      */
@@ -713,7 +713,7 @@ public class SQlFactoryTest {
 
     }
 
-/**
+    /**
      * 支持 *号  表示选择对象下面所有属性(查询全部属性)
      * <p> Person.*  等价于 Person*  表示对象下面说有的属性
      */

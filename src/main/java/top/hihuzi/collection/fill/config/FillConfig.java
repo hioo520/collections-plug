@@ -35,7 +35,6 @@ public class FillConfig extends ConfigRemove implements Config, MarkCache, NullC
      * <p> saveStyleEnum=SaveStyleEnum.DEFAULT
      *
      * @param e e
-     * @param <E> e
      * @author hihuzi 2018/9/30 10:59
      */
     public <E> FillConfig(E... e) {
