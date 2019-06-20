@@ -24,19 +24,24 @@ public class PublicMethod {
     /**
      * <p> 根据对象属性 驼峰转下划线 对应表
      *
-     * @param <E> e
-     * @param e   e
+     * @param <E>            e
+     * @param e              e
+     * @param displayNickMap map
      * @return Map hump to line
      * @author hihuzi 2019/2/15 11:24
      */
-    public static <E> Map getHumpToLine(E e) {
+    public static <E> Map getHumpToLine(E e, Map<String, String> displayNickMap, Map<String, String> specialHump) {
 
         Map map = new HashMap(((Class) e).getDeclaredFields().length);
         Class<?> clazz = null;
         clazz = (Class) e;
         for (; Object.class != clazz; clazz = clazz.getSuperclass()) {
             for (Field field : clazz.getDeclaredFields()) {
-                map.put(field.getName(), StrUtils.humpToLine(field.getName()));
+                boolean b = displayNickMap != null && displayNickMap.get(field.getName()) != null&&specialHump!=null&&specialHump.get(displayNickMap.get(field.getName()))!=null;
+                if (b)
+                    map.put(field.getName(), specialHump.get(displayNickMap.get(field.getName())));
+                else
+                    map.put(field.getName(), StrUtils.humpToLine(field.getName()));
                 ClassCache.get().add((Class<?>) e, field.getName(), field.getType());
             }
         }

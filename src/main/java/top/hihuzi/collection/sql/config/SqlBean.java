@@ -89,6 +89,14 @@ public class SqlBean implements CacheBean {
     private Map<String, String> displayNickname;
 
     /**
+     * notice 针对特殊的驼峰处理
+     * eg. name18 name_18
+     *
+     * @data <类名标志.属性名(驼峰) , 数组<表名称,昵称名称>
+     **/
+    private Map<String, String> specialHump;
+
+    /**
      * <p> 名称的表昵称 (暂存区)
      *
      * @param unique   unique
@@ -240,12 +248,11 @@ public class SqlBean implements CacheBean {
     public <E> SqlBean addDisplay(E... e) {
 
         List<String> displayTemp;
-        Set set = null;
-        this.display = null;
+        Set<String> set = null;
+        this.display = createDisplay();
         try {
             displayTemp = new ArrayList<>(new HashSet((List<String>) Arrays.asList(e)));
             set = new HashSet(e.length);
-            this.display = new ArrayList<>(e.length);
         } catch (Exception ex) {
             throw new NoticeException("待展示数据必须是String类型");
         }
@@ -274,7 +281,53 @@ public class SqlBean implements CacheBean {
                 throw new NoticeException("未定义的规则!请重新个配置display");
             }
         }
-        this.display = new ArrayList<>(set);
+        this.display.addAll(new ArrayList<>(set));
+        return this;
+    }
+
+    private List<String> createDisplay() {
+
+        if (display == null) {
+            display = new ArrayList<String>(20);
+        }
+        return display;
+    }
+
+    /**
+     * 针对特殊的驼峰处理
+     *
+     * @param <E> the type parameter
+     * @param e   the e
+     * @return the sql bean
+     * @author hihuzi 2019/6/19 16:42
+     */
+    public <E> SqlBean addSpecialHump(E... e) {
+
+        List<String> specialHumpList;
+        Set<String> set = null;
+        try {
+            specialHumpList = new ArrayList<>(new HashSet((List<String>) Arrays.asList(e)));
+            set = new HashSet(e.length);
+        } catch (Exception ex) {
+            throw new NoticeException("待展示数据必须是String类型");
+        }
+        for (String disp : specialHumpList) {
+            String dis = disp.trim();
+            if (dis.contains(".") && dis.contains(" ")) {
+                String[] clazzTableName = dis.split(Constants.POINT_FORMAT);
+                String[] tableName = clazzTableName[1].split(Constants.BLANK);
+                String[] table = dis.split(Constants.BLANK);
+                if (this.specialHump == null) {
+                    this.specialHump = new HashMap<>(5);
+                }
+                specialHump.put(table.length > 2 ? table[2] : table[1], tableName[1]);
+                deployDisplayNickMap(clazzTableName[0], tableName[0], table.length > 2 ? table[2] : table[1]);
+                set.add(tableName[0]);
+            } else {
+                throw new NoticeException("未定义的规则!请重新个配置specialHump");
+            }
+        }
+        this.display.addAll(new ArrayList<>(set));
         return this;
     }
 
@@ -284,6 +337,8 @@ public class SqlBean implements CacheBean {
      * @param className className
      * @param param     param
      * @param nickName  nickName
+     * @data <类名的简称 ,< 属性名 , 昵称名>>
+     * @data <类名的简称.属性名 ,< 表名称 , 昵称名>>
      * @author hihuzi 2019/3/3 9:02
      */
     private void deployDisplayNickMap(String className, String param, String nickName) {
@@ -360,6 +415,32 @@ public class SqlBean implements CacheBean {
     }
 
     /**
+     * <p> 处理数据成 --MAP<class的匿名+驼峰转下划线的,属性名称属性的昵称>
+     * <P> 主要处理 某个对象的下面的自定义昵称为它添加表名称的昵称  用来匹配SQL查询出来的key
+     *
+     * @param paramNickname
+     * @param mark
+     * @author hihuzi 2019/3/3 9:46
+     */
+    private void addMark(Map<String, String> paramNickname, String mark) {
+
+        if (null == this.displayNickname || 0 == this.displayNickname.size()) {
+            this.displayNickname = new HashMap<>(this.clazz.size() * 5);
+        }
+        for (String key : paramNickname.keySet()) {
+            boolean b = specialHump!=null?specialHump.containsKey(paramNickname.get(key)):false;
+            if (this.repeat.contains(key) || b) {
+                if (b) {
+                    this.displayNickname.put(mark + specialHump.get(paramNickname.get(key)), paramNickname.get(key));
+                } else
+                    this.displayNickname.put(mark + StrUtils.humpToLine(key), paramNickname.get(key));
+            } else {
+                this.displayNickname.put(StrUtils.humpToLine(key), paramNickname.get(key));
+            }
+        }
+    }
+
+    /**
      * <p> 处理带有*号昵称
      *
      * @author hihuzi 2019/3/14 10:22
@@ -374,30 +455,8 @@ public class SqlBean implements CacheBean {
                 }
                 Set set = new HashSet(this.display);
                 set.addAll(fields);
-                this.display = new ArrayList<>(this.display.size() * 2);
+                this.display = new ArrayList<String>(this.display.size() * 2);
                 this.display.addAll(set);
-            }
-        }
-    }
-
-    /**
-     * <p> 处理数据成 --MAP<class的匿名+驼峰转下划线的,属性名称属性的昵称>
-     * <P> 主要处理 某个对象的下面的自定义昵称为它添加表名称的昵称  用来匹配SQL查询出来的key
-     *
-     * @param paramNickname
-     * @param mark
-     * @author hihuzi 2019/3/3 9:46
-     */
-    private void addMark(Map<String, String> paramNickname, String mark) {
-
-        if (null == this.displayNickname || 0 == this.displayNickname.size()) {
-            this.displayNickname = new HashMap<>(this.clazz.size() * 5);
-        }
-        for (String param : paramNickname.keySet()) {
-            if (this.repeat.contains(param)) {
-                this.displayNickname.put(mark + StrUtils.humpToLine(param), paramNickname.get(param));
-            } else {
-                this.displayNickname.put(StrUtils.humpToLine(param), paramNickname.get(param));
             }
         }
     }
@@ -440,5 +499,15 @@ public class SqlBean implements CacheBean {
 
     }
 
+
+    public Map<String, Map<String, String>> getDeployDisplayNickMap() {
+
+        return displayParamAndNickname;
+    }
+
+    public Map<String, String> getSpecialHump() {
+
+        return specialHump;
+    }
 
 }

@@ -150,11 +150,14 @@ public abstract class AbstractSql implements SqlMethodFactory {
         Map nickname = config.getNickname();
         List<String> display = config.getDisplay();
         List<String> repeat = config.getRepeat();
+        Map<String, Map<String, String>> deployDisplayNickMap = config.getDeployDisplayNickMap();
         Map<String, String> displayNickname = config.getDisplayNickname();
+        Map<String, String> specialHump = config.getSpecialHump();
         sql = new StringBuffer(Constants.SQL_INIT);
         int j = 0;
         for (Class clazz : clazz0) {
-            Map humpToLineMap = PublicMethod.getHumpToLine(clazz);
+            Map<String, String> stringStringMap = deployDisplayNickMap!=null?deployDisplayNickMap.get(clazz.getSimpleName()):null;
+            Map humpToLineMap = PublicMethod.getHumpToLine(clazz,stringStringMap,specialHump);
             Iterator iterator = humpToLineMap.entrySet().iterator();
             int i = 0, times = 0, size = humpToLineMap.size();
             if (null != display && 0 != display.size()) {
@@ -187,7 +190,7 @@ public abstract class AbstractSql implements SqlMethodFactory {
                             sql.append(mark + Constants.POINT);
                         }
                         sql.append(table);
-                        if (repeat != null && repeat.contains(param)) {
+                        if ((repeat != null && repeat.contains(param)||(specialHump!=null&&specialHump.containsValue(table)))) {
                             sql.append(Constants.BLANK_SPACE + mark + table);
                             ClassCache.get().add((Class<?>) clazz, param, null, mark + table, config.key());
                         } else {

@@ -4,12 +4,8 @@ package top.hihuzi.collection.sql;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
-import top.hihuzi.collection.fill.TestBean;
-import top.hihuzi.collection.fill.config.FillConfig;
-import top.hihuzi.collection.fill.factory.FillFactory;
 import top.hihuzi.collection.sql.config.SqlBean;
 import top.hihuzi.collection.sql.config.SqlConfig;
-import top.hihuzi.collection.sql.factory.SqlFactory;
 import top.hihuzi.collection.sql.factory.SqlTool;
 
 import java.util.*;
@@ -727,6 +723,7 @@ public class SQlFactoryTest {
         map.put("pname", "常人_和桑");
         map.put("psex", "女");
         map.put("phight", "2.36");
+        map.put("gdata_9_5_8_7", "9587");
         for (int i = 0; i < 2; i++) {
             list.add(map);
         }
@@ -735,6 +732,7 @@ public class SQlFactoryTest {
                 .addClazz(new GoodPerson(), new Person())
                 .addNickname("g", "p")
                 .addDisplay("GoodPerson.age", "GoodPerson.age aaa")
+                .addSpecialHump("GoodPerson.data9587 data_9_5_8_7 ABC","Person.n8 n_8 DEF")
                 .build();
         Object sql = SqlTool.batch().getSQL(bean);
         System.out.println(sql);

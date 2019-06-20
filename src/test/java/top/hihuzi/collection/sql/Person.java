@@ -15,5 +15,6 @@ public class Person {
     private String sex;
 
     private String hight;
+    private String n8;
 
 }
