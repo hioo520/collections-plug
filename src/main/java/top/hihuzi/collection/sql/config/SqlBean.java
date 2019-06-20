@@ -500,11 +500,21 @@ public class SqlBean implements CacheBean {
     }
 
 
+    /**
+     * Gets deploy display nick map.
+     *
+     * @return the deploy display nick map
+     */
     public Map<String, Map<String, String>> getDeployDisplayNickMap() {
 
         return displayParamAndNickname;
     }
 
+    /**
+     * Gets special hump.
+     *
+     * @return the special hump
+     */
     public Map<String, String> getSpecialHump() {
 
         return specialHump;

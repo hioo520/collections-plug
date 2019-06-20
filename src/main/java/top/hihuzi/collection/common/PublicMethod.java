@@ -27,6 +27,7 @@ public class PublicMethod {
      * @param <E>            e
      * @param e              e
      * @param displayNickMap map
+     * @param specialHump    the special hump
      * @return Map hump to line
      * @author hihuzi 2019/2/15 11:24
      */

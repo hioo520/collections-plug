@@ -43,6 +43,7 @@ public class PickConfig extends ConfigRemove implements Config {
      * <p> this.dateStyleEnum = DateStyleEnum.DEFAULT.setFormartStyle(DATE_FORMART);
      *
      * @param e e
+     * @param <E> e
      * @author hihuzi 2018/9/30 8:59
      */
     public <E> PickConfig(E... e) {

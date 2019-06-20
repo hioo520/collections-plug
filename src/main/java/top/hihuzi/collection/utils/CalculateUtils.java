@@ -19,7 +19,7 @@ public class CalculateUtils {
      * @param <T> the type parameter
      * @param bn  the bn
      * @return big decimal
-     * @notice: 只有为空null时才设置为0 其它情况直接报异常
+     * <p> 只有为空null时才设置为0 其它情况直接报异常
      * @author hihuzi 2019/4/26 10:10
      */
     public static <T> BigDecimal add(final T... bn) {
@@ -47,7 +47,7 @@ public class CalculateUtils {
      * @param <T>   the type parameter
      * @param value the value
      * @return the big decimal
-     * @notice: 为 " " or null时才设置为0 其它情况无法转换为number的也处理为0
+     * <p> 为 " " or null时才设置为0 其它情况无法转换为number的也处理为0
      * @author hihuzi 2019/4/26 10:09
      */
     public static <T> BigDecimal safeAdd(final T... value) {
@@ -72,7 +72,7 @@ public class CalculateUtils {
      * @param <T> the type parameter
      * @param bn  the bn
      * @return big decimal
-     * @notice: 必须保证第一个数是减数 只有为空null时才设置为0 其它情况直接报异常
+     * <p> 必须保证第一个数是减数 只有为空null时才设置为0 其它情况直接报异常
      * @author hihuzi 2019/4/26 10:10
      */
     public static <T> BigDecimal subtract(final T... bn) {
@@ -100,7 +100,7 @@ public class CalculateUtils {
      * @param <T>   the type parameter
      * @param value the value
      * @return the big decimal
-     * @notice: 必须保证第一个数是减数 只有为空null时才设置为0 其它情况直接报异常
+     * <p> 必须保证第一个数是减数 只有为空null时才设置为0 其它情况直接报异常
      * @author hihuzi 2019/4/26 11:06
      */
     public static <T> BigDecimal safeSubtract(final T... value) {
@@ -124,7 +124,7 @@ public class CalculateUtils {
      * @param <T>   the type parameter
      * @param value the value
      * @return big decimal
-     * @notice: BigDecimal的除法运算封装 ，如果除数或者被除数为0，  直接报异常
+     * <p> BigDecimal的除法运算封装 ，如果除数或者被除数为0，  直接报异常
      * @author hihuzi 2019/4/26 10:10
      */
     public static <T> BigDecimal divide(final T... value) {
@@ -139,7 +139,7 @@ public class CalculateUtils {
      * @param reserve the reserve
      * @param value   the value
      * @return big decimal
-     * @notice: BigDecimal的除法运算封装 ，如果除数或者被除数为0，  直接报异常(
+     * <p> BigDecimal的除法运算封装 ，如果除数或者被除数为0，  直接报异常(
      * @author hihuzi 2019/4/26 10:10
      */
     public static <T> BigDecimal divides(final int reserve, final T... value) {
@@ -169,7 +169,7 @@ public class CalculateUtils {
      * @param <T>   the type parameter
      * @param value the value
      * @return the big decimal
-     * @notice: BigDecimal的除法运算封装 ，如果除数或者被除数为0，返回null
+     * <p> BigDecimal的除法运算封装 ，如果除数或者被除数为0，返回null
      * @author hihuzi 2019/4/26 11:06
      */
     public static <T> BigDecimal safedivide(final T... value) {
@@ -184,7 +184,7 @@ public class CalculateUtils {
      * @param reserve the reserve
      * @param value   the value
      * @return the big decimal @
-     * @notice: BigDecimal的除法运算封装 ，如果除数为0，返回null 如果被除数是0或者其他会被忽略(特例所有的分母都是0 返回分母)
+     * <p> BigDecimal的除法运算封装 ，如果除数为0，返回null 如果被除数是0或者其他会被忽略(特例所有的分母都是0 返回分母)
      * @author hihuzi 2019/4/26 11:06
      */
     public static <T> BigDecimal safedivides(final int reserve, final T... value) {
